@@ -389,10 +389,10 @@ for_window [class="Blueman-manager" instance="blueman-manager"] floating enabled
 for_window [class="Lxappearance"] floating enable
 for_window [class="Picture-in-Picture"] floating enable
 for_window [class="feh"] floating enable
-for_window [class="mpv"] floating enable
+#for_window [class="mpv"] floating enable
 
 #set fullscreen for certain apps because it looks cooler
-for_window [class="firefox"] fullscreen enable
+#for_window [class="firefox"] fullscreen enable
 
 
 ######################################
@@ -411,6 +411,7 @@ set $darkgrey		#383c4a
 set $grey		#b0b5bd
 set $mediumgrey		#8b8b8b
 set $yellowbrown	#e1b700
+set $transparent	#00000000
 
 # define colors for windows:
 #clas				 border		bground		text		indicator	child_border
@@ -449,7 +450,7 @@ strip_workspace_name no
 #                          		border 		        bg		txt		indicator
 		focused_workspace	$mediumgrey	   	$grey		$darkgrey	$purple
 		active_workspace	$lightblue      	$mediumgrey	$darkgrey	$purple
-		inactive_workspace	$darkgrey   		$darkgrey	$grey		$purple
+		inactive_workspace	$transparent   		$transparent	$grey		$purple
 		urgent_workspace	$urgentred	    	$urgentred	$white		$purple 
 	}
 }
