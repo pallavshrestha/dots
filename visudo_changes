@@ -1,3 +1,0 @@
-pallav ALL=(root) NOPASSWD: /usr/local/bin/brightness
-pallav ALL=(root) NOPASSWD: /usr/local/bin/brightness+
-pallav ALL=(root) NOPASSWD: /usr/local/bin/brightness-
