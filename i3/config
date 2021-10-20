@@ -188,8 +188,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # Backlight control
-bindsym XF86MonBrightnessUp exec brightness+
-bindsym XF86MonBrightnessDown exec brightness-
+bindsym XF86MonBrightnessUp exec brightnessctl set +10
+bindsym XF86MonBrightnessDown exec brightnessctl set 10-
 
 # change focus
 #bindsym $mod+j focus left
@@ -240,6 +240,10 @@ bindsym $mod+a focus parent
 
 # open new empty workspace
 bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace.sh
+
+# move between workspace
+bindsym Mod1+Tab workspace next
+bindsym Mod1+Shift+Tab workspace prev
 
 ## Multimedia Keys
 
@@ -346,7 +350,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 exec --no-startup-id ~/.screenlayout/monitor.sh
 
-# start blueberry app for managing bluetooth devices from tray:
+# start blueman app for managing bluetooth devices from tray:
 exec --no-startup-id blueman-applet
 
 #transparency 
@@ -358,7 +362,7 @@ exec --no-startup-id nm-applet
 
 # set wallpaper
 #exec --no-startup-id nitrogen --restore
-exec --no-startup-id feh --bg-fill ~/.config/wallpaper/nord_underwater.png
+exec_always --no-startup-id feh --bg-fill --randomize ~/.config/wallpaper/*
 
 #set powersavings for display:
 exec --no-startup-id xset s 480 dpms 600 600 600
@@ -366,16 +370,13 @@ exec --no-startup-id xset s 480 dpms 600 600 600
 # Desktop notifications
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 
-#play with mpv server
-exec --no-startup-id play-with-mpv
 # Autostart apps as you like
 #exec --no-startup-id sleep 2 && xfce4-terminal
 #exec --no-startup-id sleep 3 && thunar
 
 # set floating (nontiling)for apps needing it
-for_window [class="Yad" instance="yad"] floating enable
 for_window [class="Galculator" instance="galculator"] floating enable
-for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
+#for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
 for_window [class="Blueman-manager" instance="blueman-manager"] floating enabled
 
 
@@ -387,8 +388,9 @@ for_window [class="Bluetooth-sendto" instance="bluetooth-sendto"] floating enabl
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Blueman-manager" instance="blueman-manager"] floating enabled
 for_window [class="Lxappearance"] floating enable
+for_window [class="lightdm-gtk-greeter-settings"] floating enabled
 for_window [class="Picture-in-Picture"] floating enable
-for_window [class="feh"] floating enable
+#for_window [class="feh"] floating enable
 #for_window [class="mpv"] floating enable
 
 #set fullscreen for certain apps because it looks cooler
@@ -400,25 +402,26 @@ for_window [class="feh"] floating enable
 ######################################
  
 # Define colors variables: 
-set $darkbluetrans	#08052be6
 set $darkblue		#08052b
-set $lightblue		#5294e2
-set $urgentred		#e53935
-set $white		#ffffff
-set $black		#000000
-set $purple		#e345ff
-set $darkgrey		#383c4a
+set $nordblue		#81a1c1
+set $nord10blu		#5e81ac
+set $white		#eceff4
+set $nordblack		#2e3440
+set $nordgreen		#8fbcbb
+set $darkgrey		#3b4252
 set $grey		#b0b5bd
 set $mediumgrey		#8b8b8b
 set $yellowbrown	#e1b700
 set $transparent	#00000000
+set $nordred		#bf616a
+set $nordorange		#d08770
 
 # define colors for windows:
-#clas				 border		bground		text		indicator	child_border
-client.focused		  	$lightblue	$darkblue	$white		$purple		$mediumgrey
-client.unfocused	    	$darkblue	$darkblue	$grey		$purple		$darkgrey
-client.focused_inactive		$darkblue	$darkblue	$grey		$purple		$black
-client.urgent		    	$urgentred	$urgentred	$white		$purple		$yellowbrown
+#clas				 border		bground		text		indicator		child_border
+client.focused		  	$nordorange	$darkgrey	$white		$nordgreen		$mediumgrey
+client.unfocused	    	$nordblack	$transparent	$wihte		$nordgreen		$darkgrey
+client.focused_inactive		$transparent	$transparent	$grey		$nordgreen		$nordblack
+client.urgent		    	$nordred	$nordred	$white		$nordgreen		$yellowbrown
 
 
 ############################################
@@ -444,14 +447,14 @@ bar {
 strip_workspace_name no
 
 		    colors {
-		    separator          $purple
-		    background         $darkgrey
+		    separator          $nordgreen
+		    background         $transparent
 		    statusline         $white
 #                          		border 		        bg		txt		indicator
-		focused_workspace	$mediumgrey	   	$grey		$darkgrey	$purple
-		active_workspace	$lightblue      	$mediumgrey	$darkgrey	$purple
-		inactive_workspace	$transparent   		$transparent	$grey		$purple
-		urgent_workspace	$urgentred	    	$urgentred	$white		$purple 
+		focused_workspace	$nordorange	   	$transparent	$white		$nordgreen
+		active_workspace	$nordblue	      	$transparent	$white		$nordgreen
+		inactive_workspace	$transparent   		$transparent	$white		$nordgreen
+		urgent_workspace	$nordred	    	$nordred	$white		$nordgreen 
 	}
 }
 
@@ -475,14 +478,14 @@ strip_workspace_name no
 ##strip_workspace_name no
 #
 #	colors {
-#		separator          $purple
+#		separator          $nordgreen
 #		background         $darkbluetrans
 #        	statusline         $white
 #					border		bg		txt		indicator
-#		focused_workspace	$lighterblue	$lighterblue	$darkblue	$purple
-#		active_workspace	$lightdblue	$lightdblue	$darkblue	$purple
-#		inactive_workspace	$darkblue	$darkblue	$lightdblue	$purple
-#		urgent_workspace	$urgentred	$urgentred	$white		$purple 
+#		focused_workspace	$nordorange	$transparent	$white		$nordgreen
+#		active_workspace	$onrdblue	$transparent	#white		$nordgreen
+#		inactive_workspace	$transparent	$transparend	$white		$nordgreen
+#		urgent_workspace	$nordred	$nordred	$white		$nordgreen 
 #	}
 #}
 
@@ -500,7 +503,7 @@ bindsym F9 exec rofi -modi drun -show drun \
 		
 ## rofi bindings for window menu (two bindings F10/$mod+t)
 
-bindsym $mod+t exec rofi -show window \
+bindsym $mod+Tab exec rofi -show window \
 		-config ~/.config/rofi/rofidmenu.rasi 
 
 bindsym F10 exec rofi -show window \
