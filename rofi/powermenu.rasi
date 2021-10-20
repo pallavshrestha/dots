@@ -5,7 +5,7 @@
 configuration {
     font:                           "Sourcecode Pro Regular 10";
     show-icons:                     false;
-    icon-theme: 		    "Arc-X-D";
+    icon-theme: 		    "Tela circles dark";
     scroll-method:                  0;
     disable-history:                false;
     sidebar-mode: 		    false;

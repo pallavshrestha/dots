@@ -1,9 +1,8 @@
-/*******************************************************
- * ROFI configs i3 Apps menu for EndeavourOS
- * Maintainer: joekamprad <joekamprad@endeavouros.com>
- *******************************************************/
+/*****************************
+ * ROFI configs i3 Apps menu *
+ *****************************/
 configuration {
-    font:				"Mononoki Regular Nerd 10";
+    font:				"Iosevka Nerd 12";
     show-icons:				true;
     icon-theme:				"Tela circle dark";
     display-drun:			"Apps";
@@ -21,8 +20,8 @@ window {
     padding:          30;
 }
 listview {
-    lines:                          10;
-    columns:                        3;
+    lines:                         3;
+    columns:                        1;
 }
 mainbox {
     border:  0;
