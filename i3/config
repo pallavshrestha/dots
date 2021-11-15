@@ -6,11 +6,12 @@
 # Font: #
 #########
 
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango: Iosevka Nerd  10
+font pango:Dejavu Sans Regular 10
 
 
 ############
@@ -280,7 +281,7 @@ bindsym $mod+p exec /usr/local/bin/switch-audio-port
 
 ## App shortcuts
 bindsym $mod+ctrl+b exec /usr/bin/min file:///home/pallav/.config/startpages/startpage1/src/startpage.html
-bindsym $mod+b exec /usr/bin/firefox
+bindsym $mod+b exec /usr/bin/qutebrowser
 bindsym $mod+n exec /usr/bin/thunar
 bindsym Print exec "scrot ~/%Y-%m-%d-%T-screenshot.png"
 
@@ -291,12 +292,13 @@ bindsym Print exec "scrot ~/%Y-%m-%d-%T-screenshot.png"
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:"
-set $ws2 "2:"
-set $ws3 "3:"
-set $ws4 "4:"
+set $ws2 "2:" 
+# 
+set $ws3 "3:"
+set $ws4 "4:"
 set $ws5 "5:"
 set $ws6 "6:"
-set $ws7 "7"
+set $ws7 "7:"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
@@ -312,17 +314,16 @@ set $ws10 "10"
 
 # bind program to workspace and focus to them on startup:
 assign [class="Xfce4-terminal"] $ws1
-assign [class="(?i)firefox"] $ws2
-assign [class="Min"] $ws5
-assign [class="Thunar"] $ws3
-assign [class="Thunderbird"] $ws4
+assign [class="(?i)qutebrowser"] $ws2
+assign [class="mpv"] $ws3
+assign [class="Thunar"] $ws4
+assign [class="Thunderbird"] $ws7
 
 
 
 # automatic set focus new window if it opens on another workspace then the current:
 for_window [class=Xfce4-terminal] focus
-for_window [class=(?i)firefox] focus
-for_window [class=Min] focus
+for_window [class=(?i)qutebrowser] focus
 for_window [class=Thunar] focus
 for_window [class=Thunderbird] focus
 for_window [class=mpv] focus
@@ -364,7 +365,7 @@ exec --no-startup-id nm-applet
 #exec --no-startup-id nitrogen --restore
 exec_always --no-startup-id feh --bg-fill --randomize ~/.config/wallpaper/*
 
-#set powersavings for display:
+#set powersavings for display
 exec --no-startup-id xset s 480 dpms 600 600 600
 
 # Desktop notifications
@@ -389,12 +390,10 @@ for_window [class="Pamac-manager"] floating enable
 for_window [class="Blueman-manager" instance="blueman-manager"] floating enabled
 for_window [class="Lxappearance"] floating enable
 for_window [class="lightdm-gtk-greeter-settings"] floating enabled
-for_window [class="Picture-in-Picture"] floating enable
-#for_window [class="feh"] floating enable
-#for_window [class="mpv"] floating enable
+for_window [class="(?i)kee(?i)pass(?i)x(?i)c"] floating enable
 
 #set fullscreen for certain apps because it looks cooler
-#for_window [class="firefox"] fullscreen enable
+#for_window [class="qutebrowser"] fullscreen enable
 
 
 ######################################
