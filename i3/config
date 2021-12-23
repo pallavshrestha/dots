@@ -283,7 +283,7 @@ bindsym $mod+p exec /usr/local/bin/switch-audio-port
 ## App shortcuts
 bindsym $mod+b exec /usr/bin/qutebrowser
 bindsym $mod+n exec i3-sensible-terminal -e /usr/bin/ranger
-#bindsym $mod+n exec /usr/bin/thunar
+bindsym $mod+m exec /usr/bin/thunar
 bindsym Print exec "scrot ~/%Y-%m-%d-%T-screenshot.png"
 bindsym Shift+Print exec "scrot -s ~/%Y-%m-%d-%T-screenshot.png"
 #bindsym Ctrl+Shift+Print exec --no-startup-id "scrot -s"
