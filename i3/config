@@ -11,7 +11,7 @@
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:Dejavu Sans Regular 10
+font pango:Mononoki Nerd Font Mono Regular 12
 
 
 ############
@@ -41,22 +41,22 @@ workspace_layout default
 ##############################
 
 #border indicator on windows: 
-new_window pixel 1
+new_window pixel
 
 # thin borders
 # hide_edge_borders both
 
 # Set inner/outer gaps
-gaps inner 4
-gaps outer 2
+gaps inner 15
+gaps outer 5
 
 ## Default_border style for new windows
 # default_border normal|none]pixel
 # default_border normal|pixel <px>
 # default_floating_border normal|none|pixel
 # default_floating_border normal|pixel <px>
-default_border none
-default_floating_border none
+default_border pixel 
+default_floating_border normal
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -166,7 +166,7 @@ bindsym $mod+r mode "resize"
 ######################################
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+c kill
@@ -246,7 +246,7 @@ bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace.sh
 bindsym Mod1+Tab workspace next
 bindsym Mod1+Shift+Tab workspace prev
 
-## Multimedia Keys
+## Multimedia Keys 
 
 # volume
 bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
@@ -263,13 +263,14 @@ bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- && pkill -RTMI
 #bindsym XF86AudioMute exec pamixer -t && dunstify -h string:x-dunst-stack-tag:mute mute: $(pamixer --get-mute)!
 
 # gradular volume control
-bindsym $mod+XF86AudioRaiseVolume exec amixer -D pulse sset Master 1%+ && pkill -RTMIN+1 i3blocks
-bindsym $mod+XF86AudioLowerVolume exec amixer -D pulse sset Master 1%- && pkill -RTMIN+1 i3blocks
+#bindsym $mod+XF86AudioRaiseVolume exec amixer -D pulse sset Master 1%+ && pkill -RTMIN+1 i3blocks
+#bindsym $mod+XF86AudioLowerVolume exec amixer -D pulse sset Master 1%- && pkill -RTMIN+1 i3blocks
 
 # mute
-#bindsym XF86AudioMute exec amixer sset Master toggle && killall -USR1 i3blocks
+bindsym XF86AudioMute exec amixer sset Master toggle && killall -USR1 i3blocks
+
 #mute
-bindsym XF86AudioMute exec pamixer -t && notify-send "mute: $(pamixer --get-mute)"
+#bindsym XF86AudioMute exec pamixer -t && notify-send "mute: $(pamixer --get-mute)"
 
 bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
@@ -280,10 +281,13 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+p exec /usr/local/bin/switch-audio-port
 
 ## App shortcuts
-bindsym $mod+ctrl+b exec /usr/bin/min file:///home/pallav/.config/startpages/startpage1/src/startpage.html
 bindsym $mod+b exec /usr/bin/qutebrowser
-bindsym $mod+n exec /usr/bin/thunar
+bindsym $mod+n exec i3-sensible-terminal -e /usr/bin/ranger
+#bindsym $mod+n exec /usr/bin/thunar
 bindsym Print exec "scrot ~/%Y-%m-%d-%T-screenshot.png"
+bindsym Shift+Print exec "scrot -s ~/%Y-%m-%d-%T-screenshot.png"
+#bindsym Ctrl+Shift+Print exec --no-startup-id "scrot -s"
+
 
 ##########################################
 # configuration for workspace behaviour: #
@@ -291,16 +295,16 @@ bindsym Print exec "scrot ~/%Y-%m-%d-%T-screenshot.png"
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1:"
-set $ws2 "2:" 
-set $ws3 "3:"
-set $ws4 "4:"
-set $ws5 "5:"
-set $ws6 "6:"
-set $ws7 "7:"
-set $ws8 "8"
-set $ws9 "9:"
-set $ws10 "10:"
+set $ws1 "1: "
+set $ws2 "2: "	
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5: "
+set $ws6 "6: "
+set $ws7 "7: "
+set $ws8 "8: "
+set $ws9 "9: "
+set $ws10 "10: "
 
 # use workspaces on different displays:
 # where you have to replace VGA-0/HDMI-0 with the names for your displays 
@@ -316,7 +320,7 @@ assign [class="Xfce4-terminal"] $ws1
 assign [class="(?i)qutebrowser"] $ws2
 assign [class="mpv"] $ws3
 assign [class="Thunar"] $ws4
-#assign [class="Thunar"] $ws5
+assign [class="zoom"] $ws8
 assign [class="(?i)web(?i)torrent"] $ws9
 assign [class="(?i)kee(?i)pass(?i)x(?i)c"] $ws10
 
@@ -351,6 +355,12 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # start a script to setup displays
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 exec --no-startup-id ~/.screenlayout/monitor.sh
+
+# move monitor to output left|right|down|up|current|primary| <output>
+# move focused workspace between moitors
+bindsym $mod+shift+h move workspace to output left
+bindsym $mod+shift+l move workspace to output right
+
 
 # start blueman app for managing bluetooth devices from tray:
 exec --no-startup-id blueman-applet
@@ -418,7 +428,7 @@ set $nordorange		#d08770
 
 # define colors for windows:
 #clas				 border		bground		text		indicator		child_border
-client.focused		  	$nordorange	$darkgrey	$white		$nordgreen		$mediumgrey
+client.focused		  	$nord10blue	$darkgrey	$white		$nordgreen		$nordblue
 client.unfocused	    	$nordblack	$transparent	$wihte		$nordgreen		$darkgrey
 client.focused_inactive		$transparent	$transparent	$grey		$nordgreen		$nordblack
 client.urgent		    	$nordred	$nordred	$white		$nordgreen		$yellowbrown
@@ -431,7 +441,7 @@ client.urgent		    	$nordred	$nordred	$white		$nordgreen		$yellowbrown
 # Start i3bar to display a workspace bar 
 # (plus the system information i3status finds out, if available)
 bar {
-		font pango:Noto Sans Regular 10, FontAwesome 10
+		font pango: Iosevka Regular 11
 		status_command i3blocks -c ~/.config/i3/i3blocks.conf
 	    	position top
 	    	i3bar_command i3bar --transparency
@@ -495,7 +505,7 @@ strip_workspace_name no
 
 ## rofi bindings fancy application menu (two bindings F9/$mod+d)
 
-bindsym $mod+d exec rofi -modi drun -show drun \
+bindsym $mod+d exec rofi -modi drun -show drun  \
 		-config ~/.config/rofi/rofidmenu.rasi
                 
 bindsym F9 exec rofi -modi drun -show drun \
@@ -507,4 +517,4 @@ bindsym $mod+Tab exec rofi -show window \
 		-config ~/.config/rofi/rofidmenu.rasi 
 
 bindsym F10 exec rofi -show window \
-		-config ~/.config/rofi/rofidmenu.rasi 
+		-config ~/.config/rofi/rofidmenu.rasi  
