@@ -1,37 +1,17 @@
-/*
- * ROFI color theme
- *
- * Based on Something Found in the Internet
- *
- * Copyright: *!
- */
-
+/*******************************************************
+* Copy of Nord modified for powermenu.
+ *******************************************************/
 configuration {
-   font:				"Mononoki Nerd Font Regular 12";
-    show-icons:				true;
-    icon-theme:				"nordic";
-    display-ssh:    			"";
-    display-run:    			"";
-    display-drun:   			"";
-    display-window: 			"";
-    display-combi:  			"";
+    font:                           "Mononoki Nerd Font Regular 15";
+    show-icons:                     false;
+    scroll-method:                  0;
+    disable-history:                false;
+    sidebar-mode: 		    false;
+}
 
-    drun-display-format:		"{name}";
-    scroll-method:			0;
-    disable-history:			false;
-    sidebar-mode:			false;
-    terminal: "xfce4-terminal";
-    ssh-client: "ssh";
-    ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";
-    run-command: "{cmd}";
-    run-list-command: ""; 
-    run-shell-command: "{terminal} -e {cmd}";
-
-
-  timeout {
+timeout {
     delay: 10;
     action: "kb-cancel";
-  }
 }
 
 * {
@@ -41,7 +21,7 @@ configuration {
   spacing: 0;
 
   bg: #2E344080;
-  bg-alt: #3B425280;
+  bg-alt: #3B425295;
   fg: #81A1C1;
   fg-alt: #EBCB8B;
 
@@ -50,51 +30,36 @@ configuration {
 }
 
 window {
-  transparency: "real";
-}
-
-mainbox {
-  children: [inputbar, listview];
-}
-
-inputbar {
-  background-color: @bg-alt;
-  children: [prompt,textbox-prompt-colon,entry,case-indicator];
-}
-
-case-indicator {
-    spacing:    0;
-    text-color: @normal-foreground;
-}
-
-entry {
-  background-color: inherit;
-  padding: 12px 3px;
-}
-
-prompt {
-  background-color: inherit;
-  padding: 12px;
+    border:                         0;
+    padding:                        5;
+    transparency:                   "real";
+    width:                          1200px;
+    location:                      center;
+/*y-offset:                       18;*/
+/*x-offset:	                    850;*/
 }
 
 listview {
-  lines: 3;
+    lines:                          1;
+    columns:                        6;
+    scrollbar:                     false;
 }
-
 element {
-  children: [element-icon, element-text];
+    border:  0;
+    padding: 1px ;
 }
-
-element-icon {
-  padding: 10px 10px;
-}
-
 element-text {
-  padding: 10px 0;
+    background-color: inherit;
+    text-color:       inherit;
+}
+element.normal.normal {
+    background-color: @bg;
+    text-color:       @fg;
 }
 
-element-text selected {
-  text-color: @fg-alt;
+element.selected.normal {
+    background-color: @bg-alt;
+    text-color:       @fg-alt;
 }
 
 scrollbar {
@@ -104,20 +69,3 @@ scrollbar {
     handle-width: 8px ;
     padding:      0;
 }
-
-mode-switcher {
-    border:       2px 0px 0px ;
-    border-color: @bg-alt;
-}
-
-textbox-prompt-colon {
-    expand:     false;
-    str:        "";
-    margin:     0px 0.3em 0em 0em ;
-    text-color: @fg;
-}
-
-filebrowser { 
-    directories-first: true; 
-    sorting-method:    "name";  
-} 
