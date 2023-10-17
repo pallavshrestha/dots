@@ -1,0 +1,2 @@
+#for ((i=4;i<$(nproc);i++)); do echo 0 > /sys/devices/system/cpu/cpu$i/online; done
+for ((i=4;i<16;i++)); do echo 0 > /sys/devices/system/cpu/cpu$i/online; done

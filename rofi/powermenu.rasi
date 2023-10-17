@@ -1,0 +1,76 @@
+/*******************************************************
+* Copy of Nord modified for powermenu.
+ *******************************************************/
+configuration {
+    font:                           "Mononoki Nerd Font Regular 15";
+    show-icons:                     false;
+    scroll-method:                  0;
+    disable-history:                false;
+    sidebar-mode: 		    false;
+}
+
+timeout {
+    delay: 10;
+    action: "kb-cancel";
+}
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+
+  bg: #2E344080;
+  bg-alt: #3B425295;
+  bord1: #88C0D0;
+  bord2: #8FBCBB;
+  fg: #81A1C1;
+  fg-alt: #EBCB8B;
+
+  background-color: @bg;
+  text-color: @fg;
+}
+
+window {
+    border:                         0;
+    padding:                        5;
+    transparency:                   "real";
+    width:                          1200px;
+    location:                      center;
+    border: 			1px;
+    border-color: @bord1;
+
+y-offset:                      -350;
+/*x-offset:	                    850;*/
+}
+
+listview {
+    lines:                          1;
+    columns:                        6;
+    scrollbar:                     false;
+}
+element {
+    border:  0;
+    padding: 1px ;
+}
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+element.normal.normal {
+    background-color: @bg;
+    text-color:       @fg;
+}
+
+element.selected.normal {
+    text-color:       @fg-alt;
+}
+
+scrollbar {
+    width:        4px ;
+    border:       0;
+    handle-color: @fg;
+    handle-width: 8px ;
+    padding:      0;
+}
+

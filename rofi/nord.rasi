@@ -1,0 +1,129 @@
+/*
+ * ROFI color theme
+ *
+ * Based on Something Found in the Internet
+ *
+ * Copyright: *!
+ */
+
+configuration {
+   font:				"Mononoki Nerd Font Regular 12";
+    modi:				"drun,run,ssh";
+    show-icons:				true;
+    icon-theme:				"nordic";
+    display-ssh:    			"";
+    display-run:    			"";
+    display-drun:   			"";
+    display-window: 			"";
+    display-combi:  			"";
+
+    drun-display-format:		"{name}";
+    scroll-method:			0;
+    disable-history:			false;
+    sidebar-mode:			false;
+    terminal: "xfce4-terminal";
+    ssh-client: "ssh";
+    ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";
+    run-command: "{cmd}";
+    run-shell-command: "{terminal} -e {cmd}";
+    fixed-num-lines: false;
+    location: 2;
+    yoffset: 200;
+
+
+  timeout {
+    delay: 30;
+    action: "kb-cancel";
+  }
+}
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+
+  bg: #2E344080;
+  bg-alt: #3B425280;
+  bg3: #88C0D0;
+  fg: #81A1C1;
+  fg-alt: #EBCB8B;
+
+  background-color: @bg;
+  text-color: @fg;
+}
+
+window {
+  transparency: "real";
+border-radius: 18px;
+border-color: @bg3;
+border:1px;
+width:500px;
+}
+
+mainbox {
+  children: [message, inputbar, listview];
+}
+
+message {
+    border:       1px dash 0px 0px ;
+    padding:      10px ;
+}
+
+textbox {
+    text-color: @fg;
+}
+
+inputbar {
+  background-color: @bg-alt;
+  children: [prompt,entry];
+}
+
+case-indicator {
+    spacing:    0;
+    text-color: @fg;
+}
+
+entry {
+  background-color: inherit;
+  padding: 12px 0px;
+}
+
+prompt {
+  background-color: inherit;
+  padding: 12px;
+}
+
+element {
+  children: [element-icon, element-text];
+}
+
+element-icon {
+  padding: 10px 10px;
+}
+
+element-text {
+  padding: 10px 0;
+}
+
+element-text selected {
+  text-color: @fg-alt;
+}
+
+scrollbar {
+    width:        4px ;
+    border:       0;
+    handle-color: @fg;
+    handle-width: 8px ;
+    padding:      0;
+}
+
+mode-switcher {
+    border:       2px 0px 0px ;
+    border-color: @bg-alt;
+}
+
+filebrowser { 
+    directories-first: true; 
+    sorting-method:    "name";  
+} 

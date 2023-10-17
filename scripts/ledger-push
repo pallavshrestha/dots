@@ -1,0 +1,2 @@
+#!/bin/bash
+rclone sync -v -i ~/work/finance/ google1:archbook

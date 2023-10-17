@@ -1,0 +1,4 @@
+#!/bin/bash
+echo !!!WARNING!!! This will delete files from cloud. Proceed only if you are abso-freaking-lutely sure and understand what you are doing. 
+rclone sync -i -v  ~/work LUT:
+notify-send "Remote Cleaned"
