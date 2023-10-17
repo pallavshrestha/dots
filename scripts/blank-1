@@ -1,0 +1,9 @@
+#!/bin/sh
+export DISPLAY=:0.0
+xset s on 
+xset s blank
+xset s 480 dpms 480 600 600
+xset +dpms
+notify-send  "Screen blanking turned on"
+
+

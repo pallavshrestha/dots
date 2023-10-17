@@ -1,0 +1,5 @@
+latex_source_code.pdf: latex_source_code.tex latex_source_code.bib
+	pdflatex latex_source_code.tex
+	bibtex latex_source_code.aux
+	pdflatex latex_source_code.tex
+	pdflatex latex_source_code.tex
