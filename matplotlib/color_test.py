@@ -1,6 +1,7 @@
+import numpy as np
+
 import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
-import numpy as np
 from matplotlib.patches import Rectangle
 
 # Fixing random state for reproducibility
@@ -172,20 +173,30 @@ A = [
     "default",
     "classic",
     "Solarize_Light2",
+    "_classic_test_patch",
+    "_mpl-gallery",
+    "_mpl-gallery-nogrid",
     "bmh",
+    "classic",
     "coolplot",
     "dark_background",
     "fast",
     "fivethirtyeight",
     "ggplot",
     "grayscale",
+    "ieee",
+    "nature",
     "nord",
     "nord-dark",
     "nord-dark-talk",
     "nord-light",
     "nord-light-talk",
     "nord-talk",
+    "pacoty",
     "pitayasmoothie-dark",
+    "qb-common",
+    "qb-dark",
+    "qb-light",
     "seaborn-v0_8",
     "seaborn-v0_8-bright",
     "seaborn-v0_8-colorblind",
@@ -205,7 +216,7 @@ A = [
     "tableau-colorblind10",
 ]
 
-style = "pitayasmoothie-dark"
+style = "iee"
 with plt.style.context(style):
     plot_figure(style_label=style)
 plt.show()
