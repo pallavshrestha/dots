@@ -14,4 +14,5 @@ config.set('content.cookies.accept', 'all','*://tmc.mooc.fi/*')
 config.set('content.cookies.accept', 'all','*://www.sanakirja.fi/*')
 config.set('content.cookies.accept', 'all','*://store.epicgames.com/*')
 config.set('content.cookies.accept', 'all','*://alex.aaltoee.fi/*')
+config.set('content.cookies.accept', 'all','*://*.epicgames.com/*')
 #add here cookies whitelist

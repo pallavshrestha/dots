@@ -1,8 +1,10 @@
 set font			"JetBrains Mono Nerd Font 10"
 set default-fg 			"#eceff4"
+# set default-bg 			"#3b4252"
 set default-bg 			"#2e3440"
 
-set completion-bg		"#3b4252"
+# set completion-bg		"#3b4252"
+set completion-bg		"#2e3440"
 set completion-fg		"#eceff4"
 set completion-highlight-bg	"#4c566a"
 set completion-highlight-fg	"#eceff4"
@@ -23,11 +25,13 @@ set notification-warning-fg	"#ebcb8b"
 set selection-notification	"true"
 
 set inputbar-fg			"#eceff4"
-set inputbar-bg 		"#3b4252"
+set inputbar-bg 		"#4354c5e"
+#set inputbar-bg 		"#3b4252"
 
 set recolor			"true"
 # Nord dark recolor  
-map <F1> focus_inputbar ":set recolor-lightcolor \#434c5e"    
+#map <F1> focus_inputbar ":set recolor-lightcolor \#434c5e"    
+map <F1> focus_inputbar ":set recolor-lightcolor \#3b4252"    
 map <F2> focus_inputbar ":set recolor-darkcolor \#ffffff"    
 map ! feedkeys "<F1><Return><F2><Return>"    
 
@@ -37,7 +41,7 @@ map <F4> focus_inputbar ":set recolor-darkcolor \#3c3836"
 map @ feedkeys "<F3><Return><F4><Return>"    
 
 
-set recolor-lightcolor		"#434c5e" # "#2e3440"
+set recolor-lightcolor		"#3b4252" #434c5e" # "#2e3440"
 set recolor-darkcolor		"#FFFFFF" # "#81a1c1"
 
 #set recolor-lightcolor          "#f2e5bc" # bg
