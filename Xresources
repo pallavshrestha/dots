@@ -1,0 +1,31 @@
+Xcursor.theme: Qogir
+Xcursor.size: 16
+?.vt100.renderFont: true
+?.vt100.faceName: Iosevka NFM:style=Regular:size=12
+?*facesize: 16
+?*selectToClipboard: true
+
+! fix backspace
+?.vt100.backarrowKey: false
+?.ttyModes: erase ^?
+
+! copy paste keybinding
+?*vt100.translations: #override \
+    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+
+Xcursor.theme: Qogir
+Xcursor.size: 16
+
+! backspace
+?.vt100.backarrowKey: false
+?.ttyModes: erase ^?
+
+! scroll bar
+!?.vt100.scrollBar: true
+!?.vt100.scrollbar.width: 8
+
+
+#include "/home/pallav/.config/nord-resources"
+
+
