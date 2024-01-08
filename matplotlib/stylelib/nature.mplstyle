@@ -7,11 +7,11 @@
 figure.figsize : 3.3, 2.5  # max width is 3.5 for single column
 
 # Font sizes
-axes.labelsize: 7
-xtick.labelsize: 7
-ytick.labelsize: 7
-legend.fontsize: 7
-font.size: 7
+# axes.labelsize: 7
+# xtick.labelsize: 7
+# ytick.labelsize: 7
+# legend.fontsize: 7
+# font.size: 7
 
 # Font Family
 font.family: sans-serif

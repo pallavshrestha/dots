@@ -146,6 +146,11 @@ handle_image() {
         #           && exit 6 || exit 1;;
 
         ## Image
+        image/x-fuji-raf)
+            raf-preview "${FILE_PATH}" "${IMAGE_CACHE_PATH}" \
+            && exit 6 || exit 1;;
+
+
         image/*)
             local orientation
             orientation="$( identify -format '%[EXIF:Orientation]\n' -- "${FILE_PATH}" )"
@@ -344,6 +349,12 @@ handle_fallback() {
     echo '----- File Type Classification -----' && file --dereference --brief -- "${FILE_PATH}" && exit 5
     exit 1
 }
+
+if [ "${FILE_PATH##*.}" == "raf" ] || [ "${FILE_PATH##*.}" == "RAF" ]; then
+    MIMETYPE="image/x-fuji-raf"
+else
+    MIMETYPE="$( file --dereference --brief --mime-type -- "${FILE_PATH}" )"
+fi
 
 
 MIMETYPE="$( file --dereference --brief --mime-type -- "${FILE_PATH}" )"
