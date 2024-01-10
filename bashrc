@@ -31,8 +31,8 @@ alias removeorphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias present='impressive --noquit --nologo --wrap' 
 alias maths='conda activate maths'
 alias deconda='conda deactivate'
+alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
 #alias rclone-web='rclone rcd --rc-web-gui'
-# alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
 
 
 # If not running interactively, don't do anything

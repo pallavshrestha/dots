@@ -2,6 +2,7 @@ Xcursor.theme: Qogir
 Xcursor.size: 16
 ?.vt100.renderFont: true
 ?.vt100.faceName: Iosevka NFM:style=Regular:size=12
+!?.vt100.faceName: Iosevka Regular:size=12
 ?*facesize: 16
 ?*selectToClipboard: true
 
@@ -12,7 +13,8 @@ Xcursor.size: 16
 ! copy paste keybinding
 ?*vt100.translations: #override \
     Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+    Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+
 
 Xcursor.theme: Qogir
 Xcursor.size: 16
@@ -24,6 +26,15 @@ Xcursor.size: 16
 ! scroll bar
 !?.vt100.scrollBar: true
 !?.vt100.scrollbar.width: 8
+
+! selection
+?*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+!?*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+?*on3Clicks: regex [[:alpha:]]+://([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+
+
+
+
 
 
 #include "/home/pallav/.config/nord-resources"
