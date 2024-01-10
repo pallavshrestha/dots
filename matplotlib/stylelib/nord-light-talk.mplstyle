@@ -9,19 +9,19 @@
 #----------------------------------------------------------
 
 # Figure-wide
-figure.facecolor: white
+figure.facecolor: eceff4 #white
 lines.linewidth: 2.5
 lines.solid_capstyle: round
 lines.markersize: 9
 patch.linewidth: 1.5
-patch.edgecolor: eceff4
+patch.edgecolor: e5e990 #eceff4
 
 # Color cycle
 axes.prop_cycle: cycler('color', ['5e81ac', '88c0d0', 'd08770', 'bf616a', 'b48ead', 'a3be8c', 'ebcb8b', 'b7bfcc'])
 image.cmap: magma
 
 # Axes
-axes.facecolor: white
+axes.facecolor: eceff4 #white
 axes.edgecolor: d8dee9
 axes.labelcolor: 2e3440
 axes.axisbelow: True
@@ -31,7 +31,7 @@ axes.titlelocation: left
 axes.titleweight: bold
 
 # Grid
-grid.color: eceff4
+grid.color: e5e9f0 #eceff4
 grid.linestyle: -
 grid.linewidth: 1.5
 
@@ -55,12 +55,12 @@ ytick.minor.size: 4.0
 text.color: 3b4252
 font.family: sans-serif
 font.sans-serif: Myriad Pro, Gill Sans Nova, Gill Sans MT, Gill Sans, Helvetica, Arial, DejaVu Sans, Bitstream Vera Sans, sans-serif
-font.size: 16
-axes.labelsize: 18
-axes.titlesize: 18
-xtick.labelsize: 16
-ytick.labelsize: 16
-legend.fontsize: 16
+# font.size: 16
+# axes.labelsize: 18
+# axes.titlesize: 18
+# xtick.labelsize: 16
+# ytick.labelsize: 16
+# legend.fontsize: 16
 
 # Legend
 legend.frameon: False

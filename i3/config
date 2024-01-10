@@ -187,7 +187,7 @@ mode "resize" {
 # back to normal: Enter or Escape
     	bindsym Return mode "default"
         bindsym Escape mode "default"
-    }
+        }
 
 bindsym $mod+r mode "resize"
 
@@ -205,7 +205,7 @@ mode "$mode_gaps" {
         bindsym i      mode "$mode_gaps_inner"
         bindsym Return mode "default"
         bindsym Escape mode "default"
-}
+    }
 mode "$mode_gaps_inner" {
         bindsym plus  gaps inner current plus 5
         bindsym minus gaps inner current minus 5
@@ -217,7 +217,7 @@ mode "$mode_gaps_inner" {
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
-}
+    }
 mode "$mode_gaps_outer" {
         bindsym plus  gaps outer current plus 5
         bindsym minus gaps outer current minus 5
@@ -229,7 +229,7 @@ mode "$mode_gaps_outer" {
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
-}
+    }
 
 ######################################
 # keybindings for different actions: #
@@ -404,7 +404,7 @@ set $ws10 "10: "
 #workspace $ws5 output HDMI-0
 
 # bind program to workspace and focus to them on startup:
-assign [class="Xfce4-terminal"] $ws1
+assign [class="^xterm$|^uxterm$|^XTerm$|^UXTerm$"] $ws1
 assign [class="(?i)qutebrowser"] $ws2
 assign [class="mpv"] $ws3
 assign [class="Thunar"] $ws4
@@ -417,7 +417,7 @@ assign [class="(?i)web(?i)torrent"] $ws9
 
 
 # automatic set focus new window if it opens on another workspace then the current:
-for_window [class=Xfce4-terminal] focus
+for_window [class=UXTerm] focus
 for_window [class=(?i)qutebrowser] focus
 for_window [class=Thunar] focus
 for_window [class=mpv] focus

@@ -146,6 +146,60 @@ def plot_figure(style_label=""):
     axs[4].add_artist(rec)
 
 
+def single_test():
+    A = [
+        "default",
+        "classic",
+        "Solarize_Light2",
+        "_classic_test_patch",
+        "_mpl-gallery",
+        "_mpl-gallery-nogrid",
+        "bmh",
+        "classic",
+        "coolplot",
+        "dark_background",
+        "fast",
+        "fivethirtyeight",
+        "ggplot",
+        "grayscale",
+        "ieee",
+        "nature",
+        "nord",
+        "nord-dark",
+        "nord-dark-talk",
+        "nord-light",
+        "nord-light-talk",
+        "nord-talk",
+        "pacoty",
+        "pitayasmoothie-dark",
+        "qb-common",
+        "qb-dark",
+        "qb-light",
+        "seaborn-v0_8",
+        "seaborn-v0_8-bright",
+        "seaborn-v0_8-colorblind",
+        "seaborn-v0_8-dark",
+        "seaborn-v0_8-dark-palette",
+        "seaborn-v0_8-darkgrid",
+        "seaborn-v0_8-deep",
+        "seaborn-v0_8-muted",
+        "seaborn-v0_8-notebook",
+        "seaborn-v0_8-paper",
+        "seaborn-v0_8-pastel",
+        "seaborn-v0_8-poster",
+        "seaborn-v0_8-talk",
+        "seaborn-v0_8-ticks",
+        "seaborn-v0_8-white",
+        "seaborn-v0_8-whitegrid",
+        "tableau-colorblind10",
+    ]
+
+    style = "ieee"
+    with plt.style.context(style):
+        plot_figure(style_label=style)
+    plt.show()
+
+
 if __name__ == "__main__":
     # Set up a list of all available styles, in alphabetical order but
     # the `default` and `classic` ones, which will be forced resp. in
@@ -157,8 +211,7 @@ if __name__ == "__main__":
         for style in plt.style.available
         if style != "classic" and not style.startswith("_")
     )
-
-"""
+    # """
     # Plot a demonstration figure for every available style sheet.
     for style_label in style_list:
         with plt.rc_context({"figure.max_open_warning": len(style_list)}):
@@ -166,57 +219,4 @@ if __name__ == "__main__":
                 plot_figure(style_label=style_label)
 
     plt.show()
-"""
-
-
-A = [
-    "default",
-    "classic",
-    "Solarize_Light2",
-    "_classic_test_patch",
-    "_mpl-gallery",
-    "_mpl-gallery-nogrid",
-    "bmh",
-    "classic",
-    "coolplot",
-    "dark_background",
-    "fast",
-    "fivethirtyeight",
-    "ggplot",
-    "grayscale",
-    "ieee",
-    "nature",
-    "nord",
-    "nord-dark",
-    "nord-dark-talk",
-    "nord-light",
-    "nord-light-talk",
-    "nord-talk",
-    "pacoty",
-    "pitayasmoothie-dark",
-    "qb-common",
-    "qb-dark",
-    "qb-light",
-    "seaborn-v0_8",
-    "seaborn-v0_8-bright",
-    "seaborn-v0_8-colorblind",
-    "seaborn-v0_8-dark",
-    "seaborn-v0_8-dark-palette",
-    "seaborn-v0_8-darkgrid",
-    "seaborn-v0_8-deep",
-    "seaborn-v0_8-muted",
-    "seaborn-v0_8-notebook",
-    "seaborn-v0_8-paper",
-    "seaborn-v0_8-pastel",
-    "seaborn-v0_8-poster",
-    "seaborn-v0_8-talk",
-    "seaborn-v0_8-ticks",
-    "seaborn-v0_8-white",
-    "seaborn-v0_8-whitegrid",
-    "tableau-colorblind10",
-]
-
-style = "iee"
-with plt.style.context(style):
-    plot_figure(style_label=style)
-plt.show()
+# """
