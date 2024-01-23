@@ -1,5 +1,7 @@
 config.set('colors.webpage.bg', '#93a1a1')
 config.set('colors.webpage.preferred_color_scheme','dark')
+# config.set("colors.webpage.darkmode.enabled", True)
+config.set("colors.webpage.darkmode.policy.images", 'never')
 config.set('url.default_page','file:///home/pallav/.config/startpage/index.html')
 config.set('url.searchengines',{'DEFAULT':'https://duckduckgo.com/?q={}'})
 config.set('url.start_pages','file:///home/pallav/.config/startpage/index.html')

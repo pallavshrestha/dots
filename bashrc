@@ -25,14 +25,19 @@ alias z='devour zathura'
 alias mpv='devour mpv'
 alias top='btop'
 alias htop='btop'
-alias t=$TERM
+alias t='xfce4-terminal'
 alias showorphans='pacman -Qtdq'
 alias removeorphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias present='impressive --noquit --nologo --wrap' 
-alias maths='conda activate maths'
-alias deconda='conda deactivate'
 alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
 #alias rclone-web='rclone rcd --rc-web-gui'
+
+## Conda Aliases
+alias maths='conda activate maths'
+alias neural='conda activate neural'
+alias lca='conda activate lca'
+alias deconda='conda deactivate'
+
 
 
 # If not running interactively, don't do anything
@@ -135,6 +140,8 @@ pdfzf () {
 ################################################################################
 
 # ctrl+t fzf
+#
+# # ctrl+t fzf
 __fzf_select__() {
   local cmd opts
   cmd="${FZF_CTRL_T_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
@@ -149,7 +156,6 @@ __fzf_select__() {
     done
 }
 
-#if [[ $- =~ i ]]; then
 
 __fzfcmd() {
   [[ -n "${TMUX_PANE-}" ]] && { [[ "${FZF_TMUX:-0}" != 0 ]] || [[ -n "${FZF_TMUX_OPTS-}" ]]; } &&
@@ -162,17 +168,30 @@ fzf-file-widget() {
   READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
 
+
 __fzf_cd__() {
   local cmd opts dir
-  cmd="${FZF_ALT_C_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
-    -o -type d -print 2> /dev/null | cut -b3-"}"
+  cmd="${FZF_ALT_C_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
+    -o -type d -print 2> /dev/null | command cut -b3-"}"
   opts="--height ${FZF_TMUX_HEIGHT:-40%} --bind=ctrl-z:ignore --reverse ${FZF_DEFAULT_OPTS-} ${FZF_ALT_C_OPTS-} +m"
-  dir=$(eval "$cmd" | FZF_DEFAULT_OPTS="$opts" $(__fzfcmd)) && printf 'builtin cd -- %q' "$dir"
+  dir=$(set +o pipefail; eval "$cmd" | FZF_DEFAULT_OPTS="$opts" $(__fzfcmd)) && printf 'builtin cd -- %q' "$dir"
 }
 
-  bind -m emacs-standard -x '"\C-t": fzf-file-widget'
-#  bind -m vi-command -x '"\C-t": fzf-file-widget'
-#  bind -m vi-insert -x '"\C-t": fzf-file-widget'
-#fi
+ bind -m emacs-standard '"\er": redraw-current-line'
+
+ bind -m vi-command '"\C-z": emacs-editing-mode'
+ bind -m vi-insert '"\C-z": emacs-editing-mode'
+ bind -m emacs-standard '"\C-z": vi-editing-mode'
+
+  # CTRL-T - Paste the selected file path into the command line
+ bind -m emacs-standard -x '"\C-t": fzf-file-widget'
+ bind -m vi-command -x '"\C-t": fzf-file-widget'
+ bind -m vi-insert -x '"\C-t": fzf-file-widget'
+ #
+ # CTRL-T - Paste the selected file path into the command line
+ bind -m emacs-standard '"\ec": " \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+ bind -m vi-command '"\ec": "\C-z\ec\C-z"'
+ bind -m vi-insert '"\ec": "\C-z\ec\C-z"'
+
 ################################################################################
 

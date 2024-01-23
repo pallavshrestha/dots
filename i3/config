@@ -16,7 +16,8 @@ title_align center
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:Mononoki Nerd Font Mono Regular 12
+# font pango:Mononoki Nerd Font Mono Regular 12
+font pango:Iosevka Nerd Font Mono Regular 12
 
 
 ############
@@ -55,7 +56,7 @@ workspace_layout default
 ##############################
 
 #border indicator on windows: 
-new_window normal 
+# new_window pixel
 
 # thin borders
 # hide_edge_borders both
@@ -73,7 +74,7 @@ gaps outer $og
 # default_floating_border normal|none|pixel
 # default_floating_border normal|pixel <px>
 default_border pixel 
-default_floating_border normal
+default_floating_border pixel
 
 #################
 # Master- Stack #
@@ -154,6 +155,7 @@ bindcode $mod+Shift+Mod2+80 	move container to workspace  $ws8
 bindcode $mod+Shift+Mod2+81 	move container to workspace  $ws9
 bindcode $mod+Shift+Mod2+90 	move container to workspace  $ws10
 
+
 # move focused container to workspace with numpad keys
 bindcode $mod+Shift+87 	 move container to workspace  $ws1
 bindcode $mod+Shift+88 	 move container to workspace  $ws2
@@ -173,10 +175,14 @@ mode "resize" {
 # Pressing right will grow the window’s width.
 # Pressing up  will grow the window’s height.
 # Pressing down will shrink the window’s height.
-        bindsym h resize shrink width 2 px or 2 ppt
-        bindsym l resize grow width 2 px or 2 ppt
-        bindsym k resize grow height 2 px or 2 ppt
-        bindsym j resize shrink height 2 px or 2 ppt
+        bindsym h resize shrink width 20 px or 20 ppt
+        bindsym l resize grow width 20 px or 20 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym j resize shrink height 10 px or 10 ppt
+        bindsym Shift+h resize shrink width 5 px or 5 ppt
+        bindsym Shift+l resize grow width 5 px or 5 ppt
+        bindsym Shift+k resize grow height 5 px or 5 ppt
+        bindsym Shift+j resize shrink height 5 px or 5 ppt
 
 # same bindings, but for the arrow keys
     	bindsym Left resize shrink width 5 px or 5 ppt
@@ -187,7 +193,7 @@ mode "resize" {
 # back to normal: Enter or Escape
     	bindsym Return mode "default"
         bindsym Escape mode "default"
-        }
+         }
 
 bindsym $mod+r mode "resize"
 
@@ -205,7 +211,7 @@ mode "$mode_gaps" {
         bindsym i      mode "$mode_gaps_inner"
         bindsym Return mode "default"
         bindsym Escape mode "default"
-    }
+        }
 mode "$mode_gaps_inner" {
         bindsym plus  gaps inner current plus 5
         bindsym minus gaps inner current minus 5
@@ -217,7 +223,7 @@ mode "$mode_gaps_inner" {
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
-    }
+        }
 mode "$mode_gaps_outer" {
         bindsym plus  gaps outer current plus 5
         bindsym minus gaps outer current minus 5
@@ -229,7 +235,7 @@ mode "$mode_gaps_outer" {
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
-    }
+        }
 
 ######################################
 # keybindings for different actions: #
@@ -337,6 +343,9 @@ bindsym Mod1+Shift+Tab workspace prev
 bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
 bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
 
+# set volume to zero at resume/restart
+exec --no-startup-id amixer -D pulse sset Master 0
+
 
 # Pulse Audio controls
 
@@ -405,19 +414,23 @@ set $ws10 "10: "
 
 # bind program to workspace and focus to them on startup:
 assign [class="^xterm$|^uxterm$|^XTerm$|^UXTerm$"] $ws1
+assign [class="(?i)xfce4-terminal"] $ws1
 assign [class="(?i)qutebrowser"] $ws2
 assign [class="mpv"] $ws3
+assign [class="LibreWolf"] $ws3
 assign [class="Thunar"] $ws4
 assign [class="(?i)raw(?i)therapee"] $ws5
+assign [class="Vmware-view"] $ws5
 assign [class="thunderbird"] $ws6
 assign [class="teams-for-linux"] $ws7
 assign [class="(?i)microsoft (?i)teams - (?i)preview"] $ws7
 assign [class="zoom"] $ws8
+assign [class="discord"] $ws8
 assign [class="(?i)web(?i)torrent"] $ws9
 
 
 # automatic set focus new window if it opens on another workspace then the current:
-for_window [class=UXTerm] focus
+for_window [class="(?i)xfce4-terminal"] focus
 for_window [class=(?i)qutebrowser] focus
 for_window [class=Thunar] focus
 for_window [class=mpv] focus
@@ -543,32 +556,31 @@ client.urgent		    	$nordred	    $nordred	    $white		$nordblue		$yellowbrown
 # Start i3bar to display a workspace bar 
 # (plus the system information i3status finds out, if available)
 bar {
-		font pango: Iosevka Regular 11
-		status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	    	position top
-	    	i3bar_command i3bar --transparency
-# it could be that you have no primary display set: set one (xrandr --output <output> --primary)
-# reference: https://i3wm.org/docs/userguide.html#_tray_output
-		    tray_output primary
-		    tray_padding 0
+    font pango: Iosevka Regular 11
+    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    position top
+    i3bar_command i3bar --transparency
+    # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
+    # reference: https://i3wm.org/docs/userguide.html#_tray_output
+    tray_output primary
+    tray_padding 0
 
-# When strip_workspace_numbers is set to yes, 
-# any workspace that has a name of the form 
-# “[n][:][NAME]” will display only the name.
-#strip_workspace_numbers yes
-strip_workspace_name no
-
-		    colors {
-		    separator          $nordgreen
-		    background         $transparent
-		    statusline         $white
-#                          	border 		        bg		        txt		    indicator
+    # When strip_workspace_numbers is set to yes, 
+    # any workspace that has a name of the form 
+    # “[n][:][NAME]” will display only the name.
+    # strip_workspace_numbers yes
+    strip_workspace_name no
+    colors {
+        separator          $nordgreen
+        background         $transparent
+        statusline         $white
+    #                      	border 		        bg		        txt		    indicator
 		focused_workspace	$nordorange	    	$transparent	$white		$nordgreen
 		active_workspace	$nordblue	      	$transparent	$white		$nordgreen
 		inactive_workspace	$transparent   		$transparent	$white		$nordgreen
 		urgent_workspace	$nordred	    	$nordred	    $white		$nordgreen 
-    	            }
-        }
+    }
+    }
 
 # you can add different bars for multidisplay setups on each display:
 # set output HDMI-0 to the display you want the bar, --transparency can be set.
@@ -607,17 +619,17 @@ strip_workspace_name no
 
 ## rofi bindings fancy application menu (two bindings F9/$mod+d)
 bindsym $mod+d exec rofi -show drun \
-        -theme ~/.config/rofi/nord.rasi
+-theme ~/.config/rofi/nord.rasi
 
 bindsym F9 exec rofi -show run \
-        -theme ~/.config/rofi/nord.rasi
+-theme ~/.config/rofi/nord.rasi
 
 
 ## rofi bindings for window menu (two bindings F10/$mod+tab)
 #		-theme ~/.config/rofi/nord.rasi 
 
 bindsym F10 exec rofi -show window \
-		-theme ~/.config/rofi/nord.rasi
+-theme ~/.config/rofi/nord.rasi
 
 # Keyboard map changes
 bindsym $mod+space exec (setxkbmap -query | grep -q "layout:\s\+us") && setxkbmap fi || setxkbmap us 
