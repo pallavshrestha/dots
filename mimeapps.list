@@ -17,12 +17,12 @@ image/svg+xml=feh.desktop;
 application/octet-stream=vim.desktop;
 application/x-raw-disk-image=org.gnome.FileRoller.desktop;
 application/vnd.oasis.opendocument.text=libreoffice.desktop;
-image/png=gimp.desktop;llpp.desktop;feh.desktop;
-image/jpeg=feh.desktop;
+image/png=rawtherapee.desktop;gimp.desktop;llpp.desktop;feh.desktop;
+image/jpeg=rawtherapee.desktop;feh.desktop;
 application/vnd.ms-visio.drawing.main+xml=libreoffice.desktop;
-application/xml=anylogic-ple.desktop;vim.desktop;
-application/x-zerosize=org.pwmt.zathura.desktop;vim.desktop;
-image/x-fuji-raf=feh.desktop;rawtherapee.desktop;geeqie.desktop;
+application/xml=vim.desktop;anylogic-ple.desktop;
+application/x-zerosize=xarchiver.desktop;org.pwmt.zathura.desktop;vim.desktop;
+image/x-fuji-raf=rawtherapee.desktop;feh.desktop;geeqie.desktop;
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/zoomtg=Zoom.desktop;
@@ -34,6 +34,9 @@ application/mat=vim.desktop;libreoffice-calc.desktop;
 text/x-tex=vim.desktop;libreoffice-writer.desktop;
 image/gif=feh.desktop;
 text/x-matlab=vim.desktop;
+image/x-eps=feh.desktop;
+image/tiff=org.qgis.qgis.desktop;gimp.desktop;
+application/x-wine-extension-ini=vim.desktop;
 
 [Default Applications]
 x-scheme-handler/msteams=teams-for-linux.desktop
