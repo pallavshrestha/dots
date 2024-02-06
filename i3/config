@@ -508,8 +508,9 @@ for_window [class="(?i)kee(?i)pass(?i)x(?i)c"] floating enable
 for_window [class="(?i)zoom"] floating enable 
 for_window [class="(?i)octave"] floating enable
 for_window [class="(?i)qjackctl"] floating enable
-for_window [class="matplotlib"] floating enable
+for_window [class="(?i)matplotlib"] floating enable
 for_window [title="TbSync account manager"] floating enable
+for_window [title="Friends List"] floating enable
 
 
 #set floating for popup windows
