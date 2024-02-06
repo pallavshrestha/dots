@@ -8,7 +8,6 @@ export VISUAL=vim;
 export BROWSER='/usr/bin/qutebrowser'
 export FZF_BIBTEX_CACHEDIR='$HOME/.local/cache'
 export FZF_BIBTEX_SOURCES='$HOME/work/docVault/collections/library.bib:$HOME/work/notebooks/papers/global.bib'
-
 ################################################################################
 
 # ALiases for AppImage
@@ -25,21 +24,24 @@ alias z='devour zathura'
 alias mpv='devour mpv'
 alias top='btop'
 alias htop='btop'
+alias feh='feh --conversion-timeout 1'
 alias t='xfce4-terminal'
 alias showorphans='pacman -Qtdq'
 alias removeorphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias present='impressive --noquit --nologo --wrap' 
 alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
 #alias rclone-web='rclone rcd --rc-web-gui'
+alias ytfzf='ytfzf -u umpv'
 
 ## Conda Aliases
 alias maths='conda activate maths'
 alias neural='conda activate neural'
-alias lca='conda activate lca'
+alias lca='conda activate brightway2'
 alias deconda='conda deactivate'
 
 
 
+################################################################################
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -56,8 +58,10 @@ alias deconda='conda deactivate'
 #    PS1='[\u@\h \W]\$ '
 #}
 
+################################################################################
 source ~/.config/powerline.sh
 
+################################################################################
 alias ls='ls --color=auto'
 alias ll='ls -lavh --ignore=..'   # show long listing of all except ".."
 alias l='ls -lavh --ignore=.?*'   # show long listing but no hidden dotfiles except "."
