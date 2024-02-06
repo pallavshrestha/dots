@@ -431,6 +431,7 @@ assign [class="(?i)web(?i)torrent"] $ws9
 
 # automatic set focus new window if it opens on another workspace then the current:
 for_window [class="(?i)xfce4-terminal"] focus
+for_window [class="^xterm$|^uxterm$|^XTerm$|^UXTerm$"] focus
 for_window [class=(?i)qutebrowser] focus
 for_window [class=Thunar] focus
 for_window [class=mpv] focus
