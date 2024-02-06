@@ -427,6 +427,7 @@ assign [class="(?i)microsoft (?i)teams - (?i)preview"] $ws7
 assign [class="zoom"] $ws8
 assign [class="discord"] $ws8
 assign [class="(?i)web(?i)torrent"] $ws9
+assign [class="Steam"] $ws10
 
 
 # automatic set focus new window if it opens on another workspace then the current:
@@ -435,6 +436,7 @@ for_window [class="^xterm$|^uxterm$|^XTerm$|^UXTerm$"] focus
 for_window [class=(?i)qutebrowser] focus
 for_window [class=Thunar] focus
 for_window [class=mpv] focus
+for_window [title="Steam Big Picture Mode"] focus
 #for_window [class=Thunderbird] focus
 
 #############################################
@@ -512,6 +514,7 @@ for_window [class="(?i)qjackctl"] floating enable
 for_window [class="(?i)matplotlib"] floating enable
 for_window [title="TbSync account manager"] floating enable
 for_window [title="Friends List"] floating enable
+for_window [title="Steam Big Picture Mode"] fullscreen
 
 
 #set floating for popup windows
