@@ -3,7 +3,7 @@
 # Main Config: #
 ################
 # for_window [class   = ".*"] title_format "%title  ⋯  %class"
-for_window [class   = ".*"] title_format "%class"
+for_window [class   = ".*"] title_format "%title"
 title_align center
 
 
@@ -197,9 +197,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-####################
-# Change gaps on fly
-####################
+######################
+# Change gaps on fly #
+######################
 
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
