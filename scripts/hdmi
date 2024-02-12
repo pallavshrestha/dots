@@ -1,8 +1,8 @@
 #!/bin/bash
 
-status=$(cat /sys/class/drm/card0/card0-HDMI-A-1/status)
+status=$(cat /sys/class/drm/card1/card1-HDMI-A-1/status)
 if [[ $status == "connected" ]]; then
-      mirror-screen
+      right-screen
       echo success 1
 else
     edp
