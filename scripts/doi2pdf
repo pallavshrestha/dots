@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# pallav shrestha 2024
+wget https://sci.bban.top/pdf/$1.pdf
