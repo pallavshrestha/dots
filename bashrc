@@ -8,6 +8,8 @@ export VISUAL=vim;
 export BROWSER='/usr/bin/qutebrowser'
 export FZF_BIBTEX_CACHEDIR='$HOME/.local/cache'
 export FZF_BIBTEX_SOURCES='$HOME/work/docVault/collections/library.bib:$HOME/work/notebooks/papers/global.bib'
+export books='$HOME/work/docvault/books/'
+export articles='$HOME/work/docvault/articles'
 ################################################################################
 
 # ALiases for AppImage
