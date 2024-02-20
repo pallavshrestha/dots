@@ -6,7 +6,7 @@
 
 set -e
 
-cd $HOME/work/notebooks/papers/
+cd $HOME/work/notebooks/papersRev/
 
 [[ -f tags ]] && rm tags
 grep --exclude="*.bib" -r "tags = {" * | while read line; do
@@ -19,4 +19,6 @@ grep --exclude="*.bib" -r "tags = {" * | while read line; do
 done
 
 [[ -f global.bib ]] && rm global.bib
-pcregrep -r -h -M -I --exclude-dir=img --exclude=".*pdf" "^@(\n|.)*~~~" . > global.bib
+pcregrep -r -M -I --exclude-dir=img --exclude=".*pdf" "^@(\n|.)*~~~" . > global.bib
+bibtool -s -q global.bib -o global.bib
+

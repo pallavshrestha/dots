@@ -14,7 +14,7 @@ then
     title=$(basename -a $pdf)
     title=${title%.*}
 else
-    title=$(echo "$bib" | sed -n '1p' | cut -d{ -f2 | sed 's/,//')
+    title=$(echo "$bib" | sed -n '1p' | cut -d{ -f2 | cut -d, -f1)
 fi
 
 file_name=
@@ -37,7 +37,7 @@ EOF
 }
 
 check_file() {
-    file="$HOME/work/notebooks/papers/$1.md"    #change this according your file structure
+    file="$HOME/work/notebooks/papersRev/$1.md"    
     if [[ -f $file ]]; then
         file_doi=$(grep -o -E "doi = {[^}]*" $file | cut -d{ -f2)
         if [[ "${file_doi,,}" =~ "${doi,,}" ]]; then
