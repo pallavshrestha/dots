@@ -64,32 +64,37 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-# Author: Christian Tenllado
+# Original Author: Christian Tenllado
 # Copyright 2020 Christian Tenllado
 # e-mail: ctenllado@gmail.com
 #
+# Edited by: Pallav Shrestha
+# e-mail: shrestha.pallav@gmail.com
 
 from i3ipc import Connection
 
+
 def get_insert_mark(wsp):
-    return '_w{}_insert'.format(wsp.name)
+    return "_w{}_insert".format(wsp.name)
+
 
 def format_and_mark(con):
     mark = get_insert_mark(con.workspace())
     mark_set = False
     if len(con.nodes) == 0:
-        con.command('focus')
-        con.command('split vertical')
-        con.command('mark {}'.format(mark))
+        con.command("focus")
+        con.command("split vertical")
+        con.command("mark {}".format(mark))
         mark_set = True
     else:
         last = con.leaves()[-1]
-        last.command('mark {}'.format(mark))
+        last.command("mark {}".format(mark))
         mark_set = True
     return mark_set
 
+
 def place_node(con, new_con):
-    if not con or con.layout != 'splith' or len(con.nodes) < 1:
+    if not con or con.layout != "splith" or len(con.nodes) < 1:
         return
     mark_set = False
     if len(con.nodes) == 1:
@@ -101,8 +106,9 @@ def place_node(con, new_con):
 
     if mark_set:
         wsp = new_con.workspace()
-        new_con.command('move window to mark {}'.format(get_insert_mark(wsp)))
-        new_con.command('focus')
+        new_con.command("move window to mark {}".format(get_insert_mark(wsp)))
+        new_con.command("focus")
+
 
 def on_window_new(self, e):
     def get_workspace(cnx, e):
@@ -116,8 +122,9 @@ def on_window_new(self, e):
     new_con = wsp.find_by_id(e.container.id)
     place_node(wsp, new_con)
 
+
 i3 = Connection()
-i3.on('window::new', on_window_new)
+i3.on("window::new", on_window_new)
 try:
     i3.main()
 except AttributeError:

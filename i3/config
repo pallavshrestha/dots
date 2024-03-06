@@ -446,7 +446,6 @@ for_window [title="Steam Big Picture Mode"] focus
 #get auth work with polkit-gnome
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-
 # dex execute .desktop files
 # keep in mind that it can cause issues 
 # when second to i3 a DE is installed or mixed usage of i3 + xfce4 or GNOME
@@ -455,8 +454,6 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # num lock activated
 #exec --no-startup-id numlockx on
-
-
 
 # start a script to setup displays
 exec --no-startup-id /usr/local/bin/hdmi
