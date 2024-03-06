@@ -9,9 +9,7 @@ set -e
 
 pdf="$(realpath $1)"
 doi="$(pdf2doi ${1})"
-bib=$(curl -s "http://api.crossref.org/works/$doi/transform/application/x-bibtex" | sed 's/},/},\n/g; s/^\([[:space:]]*author.*\),/\1/g')
-
-
+bib=$(curl -s "http://api.crossref.org/works/$doi/transform/application/x-bibtex")
 if [[ $bib == *"Resource not found"* ]];then
     title=$(basename -a $pdf)
     title=${title%.*}
@@ -19,13 +17,13 @@ else
     title=$(echo "$bib" | sed -n '1p' | cut -d{ -f2 | cut -d, -f1)
 fi
 
-file_name=title
+#file_name=
 
 make_file() {
-new_pdf="$(dirname $pdf)/$title.pdf"
-[[ ! -f "$new_pdf" ]] && mv "$pdf" "$new_pdf"
-bib=$(echo "$bib" | sed "1a\\\tpdf = {$new_pdf},")
-cat >"$file_name" <<EOF
+    new_pdf="$(dirname "$pdf")/$title.pdf"
+    [[ ! -f "$new_pdf" ]] && mv "$pdf" "$new_pdf"
+    bib=$(echo "$bib" | sed "1a\\\tpdf = {$new_pdf},")
+    cat >"$file_name" <<EOF
 ~~~.bib
 $bib
 ~~~
@@ -39,9 +37,9 @@ EOF
 }
 
 check_file() {
-    file="$HOME/work/notebooks/papersRev/$title.md"    
+    file="$HOME/work/notebooks/papersRev/$1.md"    
     if [[ -f $file ]]; then
-        file_doi=$(grep -oP 'DOI\s*=\s*{\K[^{}]*(?=})' $file)
+        file_doi=$(grep -o -E "doi = {[^}]*" $file | cut -d{ -f2)
         if [[ "${file_doi,,}" =~ "${doi,,}" ]]; then
             file_name="$file"
         else
