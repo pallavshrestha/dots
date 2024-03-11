@@ -42,10 +42,10 @@ file_name=$title
 make_file() {
 new_pdf="$(dirname $pdf)/$title.pdf"
 [[ ! -f "$new_pdf" ]] && mv "$pdf" "$new_pdf"
-bib=$(echo "$bib" | sed "1a\\\tpdf = {$new_pdf},")
+bib=$(echo "$bib" | sed "2a\\\tpdf = {$new_pdf},")
 cat >"$file_name" <<EOF
 ~~~.bib
-"$bib"
+$bib
 ~~~
 
 # Summary
