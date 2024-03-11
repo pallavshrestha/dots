@@ -1,2 +1,2 @@
 #!/bin/bash
-rclone sync -v -i google1:archbook/ ~/work/finance/
+rclone sync -v -i google1:archbook/ ~/work/vaults/
