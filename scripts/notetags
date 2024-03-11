@@ -20,7 +20,7 @@
 
 set -e
 
-cd $HOME/work/notebooks/papersRev/
+cd $HOME/work/docVault/paperEvals
 
 [[ -f tags ]] && rm tags
 grep --exclude="*.bib" -r "tags = {" * | while read line; do

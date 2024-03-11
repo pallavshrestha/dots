@@ -57,7 +57,7 @@ EOF
 }
 
 check_file() {
-    file="$HOME/work/notebooks/papersRev/$title.md"    
+    file="$HOME/work/docVault/paperEvals/$title.md"
     if [[ -f $file ]]; then
         file_doi=$(grep -oP 'doi\s*=\s*{\K[^{}]*(?=})' $file)
         if [[ "${file_doi,,}" =~ "${doi,,}" ]]; then
