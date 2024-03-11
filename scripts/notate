@@ -1,25 +1,43 @@
 #!/bin/bash
 
-# Pallav Shrestha
-# Original Author: Conner McDaniel
+# Copyright 2024 [Pallav Shrestha]
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Original script by Conner McDaniel
 # https://github.com/connermcd/bin
-# MIT license
+
 
 set -e
 
 pdf="$(realpath $1)"
 doi="$(pdf2doi ${1})"
-bib=$(curl -s "http://api.crossref.org/works/$doi/transform/application/x-bibtex" | sed 's/},/},\n/g; s/^\([[:space:]]*author.*\),/\1/g')
-
+bib=$(curl -s "http://api.crossref.org/works/$doi/transform/application/x-bibtex")
+resource_file=$(mktemp)
+bib=$(echo "$bib" | bibtool -r "$resource_file")
+rm "$resource_file"
 
 if [[ $bib == *"Resource not found"* ]];then
     title=$(basename -a $pdf)
     title=${title%.*}
 else
-    title=$(echo "$bib" | sed -n '1p' | cut -d{ -f2 | cut -d, -f1)
+    title=$(echo "$bib" | sed -n 's/^[[:space:]]*@Article{\s*\([^,]*\).*$/\1/p')
 fi
 
-file_name=title
+file_name=$title
+
+# formatting $bib using bibtool
 
 make_file() {
 new_pdf="$(dirname $pdf)/$title.pdf"
@@ -27,7 +45,7 @@ new_pdf="$(dirname $pdf)/$title.pdf"
 bib=$(echo "$bib" | sed "1a\\\tpdf = {$new_pdf},")
 cat >"$file_name" <<EOF
 ~~~.bib
-$bib
+"$bib"
 ~~~
 
 # Summary
@@ -41,7 +59,7 @@ EOF
 check_file() {
     file="$HOME/work/notebooks/papersRev/$title.md"    
     if [[ -f $file ]]; then
-        file_doi=$(grep -oP 'DOI\s*=\s*{\K[^{}]*(?=})' $file)
+        file_doi=$(grep -oP 'doi\s*=\s*{\K[^{}]*(?=})' $file)
         if [[ "${file_doi,,}" =~ "${doi,,}" ]]; then
             file_name="$file"
         else
@@ -49,9 +67,10 @@ check_file() {
         fi
     else
         file_name="$file"
+        echo $file_name
         make_file "$1"
     fi
 }
 
-check_file "$title"
-vim "$file_name"
+check_file "$title".md
+zathura $1 & vim "$file_name"
