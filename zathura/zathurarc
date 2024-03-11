@@ -1,7 +1,7 @@
 set font			"JetBrains Mono Nerd Font 10"
-set default-fg 			"#eceff4"
-# set default-bg 			"#3b4252"
-set default-bg 			"#2e3440"
+set default-fg 			"#eceff4"  # nord6, white-ish
+# set default-bg 			"#3b4252" # nord1 
+set default-bg 			"#2e3440" # nord0, darkest
 
 # set completion-bg		"#3b4252"
 set completion-bg		"#2e3440"
@@ -9,7 +9,7 @@ set completion-fg		"#eceff4"
 set completion-highlight-bg	"#4c566a"
 set completion-highlight-fg	"#eceff4"
 set completion-group-bg		"#3b4252"
-set completion-group-fg		"#88c0d0"
+set completion-group-fg		"#88c0d0" # nord8
 
 set statusbar-fg		"#2e3440" # "#eceff4"
 set statusbar-bg		"#88c0d0" # "#4c5566a"
@@ -25,7 +25,7 @@ set notification-warning-fg	"#ebcb8b"
 set selection-notification	"true"
 
 set inputbar-fg			"#eceff4"
-set inputbar-bg 		"#4354c5e"
+set inputbar-bg 		"#434c5e"
 #set inputbar-bg 		"#3b4252"
 
 set recolor			"true"
@@ -57,7 +57,8 @@ set render-loading-bg		"#2e3440"
 set render-loading-fg		"#eceff4"
 
 set highlight-color		"#88c0d0"
-set highlight-active-color	"#ebcbb8"
+set highlight-active-color	"#eceff4"  #ebcbb8
+set highlight-transparency 0.4
 
 set adjust-open			"width"
 
