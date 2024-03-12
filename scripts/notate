@@ -28,7 +28,7 @@ resource_file=$(mktemp)
 bib=$(echo "$bib" | bibtool -r "$resource_file")
 rm "$resource_file"
 
-if [[ $bib == *"Resource not found"* ]];then
+if [[ -z "$bib" || "$bib" == *"Resource not found"* ]]; then
     title=$(basename -a $pdf)
     title=${title%.*}
 else
@@ -57,7 +57,8 @@ EOF
 }
 
 check_file() {
-    file="$HOME/work/docVault/paperEvals/$title.md"
+    file="$(dirname $pdf)/$title.md"
+    # file="$HOME/work/docVault/paperEvals/$title.md"
     if [[ -f $file ]]; then
         file_doi=$(grep -oP 'doi\s*=\s*{\K[^{}]*(?=})' $file)
         if [[ "${file_doi,,}" =~ "${doi,,}" ]]; then
