@@ -641,10 +641,14 @@ bindsym $mod+space exec (setxkbmap -query | grep -q "layout:\s\+us") && setxkbma
 exec_always --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape" 
 exec_always --no-startup-id xmodmap ~/.Xmodmap 
 ##Touch pad toggle
-bindsym XF86TouchpadToggle exec touchpad_toggle.sh
+bindsym $mod+F9 exec touchpad_toggle.sh
 
 ##Torodofi
 bindsym mod1+p exec /usr/local/bin/todo
 
 #display change
 bindsym $mod+F11 exec /usr/local/bin/hdmi
+
+exec --no-startup-id keepassxc --name keepass
+bindsym $mod+backslash scratchpad show
+bindsym $mod+Shift+backslash move scratchpad
