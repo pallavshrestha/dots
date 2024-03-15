@@ -56,9 +56,9 @@ set index-active-bg		"#4c566a"
 set render-loading-bg		"#2e3440"
 set render-loading-fg		"#eceff4"
 
-set highlight-color		"#88c0d0"
-set highlight-active-color	"#eceff4"  #ebcbb8
-set highlight-transparency 0.4
+# set highlight-color		"#88c0d0"
+set highlight-color		"rgba(136,192,208,0.5)"
+set highlight-active-color	"rgba(236,239,244,0.5)"  #ebcbb8
 
 set adjust-open			"width"
 
