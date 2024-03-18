@@ -6,21 +6,16 @@ export EDITOR=vim;
 export VISUAL=vim;
 # export BROWSER="usr/bin/librewolf"
 export BROWSER='/usr/bin/qutebrowser'
-export FZF_BIBTEX_CACHEDIR='$HOME/.local/cache'
-export FZF_BIBTEX_SOURCES='$HOME/work/docVault/collections/library.bib:$HOME/work/notebooks/papers/global.bib'
-export books='$HOME/work/docvault/books/'
-export articles='$HOME/work/docvault/articles'
+export PATH="$HOME/Applications:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 ################################################################################
-
-# ALiases for AppImage
-alias libreoffice='$HOME/applications/LibreOffice.AppImage'
 
 # Aliases
 alias nay='yay -Rns'
 alias purge='yay -Rs $(yay -Qqtd)'
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 alias v='vim'
-alias p='ipython'
+alias P='ipython'
 alias r='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 alias z='devour zathura'
 alias mpv='devour mpv'
@@ -32,7 +27,6 @@ alias showorphans='pacman -Qtdq'
 alias removeorphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias present='impressive --noquit --nologo --wrap' 
 alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
-#alias rclone-web='rclone rcd --rc-web-gui'
 alias ytfzf='ytfzf -u umpv'
 
 ## Conda Aliases
@@ -121,11 +115,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-
-export PATH="$HOME/Applications:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-
-
 ################################################################################
 
 #pdf fzf integration
@@ -142,12 +131,8 @@ pdfzf () {
     | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null
 } 
 
-
 ################################################################################
 
-# ctrl+t fzf
-#
-# # ctrl+t fzf
 __fzf_select__() {
   local cmd opts
   cmd="${FZF_CTRL_T_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
@@ -183,21 +168,27 @@ __fzf_cd__() {
   dir=$(set +o pipefail; eval "$cmd" | FZF_DEFAULT_OPTS="$opts" $(__fzfcmd)) && printf 'builtin cd -- %q' "$dir"
 }
 
- bind -m emacs-standard '"\er": redraw-current-line'
+# Required to refresh the prompt after fzf
+bind -m emacs-standard '"\er": redraw-current-line'
+ 
 
- bind -m vi-command '"\C-z": emacs-editing-mode'
- bind -m vi-insert '"\C-z": emacs-editing-mode'
- bind -m emacs-standard '"\C-z": vi-editing-mode'
+bind -m vi-command '"\C-z": emacs-editing-mode'
+bind -m vi-insert '"\C-z": emacs-editing-mode'
+bind -m emacs-standard '"\C-z": vi-editing-mode'
 
-  # CTRL-T - Paste the selected file path into the command line
- bind -m emacs-standard -x '"\C-t": fzf-file-widget'
- bind -m vi-command -x '"\C-t": fzf-file-widget'
- bind -m vi-insert -x '"\C-t": fzf-file-widget'
- #
- # CTRL-T - Paste the selected file path into the command line
- bind -m emacs-standard '"\ec": " \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
- bind -m vi-command '"\ec": "\C-z\ec\C-z"'
- bind -m vi-insert '"\ec": "\C-z\ec\C-z"'
+# CTRL-T - Paste the selected file path into the command line
+if [[ "${FZF_CTRL_T_COMMAND-x}" != "" ]]; then
+  bind -m emacs-standard -x '"\C-t": fzf-file-widget'
+  bind -m vi-command -x '"\C-t": fzf-file-widget'
+  bind -m vi-insert -x '"\C-t": fzf-file-widget'
+fi
+
+# ALT-C - cd into the selected directory
+if [[ "${FZF_ALT_C_COMMAND-x}" != "" ]]; then
+  bind -m emacs-standard '"\ec": " \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+  bind -m vi-command '"\ec": "\C-z\ec\C-z"'
+  bind -m vi-insert '"\ec": "\C-z\ec\C-z"'
+fi
 
 ################################################################################
 
