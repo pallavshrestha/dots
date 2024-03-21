@@ -194,13 +194,15 @@ def single_test():
         "tableau-colorblind10",
     ]
 
-    style = "ieee"
+    style = "nord-light"
     with plt.style.context(style):
         plot_figure(style_label=style)
     plt.show()
 
 
 if __name__ == "__main__":
+    single_test()
+"""
     # Set up a list of all available styles, in alphabetical order but
     # the `default` and `classic` ones, which will be forced resp. in
     # first and second position.
@@ -211,7 +213,6 @@ if __name__ == "__main__":
         for style in plt.style.available
         if style != "classic" and not style.startswith("_")
     )
-    # """
     # Plot a demonstration figure for every available style sheet.
     for style_label in style_list:
         with plt.rc_context({"figure.max_open_warning": len(style_list)}):
@@ -219,4 +220,4 @@ if __name__ == "__main__":
                 plot_figure(style_label=style_label)
 
     plt.show()
-# """
+"""
