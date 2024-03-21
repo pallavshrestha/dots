@@ -4,16 +4,16 @@
 # https://www.nordtheme.com/
 # https://seaborn.pydata.org/
 #
-#GC
-#Edited by: Pallav Shrestha
-#shrstha.pallav@gmail.com
+#
+# Edited by: Pallav Shrestha
+# shrstha.pallav@gmail.com
 #----------------------------------------------------------
 
 # Figure-wide
 figure.facecolor: 3b4252 #2e3440
 lines.linewidth: 1.5
 lines.solid_capstyle: round
-lines.markersize: 6
+lines.markersize: 3 #6
 patch.linewidth: 1
 patch.edgecolor: 434c5e
 

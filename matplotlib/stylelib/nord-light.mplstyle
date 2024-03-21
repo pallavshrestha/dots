@@ -4,19 +4,30 @@
 # https://www.nordtheme.com/
 # https://seaborn.pydata.org/
 #
-# GC
+#
+# Edited by: Pallav Shrestha
+# shrstha.pallav@gmail.com
 #----------------------------------------------------------
 
 # Figure-wide
 figure.facecolor:  eceff4 #e5e9f0 #white
 lines.linewidth: 1.5
 lines.solid_capstyle: round
-lines.markersize: 6
+lines.markersize: 3 #6
 patch.linewidth: 1
 patch.edgecolor: e5e990 #eceff4
 
 # Colors
-axes.prop_cycle: cycler('color', ['5e81ac', '88c0d0', 'd08770', 'bf616a', 'b48ead', 'a3be8c', 'ebcb8b', 'b7bfcc'])
+axes.prop_cycle: cycler('color', ['5e81ac', '88c0d0', 'd08770', 'bf616a', 'b48ead', 'a3be8c', 'ebcb8b', 'b7bfcc', '8fbcbb'])
+# C0 5e81ac nord10 (blue)
+# C1 88c0d0 nord8 (blue/green)
+# C2 d08770 nord12 (orange)
+# C3 bf616a nord11 (red)
+# C4 b48ead nord15 (purple/wine)
+# C5 a3be8c nord14 (green)
+# C6 ebcb8b nord13 (yellow)
+# C7 b7bfcc         (grey)
+# C8 8fbcbb nord9 (muddy-green
 image.cmap: magma
 
 # Axes
