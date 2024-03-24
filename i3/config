@@ -378,13 +378,13 @@ bindsym $mod+n exec i3-sensible-terminal -e /usr/bin/ranger
 bindsym $mod+m exec /usr/bin/thunar
 
 #Fullscreen screenshot
-bindsym Print exec --no-startup-id maim --hidecursor | tee ~/pictures/screenshots/$(date "+Screenshot-%G-%m-%d_%H.%M.%S").png
+bindsym Print exec --no-startup-id maim --hidecursor | tee ~/pictures/0-screenshots/$(date "+Screenshot-%G-%m-%d_%H.%M.%S").png
 
 # App or area screenshot
 bindsym $mod+Print exec --no-startup-id maim -s --hidecursor | xclip -selection clipboard -t image/png
 
 # App or area screenshot to file
-bindsym $mod+Shift+Print exec --no-startup-id maim -s --hidecursor | tee ~/pictures/screenshots/$(date "+Screenshot-%G-%m-%d_%H.%M.%S").png 
+bindsym $mod+Shift+Print exec --no-startup-id maim -s --hidecursor | tee ~/pictures/0-screenshots/$(date "+Screenshot-%G-%m-%d_%H.%M.%S").png 
 
 ##########################################
 # configuration for workspace behaviour: #
