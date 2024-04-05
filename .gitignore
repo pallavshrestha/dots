@@ -5,7 +5,7 @@ RawTherapee*
 Thunar
 Unknown Organization
 WebTorrent
-ardour7
+ardour*
 autostart
 btop
 cef_user_data
@@ -30,13 +30,11 @@ rncbc.org
 startpage
 teams-for-linux/
 tmc-cli
-zoom.conf
-zoomus.conf
+zoom*
 user-dirs.dirs
 user-dirs.locale
 pulse
 xfce4/xfconf
-ardour8/
 Electron/
 chromium/
 discord/
@@ -46,3 +44,4 @@ fontconfig/
 xarchiver/
 xfce4/
 qtile/
+glib*
