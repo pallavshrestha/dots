@@ -8,6 +8,7 @@ export VISUAL=vim;
 export BROWSER='/usr/bin/qutebrowser'
 export PATH="$HOME/Applications:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.config/scripts:$PATH"
 ################################################################################
 
 # Aliases
