@@ -28,17 +28,19 @@ x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/zoomtg=Zoom.desktop;
 x-scheme-handler/zoomus=Zoom.desktop;
 application/x-desktop=vim.desktop;wine-extension-txt.desktop;
-text/csv=libreoffice-calc.desktop;vim.desktop;
+text/csv=vim.desktop;libreoffice-calc.desktop;
 application/json=vim.desktop;libreoffice-calc.desktop;
 application/mat=vim.desktop;libreoffice-calc.desktop;
 text/x-tex=vim.desktop;org.qutebrowser.qutebrowser.desktop;libreoffice-writer.desktop;
 image/gif=feh.desktop;
 text/x-matlab=vim.desktop;
-image/x-eps=feh.desktop;
+image/x-eps=feh.desktop;org.pwmt.zathura.desktop;
 image/tiff=org.qgis.qgis.desktop;gimp.desktop;
 application/x-wine-extension-ini=vim.desktop;
 application/vnd.appimage=appimagelauncher.desktop;appimagelauncher-lite-AppImageLauncherSettings.desktop;
 message/rfc822=vim.desktop;
+image/x-nikon-nef=feh.desktop;
+image/x-xcf=feh.desktop;
 
 [Default Applications]
 x-scheme-handler/msteams=teams-for-linux.desktop
@@ -62,3 +64,4 @@ image/x-fuji-raf=geeqie.desktop
 application/mat=libreoffice-calc.desktop
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
+image/x-xcf=feh.desktop
