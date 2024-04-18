@@ -539,7 +539,7 @@ set $darkgrey		#3b4252
 set $grey		    #b0b5bd
 set $mediumgrey		#8b8b8b
 set $yellowbrown	#e1b700
-set $transparent	#00000000
+set $transparent	#81a1c110
 set $nordred		#bf616a
 set $nordorange		#d08770
 
