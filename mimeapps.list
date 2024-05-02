@@ -65,3 +65,4 @@ application/mat=libreoffice-calc.desktop
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
 image/x-xcf=feh.desktop
+x-scheme-handler/discord-424004941485572097=discord-424004941485572097.desktop
