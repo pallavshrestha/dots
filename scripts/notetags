@@ -20,7 +20,13 @@
 
 set -e
 
-cd $HOME/work/docVault/
+if [ -z "$1" ]; then
+    directory="$HOME/work/docVault/"
+else
+    directory="$(realpath $1)"
+fi
+
+cd "$directory"
 
 [[ -f tags ]] && rm tags
 grep --exclude="*.bib" -r "tags = {" * | while read line; do
