@@ -319,7 +319,7 @@ bindsym $mod+Shift+space floating toggle;
 # resize set 1285 960; move position 40px 80px
 
 # change focus between tiling / floating windows
-bindsym $mod1+Shift+space focus mode_toggle
+bindsym $mod1+space focus mode_toggle
 
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
@@ -500,7 +500,7 @@ for_window [class="Blueman-manager" instance="blueman-manager"] floating enabled
 
 
 #set floating (nontiling) for special apps
-for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
+for_window [class="pavucontrol" instance="pavucontrol"] floating enable
 for_window [class="Bluetooth-sendto" instance="bluetooth-sendto"] floating enable
 for_window [class="Lxappearance"] floating enable
 for_window [class="lightdm-gtk-greeter-settings"] floating enabled
