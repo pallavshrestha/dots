@@ -13,7 +13,7 @@
 // @noframes
 // ==/UserScript==
 
-DarkReader.enable({
+DarkReader.disable({
 	brightness: 90,
 	contrast: 90,
 	sepia: 0
