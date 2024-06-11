@@ -9,6 +9,7 @@ export BROWSER='/usr/bin/qutebrowser'
 export PATH="$HOME/Applications:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.config/scripts:$PATH"
+export BAT_THEME="base16"
 ################################################################################
 
 # Aliases
@@ -125,12 +126,17 @@ pdfzf () {
     ag -U -g ".pdf$" \
     | fast-p \
     | fzf --read0 --reverse -e -d $'\t'  \
-        --preview-window up:60% --preview '
+        --preview-window up:60% \
+        --preview '
             v=$(echo {q} | tr " " "|");
             echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
         ' \
     | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null
 } 
+
+
+
+
 
 ################################################################################
 
@@ -192,4 +198,3 @@ if [[ "${FZF_ALT_C_COMMAND-x}" != "" ]]; then
 fi
 
 ################################################################################
-
