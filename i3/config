@@ -511,7 +511,7 @@ for_window [class="(?i)qjackctl"] floating enable
 for_window [class="(?i)matplotlib"] floating enable
 for_window [title="TbSync account manager"] floating enable
 for_window [title="Friends List"] floating enable
-for_window [title="Steam Big Picture Mode"] fullscreen
+for_window [title="Cameractrls"] floating enable
 
 
 #set floating for popup windows
@@ -521,8 +521,10 @@ for_window [window_role="task_dialog"]                  floating enable
 for_window [window_role="Preferences"]                  floating enable
 for_window [window_type="dialog"]                       floating enable 
 for_window [window_type="menu"]                         floating enable
-
 for_window [window_role="search"]                       floating enable
+
+# set fullscreen for apps
+for_window [title="Steam Big Picture Mode"] fullscreen
 
 ######################################
 # color settings for bar and windows #
