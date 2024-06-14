@@ -32,7 +32,7 @@ if [[ -z "$bib" || "$bib" == *"Resource not found"* ]]; then
     title=$(basename -a $pdf)
     title=${title%.*}
 else
-    title=$(echo "$bib" | sed -n 's/^[[:space:]]*@Article{\s*\([^,]*\).*$/\1/p')
+    title=$(echo "$bib" | sed -n 's/^[[:space:]]*@[[:alnum:]]\+{\s*\([^,]*\).*$/\1/p')
 fi
 
 file_name=$title
