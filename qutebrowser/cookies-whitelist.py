@@ -23,3 +23,5 @@ config.set("content.cookies.accept", "all", "*://*.cloud.editorialmanager.com/*"
 config.set("content.cookies.accept", "all", "*://*.aalto.fi/*")
 config.set("content.cookies.accept", "all", "*://login.microsoftonline.com/*")
 config.set("content.cookies.accept", "all", "*://*.sanakirjat.com/*")
+config.set("content.cookies.accept", "all", "https://lut.primo.exlibrisgroup.com/*")
+config.set("content.cookies.accept", "all", "https://*.linkedin.com/*")
