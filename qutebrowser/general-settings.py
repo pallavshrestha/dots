@@ -2,9 +2,10 @@ config.set("colors.webpage.bg", "#93a1a1")
 config.set("colors.webpage.preferred_color_scheme", "dark")
 config.set("colors.webpage.darkmode.enabled", True)
 config.set("colors.webpage.darkmode.policy.images", "smart-simple")
-config.set("colors.webpage.darkmode.algorithm", "lightness-hsl")
+config.set("colors.webpage.darkmode.algorithm", "lightness-cielab")
 config.set("colors.webpage.darkmode.contrast", 0.00)
 config.set("colors.webpage.darkmode.threshold.background", 156)
+config.set("colors.webpage.darkmode.threshold.foreground", 156)
 config.set("url.default_page", "file:///home/pallav/.config/startpage/index.html")
 config.set(
     "url.searchengines",
