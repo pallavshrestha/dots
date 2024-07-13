@@ -125,7 +125,7 @@ pdfzf () {
 
     ag -U -g ".pdf$" \
     | fast-p \
-    | fzf --read0 --reverse -e -d $'\t'  \
+    | fzf --read0 --reverse --no-multi-line -e -d $'\t'  \
         --preview-window up:60% \
         --preview '
             v=$(echo {q} | tr " " "|");
