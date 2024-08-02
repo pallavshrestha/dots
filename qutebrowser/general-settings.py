@@ -10,8 +10,8 @@ config.set("url.default_page", "file:///home/pallav/.config/startpage/index.html
 config.set(
     "url.searchengines",
     {
-        "DEFAULT": "https://search.brave.com/search?q={}",
-        "duck": "https://duckduckgo.com/?q={}",
+        "DEFAULT": "https://duckduckgo.com/?q={}",
+        "brave": "https://search.brave.com/search?q={}",
         "wa": "https://wiki.archlinux.org/?search={}",
     },
 )
