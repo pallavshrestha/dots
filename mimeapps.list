@@ -2,8 +2,8 @@
 application/x-trash=vim.desktop;
 application/x-ms-dos-executable=wine.desktop;
 text/plain=vim.desktop;:
-x-scheme-handler/mailto=userapp-Thunderbird-O7G0R1.desktop;userapp-Thunderbird-UGL0R1.desktop;
-x-scheme-handler/mid=userapp-Thunderbird-O7G0R1.desktop;userapp-Thunderbird-UGL0R1.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-O7G0R1.desktop;userapp-Thunderbird-UGL0R1.desktop;userapp-Thunderbird-7ZA8R2.desktop;
+x-scheme-handler/mid=userapp-Thunderbird-O7G0R1.desktop;userapp-Thunderbird-UGL0R1.desktop;userapp-Thunderbird-7ZA8R2.desktop;
 x-scheme-handler/webcal=userapp-Thunderbird-X3J7R1.desktop;userapp-Thunderbird-2N2YR1.desktop;
 x-scheme-handler/webcals=userapp-Thunderbird-X3J7R1.desktop;userapp-Thunderbird-2N2YR1.desktop;
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-writer.desktop;libreoffice.desktop;librewolf.desktop;
@@ -45,9 +45,9 @@ image/x-xcf=feh.desktop;
 [Default Applications]
 x-scheme-handler/msteams=teams-for-linux.desktop
 x-scheme-handler/teams=teams-for-linux.desktop
-x-scheme-handler/mailto=userapp-Thunderbird-UGL0R1.desktop
-message/rfc822=userapp-Thunderbird-UGL0R1.desktop
-x-scheme-handler/mid=userapp-Thunderbird-UGL0R1.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-7ZA8R2.desktop
+message/rfc822=userapp-Thunderbird-7ZA8R2.desktop
+x-scheme-handler/mid=userapp-Thunderbird-7ZA8R2.desktop
 x-scheme-handler/webcal=userapp-Thunderbird-2N2YR1.desktop
 text/calendar=userapp-Thunderbird-2N2YR1.desktop
 application/x-extension-ics=userapp-Thunderbird-2N2YR1.desktop
