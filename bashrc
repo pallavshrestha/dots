@@ -1,7 +1,10 @@
 #
 # ~/.bashrc
 #
-#Defaults
+##############
+#  Defaults  #
+##############
+
 export EDITOR=vim;
 export VISUAL=vim;
 # export BROWSER="usr/bin/librewolf"
@@ -12,7 +15,10 @@ export PATH="$HOME/.config/scripts:$PATH"
 export BAT_THEME="base16"
 ################################################################################
 
-# Aliases
+#############
+#  Aliases  #
+#############
+
 alias nay='yay -Rns'
 alias purge='yay -Rs $(yay -Qqtd)'
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
@@ -37,7 +43,12 @@ alias neural='conda activate neural'
 alias lca='conda activate brightway2'
 alias deconda='conda deactivate'
 
+#############
+#  Sources  #
+#############
 
+source ~/.config/powerline.sh
+source ~/.config/scripts.sh
 
 ################################################################################
 # If not running interactively, don't do anything
@@ -57,7 +68,6 @@ alias deconda='conda deactivate'
 #}
 
 ################################################################################
-source ~/.config/powerline.sh
 
 ################################################################################
 alias ls='ls --color=auto'
@@ -119,82 +129,3 @@ unset __conda_setup
 
 ################################################################################
 
-#pdf fzf integration
-pdfzf () {
-    open='devour xdg-open'   # this will open pdf file withthe default PDF viewer on KDE, xfce, LXDE and perhaps on other desktops.
-
-    ag -U -g ".pdf$" \
-    | fast-p \
-    | fzf --read0 --reverse --no-multi-line -e -d $'\t'  \
-        --preview-window up:60% \
-        --preview '
-            v=$(echo {q} | tr " " "|");
-            echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
-        ' \
-    | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null
-} 
-
-
-
-
-
-################################################################################
-
-__fzf_select__() {
-  local cmd opts
-  cmd="${FZF_CTRL_T_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
-    -o -type f -print \
-    -o -type d -print \
-    -o -type l -print 2> /dev/null | cut -b3-"}"
-  opts="--height ${FZF_TMUX_HEIGHT:-40%} --bind=ctrl-z:ignore --reverse ${FZF_DEFAULT_OPTS-} ${FZF_CTRL_T_OPTS-} -m"
-  eval "$cmd" |
-    FZF_DEFAULT_OPTS="$opts" $(__fzfcmd) "$@" |
-    while read -r item; do
-      printf '%q ' "$item"  # escape special chars
-    done
-}
-
-
-__fzfcmd() {
-  [[ -n "${TMUX_PANE-}" ]] && { [[ "${FZF_TMUX:-0}" != 0 ]] || [[ -n "${FZF_TMUX_OPTS-}" ]]; } &&
-    echo "fzf-tmux ${FZF_TMUX_OPTS:--d${FZF_TMUX_HEIGHT:-40%}} -- " || echo "fzf"
-}
-
-fzf-file-widget() {
-  local selected="$(__fzf_select__ "$@")"
-  READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
-  READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
-}
-
-
-__fzf_cd__() {
-  local cmd opts dir
-  cmd="${FZF_ALT_C_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
-    -o -type d -print 2> /dev/null | command cut -b3-"}"
-  opts="--height ${FZF_TMUX_HEIGHT:-40%} --bind=ctrl-z:ignore --reverse ${FZF_DEFAULT_OPTS-} ${FZF_ALT_C_OPTS-} +m"
-  dir=$(set +o pipefail; eval "$cmd" | FZF_DEFAULT_OPTS="$opts" $(__fzfcmd)) && printf 'builtin cd -- %q' "$dir"
-}
-
-# Required to refresh the prompt after fzf
-bind -m emacs-standard '"\er": redraw-current-line'
- 
-
-bind -m vi-command '"\C-z": emacs-editing-mode'
-bind -m vi-insert '"\C-z": emacs-editing-mode'
-bind -m emacs-standard '"\C-z": vi-editing-mode'
-
-# CTRL-T - Paste the selected file path into the command line
-if [[ "${FZF_CTRL_T_COMMAND-x}" != "" ]]; then
-  bind -m emacs-standard -x '"\C-t": fzf-file-widget'
-  bind -m vi-command -x '"\C-t": fzf-file-widget'
-  bind -m vi-insert -x '"\C-t": fzf-file-widget'
-fi
-
-# ALT-C - cd into the selected directory
-if [[ "${FZF_ALT_C_COMMAND-x}" != "" ]]; then
-  bind -m emacs-standard '"\ec": " \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
-  bind -m vi-command '"\ec": "\C-z\ec\C-z"'
-  bind -m vi-insert '"\ec": "\C-z\ec\C-z"'
-fi
-
-################################################################################
