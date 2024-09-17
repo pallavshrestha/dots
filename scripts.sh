@@ -100,7 +100,7 @@ todos() {
         echo $(ag x\]todo:|wc -l) "completed"
         echo $(ag  \]todo:|wc -l) "remaining"
     else 
-        ag todo: $1
+        ag -numbers todo: "$1"
         echo
         echo $(ag todo: "$1"|wc -l) "todos"
         echo $(ag x\]todo: "$1"|wc -l) "done"
@@ -109,4 +109,12 @@ todos() {
 }
 
 
+############################
+#  fix tlmgr after update  #
+############################
 
+# script to re"f@#K" tlmgr which get f@#K everytime tex distrbution is updated
+tex-update(){
+    TEXMFDIST="/usr/share/texmf-dist"
+    sudo sed -i 's/\$Master = "\$Master\/..\/..";/\$Master = "\$Master\/..\/..\/..";/' "$TEXMFDIST/scripts/texlive/tlmgr.pl"
+}
