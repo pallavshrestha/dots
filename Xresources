@@ -1,4 +1,4 @@
-Xcursor.theme: Qogir
+Xcursor.theme: Qogir-dark
 Xcursor.size: 16
 ?.vt100.renderFont: true
 ?.vt100.faceName: Iosevka NFM:style=Regular:size=12
@@ -16,7 +16,7 @@ Xcursor.size: 16
     Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
 
 
-Xcursor.theme: Qogir
+Xcursor.theme: Qogir-dark
 Xcursor.size: 16
 
 ! backspace
