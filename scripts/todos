@@ -1,0 +1,23 @@
+#!/bin/bash
+# Copyright 2024 [Pallav Shrestha]
+
+# simple scripts to count todos, including dones
+# todos are written in this format
+# [ ]TODO: 
+# [x]TODO: done
+#
+#
+if [ -z "$1" ]; then
+    ag todo:
+    echo
+    echo $(ag todo:|wc -l) "tasks"
+    echo $(ag x\]todo:|wc -l) "completed"
+    echo $(ag  \]todo:|wc -l) "remaining"
+else 
+    ag -numbers todo: "$1"
+    echo
+    echo $(ag todo: "$1"|wc -l) "todos"
+    echo $(ag x\]todo: "$1"|wc -l) "done"
+    echo $(ag ' \]todo:' "$1"|wc -l) "remaining"
+fi
+
