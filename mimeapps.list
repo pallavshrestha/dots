@@ -10,7 +10,7 @@ application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoff
 application/vnd.openxmlformats-officedocument.presentationml.presentation=libreoffice.desktop;
 text/markdown=vim.desktop;markdown.desktop;librewolf.desktop;org.qutebrowser.qutebrowser.desktop;
 application/pdf=librewolf.desktop;org.qutebrowser.qutebrowser.desktop;llpp.desktop;libreoffice-writer.desktop;libreoffice-impress.desktop;libreoffice-draw.desktop;org.pwmt.zathura-pdf-mupdf.desktop;
-text/html=org.qutebrowser.qutebrowser.desktop;
+text/html=vim.desktop;org.qutebrowser.qutebrowser.desktop;librewolf.desktop;
 application/xhtml+xml=org.qutebrowser.qutebrowser.desktop;
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice.desktop;
 image/svg+xml=org.inkscape.Inkscape.desktop;feh.desktop;
@@ -41,6 +41,7 @@ application/vnd.appimage=appimagelauncher.desktop;appimagelauncher-lite-AppImage
 message/rfc822=vim.desktop;
 image/x-nikon-nef=feh.desktop;
 image/x-xcf=feh.desktop;
+application/zip=xarchiver.desktop;freecad-AM.desktop;
 
 [Default Applications]
 x-scheme-handler/msteams=teams-for-linux.desktop
