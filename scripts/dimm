@@ -1,2 +1,8 @@
 #!/usr/bin/env sh
-xrandr --output eDP --brightness $1
+
+if [ -z "$1" ]
+then
+    xrandr --output eDP --brightness 1
+else
+    xrandr --output eDP --brightness $1
+fi
