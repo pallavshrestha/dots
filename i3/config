@@ -625,7 +625,7 @@ bar {
 bindsym $mod+d exec rofi -show drun \
 -theme ~/.config/rofi/nord.rasi
 
-bindsym F9 exec rofi -show run \
+bindsym F9 exec rofi -show combi \
 -theme ~/.config/rofi/nord.rasi
 
 
@@ -652,5 +652,8 @@ bindsym mod1+p exec /usr/local/bin/todo
 bindsym $mod+F11 exec /usr/local/bin/hdmi
 
 exec --no-startup-id keepassxc --name keepass
+
+exec_always --no-startup-id pkill unclutter && /usr/bin/unclutter
+
 bindsym $mod+backslash scratchpad show
 bindsym $mod+Shift+backslash move scratchpad
