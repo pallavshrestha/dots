@@ -242,7 +242,7 @@ mode "$mode_gaps_outer" {
 ######################################
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal 
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal 
 
 # kill focused window
 bindsym $mod+c kill
@@ -250,18 +250,18 @@ bindsym $mod+c kill
 #bindysm $mod+w kill
 
 # exit-menu
-bindsym $mod+Shift+e exec ~/.config/i3/scripts/powermenu
+bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/powermenu
 
 #################
 #  System Lock  #
 #################
 
 # lock with a picture:
-#bindsym $mod+l exec i3lock -i  ~/.config/i3/i3-lock-screen.png -p default|win -t
-bindsym $mod+Shift+Escape exec i3lock -t -n -i ~/.config/dogagawa1080.png
+#bindsym $mod+l exec i3lock --no-startup-id -i  ~/.config/i3/i3-lock-screen.png -p default|win -t
+bindsym $mod+Shift+Escape exec --no-startup-id i3lock -t -n -i ~/.config/dogagawa1080.png
 
 # lock by blurring the screen:
-#bindsym $mod+Shift+Escape exec ~/.config/i3/scripts/blur-lock.sh
+#bindsym $mod+Shift+Escape exec --no-startup-id ~/.config/i3/scripts/blur-lock.sh
 
 # start xss-lock
 exec --no-startup-id xss-lock -- i3lock -t -n -i ~/.config/dogagawa1080.png & 
@@ -273,8 +273,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # Backlight control
-bindsym XF86MonBrightnessUp exec brightnessctl set +10
-bindsym XF86MonBrightnessDown exec brightnessctl set 10-
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10-
 
 # change focus
 bindsym $mod+h focus left
@@ -331,7 +331,7 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+a focus child
 
 # open new empty workspace
-bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace.sh
+bindsym $mod+Shift+n --no-startup-id exec ~/.config/i3/scripts/empty_workspace.sh
 
 # move between workspace
 bindsym Mod1+Tab workspace next
@@ -340,8 +340,8 @@ bindsym Mod1+Shift+Tab workspace prev
 ## Multimedia Keys 
 
 # volume
-bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
-bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
 
 # set volume to zero at resume/restart
 exec --no-startup-id amixer -D pulse sset Master 0
@@ -350,32 +350,32 @@ exec --no-startup-id amixer -D pulse sset Master 0
 # Pulse Audio controls
 
 #volume up
-#bindsym XF86AudioRaiseVolume exec pamixer -i 5 --allow-boost && dunstify -h string:x-dunst-stack-tag:volume volume: $(pamixer --get-volume)%
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5 --allow-boost && dunstify -h string:x-dunst-stack-tag:volume volume: $(pamixer --get-volume)%
 #volume down
-#bindsym XF86AudioLowerVolume exec pamixer -d 5 --allow-boost && dunstify -h string:x-dunst-stack-tag:volume volume: $(pamixer --get-volume)%
+#bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5 --allow-boost && dunstify -h string:x-dunst-stack-tag:volume volume: $(pamixer --get-volume)%
 
 #mute
-#bindsym XF86AudioMute exec pamixer -t && dunstify -h string:x-dunst-stack-tag:mute mute: $(pamixer --get-mute)!
+#bindsym XF86AudioMute exec --no-startup-id pamixer -t && dunstify -h string:x-dunst-stack-tag:mute mute: $(pamixer --get-mute)!
 
 # mute
-bindsym XF86AudioMute exec amixer sset Master toggle && killall -USR1 i3blocks
+bindsym XF86AudioMute exec --no-startup-id amixer sset Master toggle && killall -USR1 i3blocks
 
 #mute
-#bindsym XF86AudioMute exec pamixer -t && notify-send "mute: $(pamixer --get-mute)"
+#bindsym XF86AudioMute exec --no-startup-id pamixer -t && notify-send "mute: $(pamixer --get-mute)"
 
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play
+bindsym XF86AudioPause exec --no-startup-id playerctl pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Redirect sound to headphones
-bindsym $mod+p exec /usr/local/bin/switch-audio-port
+bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 
 ## App shortcuts
-bindsym $mod+b exec /usr/bin/qutebrowser
-bindsym $mod+Shift+b exec "/usr/bin/qutebrowser --target private-window"
-bindsym $mod+n exec i3-sensible-terminal -e /usr/bin/ranger
-bindsym $mod+m exec /usr/bin/thunar
+bindsym $mod+b exec --no-startup-id /usr/bin/qutebrowser
+bindsym $mod+Shift+b exec --no-startup-id "/usr/bin/qutebrowser --target private-window"
+bindsym $mod+n exec --no-startup-id i3-sensible-terminal -e /usr/bin/ranger
+bindsym $mod+m exec --no-startup-id /usr/bin/thunar
 
 #Fullscreen screenshot
 bindsym Print exec --no-startup-id maim --hidecursor | tee ~/pictures/0-screenshots/$(date "+Screenshot-%G-%m-%d_%H.%M.%S").png
@@ -486,7 +486,7 @@ exec --no-startup-id xset s 480 s noblank dpms 480 600 600
 #exec --no-startup-id blank-1
 
 #disable screensaver when fullscreen
-exec_always /usr/local/bin/disable-standby.py
+exec_always --no-startup-id /usr/local/bin/disable-standby.py
 
 # Desktop notifications
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
@@ -622,38 +622,38 @@ bar {
 #####################################
 
 ## rofi bindings fancy application menu (two bindings F9/$mod+d)
-bindsym $mod+d exec rofi -show drun \
+bindsym $mod+d exec --no-startup-id rofi -show drun \
 -theme ~/.config/rofi/nord.rasi
 
-bindsym F9 exec rofi -show combi \
+bindsym F9 exec --no-startup-id rofi -show combi \
 -theme ~/.config/rofi/nord.rasi
 
 
 ## rofi bindings for window menu (two bindings F10/$mod+tab)
 #		-theme ~/.config/rofi/nord.rasi 
 
-bindsym F10 exec rofi -show window \
+bindsym F10 exec --no-startup-id rofi -show window \
 -theme ~/.config/rofi/nord.rasi
 
 # Keyboard map changes
-bindsym $mod+space exec (setxkbmap -query | grep -q "layout:\s\+us") && setxkbmap fi || setxkbmap us 
+bindsym $mod+space exec --no-startup-id (setxkbmap -query | grep -q "layout:\s\+us") && setxkbmap fi || setxkbmap us 
 # aring, adiaeresis and odiaersis already included in xmodmap
 
 ## Swapcaps and escape# already included in xmodmap
 exec_always --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape" 
 exec_always --no-startup-id xmodmap ~/.Xmodmap 
 ##Touch pad toggle
-bindsym $mod+F9 exec touchpad_toggle.sh
+bindsym $mod+F9 exec --no-startup-id touchpad_toggle.sh
 
 ##Torodofi
-bindsym mod1+p exec /usr/local/bin/todo
+bindsym mod1+p exec --no-startup-id /usr/local/bin/todo
 
 #display change
-bindsym $mod+F11 exec /usr/local/bin/hdmi
+bindsym $mod+F11 exec --no-startup-id /usr/local/bin/hdmi
 
 exec --no-startup-id keepassxc --name keepass
 
-exec_always --no-startup-id pkill unclutter && /usr/bin/unclutter
+exec --no-startup-id /usr/bin/unclutter
 
 bindsym $mod+backslash scratchpad show
 bindsym $mod+Shift+backslash move scratchpad
