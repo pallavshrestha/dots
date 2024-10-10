@@ -472,7 +472,7 @@ bindsym $mod+Control+Right move workspace to output right
 
 #transparency 
 #exec --no-startup-id xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 &
-exec_always --no-startup-id picom 
+exec_always --no-startup-id picom -cb
 
 #networkmanager-applet
 exec --no-startup-id nm-applet
