@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-AMVERSION="8.2-1"
+AMVERSION="8.3-2"
 
 # Determine main repository and branch
 AMREPO="https://raw.githubusercontent.com/ivan-hc/AM/main"
@@ -190,7 +190,7 @@ APPSLISTDB="$AMREPO/programs/$arch-apps"
 function _am_dependences_check() {
 	# Check for essential commands required by the application
 	missing_deps=()
-	AMDEPENDENCES="cat chmod chown curl grep sed wget"
+	AMDEPENDENCES="cat chmod chown curl grep less sed wget"
 	for name in $AMDEPENDENCES; do
 		if ! command -v "$name" &>/dev/null; then
 			missing_deps+=("$name")
@@ -324,7 +324,7 @@ sed -i "s#$AMPATH/list#$AMDATADIR/list#g" "$completion_file" 2>/dev/null
 # VERSION OF THE INSTALLED APPS
 # Filters
 function _check_version_filters() {
-	sed -E "s/$arch|amd64|x86-64|x64|basic|standard|full|help//g; s/-/\n/g; s/_/\n/g;" |\
+	sed -E "s/$arch|amd64|x86-64|x64|basic|standard|full|help|Qt[0-9]//g; s/-/\n/g; s/_/\n/g;" |\
 	grep -vi "appimage\|$arg\|?\|tar." | grep "[0-9]" | head -1 | sed 's/^v//g; s/^\.//g; s/\.$//g;'
 }
 
@@ -335,11 +335,6 @@ function _check_version_grep_numbers() {
 # Versions
 function _check_version_if_any_version_reference_is_somewhere() {
 	APPVERSION=$(grep -i "version=" "$APPSPATH"/"$arg"/* 2>/dev/null | _check_version_grep_numbers)
-}
-
-function _check_version_if_zsync_file_exists() {
-	APPVERSION=$(strings -d ./"$arg"/*.zsync | grep -i "$(echo "$arg" | sed 's/-appimage//g')" | _check_version_grep_numbers)
-	[ -z "$APPVERSION" ] && APPVERSION=$(date -r ./"$arg"/*.zsync "+%Y.%m.%d")
 }
 
 function _check_version_if_version_file_exists() {
@@ -384,9 +379,7 @@ function _check_version() {
 	sort -rh | sed 's@.*	@@')
 	for arg in $INSTALLED_APPS; do
 		if test -f ./"$arg"/remove 2>/dev/null; then
-			if test -f ./"$arg"/*.zsync 2>/dev/null; then
-				_check_version_if_zsync_file_exists
-			elif test -f ./"$arg"/version 2>/dev/null; then
+			if test -f ./"$arg"/version 2>/dev/null; then
 				_check_version_if_version_file_exists
 			elif test -f ./"$arg"/updater 2>/dev/null; then
 				_check_version_if_an_updater_exists
@@ -1014,12 +1007,34 @@ function _update_determine_apps_version_changes() {
 	fi
 }
 
+function _update_updated_app_msg() {
+	end=$(date +%s)
+	echo " ◆ $APPNAME is updated, $((end - start)) seconds elapsed!"
+}
+
+function _update_run_updater() {
+	if grep -q "api.github.com" "$APPSPATH"/"$arg"/AM-updater; then
+		GH_API_ALLOWED=$(curl -Ls $HeaderAuthWithGITPAT https://api.github.com/repos/ivan-hc/AM/releases/latest | sed 's/[()",{} ]/\n/g' | grep "^ivan-hc" | head -1)
+		if [ -z "$GH_API_ALLOWED" ]; then
+			if command -v torsocks 1>/dev/null; then
+				torsocks "$APPSPATH"/"$arg"/AM-updater >/dev/null 2>&1 && _update_updated_app_msg
+			else
+				echo " ✖ $APPNAME cannot be updated, you have reached GitHub API limit. Install \"torsocks\" from your system package manager and retry!" \
+				| fold -sw 72 | sed 's/^/   /g; s/   ✖/✖/g'
+			fi
+		else
+			"$APPSPATH"/"$arg"/AM-updater >/dev/null 2>&1 && _update_updated_app_msg
+		fi
+	else
+		"$APPSPATH"/"$arg"/AM-updater >/dev/null 2>&1 && _update_updated_app_msg
+	fi
+}
+
 function _update_app() {
+	APPNAME=$(echo "$arg" | tr '[:lower:]' '[:upper:]')
+	start=$(date +%s)
 	if [ -w "$APPSPATH"/"$arg"/AM-updater ]; then
-		start=$(date +%s) &&
-		sh -x "$APPSPATH"/"$arg"/AM-updater >/dev/null 2>&1 | echo -ne ' Updating "'"$APPNAME"'"...\r' &&
-		end=$(date +%s) &&
-		echo " ◆ $APPNAME is updated, $((end - start)) seconds elapsed!" &
+		_update_run_updater &
 	else
 		echo " ✖ $APPNAME is read-only, cannot update it!"
 	fi
@@ -1030,19 +1045,19 @@ function _update_all_apps() {
 		cd "$f" 2>/dev/null || exit 1
 		arg=$(printf '%s\n' "${PWD##*/}")
 		if test -f "$APPSPATH"/"$arg"/AM-updater; then
-			APPNAME=$(echo "$arg" | tr '[:lower:]' '[:upper:]')
 			_update_app
 		fi
 	done
 	wait
 	echo "$DIVIDING_LINE"
 	_update_determine_apps_version_changes
-	rm -Rf "$APPSPATH/*/tmp"
+	rm -Rf "$APPSPATH"/*/tmp
 }
 
 function _use_update() {
 	_online_check
 	_update_github_api_key_in_the_updater_files
+	_clean_all_tmp_directories_from_appspath >/dev/null
 	case $2 in
 	''|'--apps')
 		_clean_amcachedir
@@ -1060,14 +1075,13 @@ function _use_update() {
 	*)
 		ARGS="$(echo "$@" | cut -f2- -d ' ')"
 		for arg in $ARGS; do
-			APPNAME=$(echo "$arg" | tr '[:lower:]' '[:upper:]')
 			if test -f "$APPSPATH"/"$arg"/AM-updater; then
 				cd "$APPSPATH/$arg" 2>/dev/null || exit 1
 				_update_app
 			else
 				UPDATERS=$(cd "$APPSPATH"/"$arg" 2>/dev/null && find . -name "*update*" -print 2>/dev/null)
 				[ -n "$UPDATERS" ] && arg_autoupdatable=", it may have its update system"
-				echo " ✖ Cannot manage updates for \"$APPNAME\"$arg_autoupdatable"
+				echo " ✖ Cannot manage updates for \"$(echo "$arg" | tr '[:lower:]' '[:upper:]')\"$arg_autoupdatable"
 			fi
 		done
 		wait
@@ -1104,7 +1118,7 @@ case "$1" in
 	'list'|'-l'|\
 	'query'|'-q')
 		MODULE="database.am"
-		_use_module "$@"
+		if [ -t 1 ]; then _use_module "$@"; else _use_module "$@" | sed -e 's/\x1b\[[0-9;]*m//g'; fi
 		;;
 	'backup'|'-b'|\
 	'downgrade'|'--rollback'|\
@@ -1158,7 +1172,7 @@ case "$1" in
 		_use_clean
 		;;
 	'help'|'-h')
-		_use_help
+		if [ -t 1 ]; then _use_help; else _use_help | sed -e 's/\x1b\[[0-9;]*m//g'; fi
 		;;
 	'newrepo'|'neodb')
 		_use_newrepo "$@"
