@@ -224,7 +224,7 @@ trap "rm -f $tmpA $tmpB; exit 1" 1 2 3 15
 trap "rm -f $tmpA $tmpB; exit 1" ERR
 
 # test if infile exists and compute dimensions
-if convert -quiet "$infile" +repage "$tmpA"
+if magick -quiet "$infile" +repage "$tmpA"
 	then
 	width=`identify -format "%w" $tmpA`
 	height=`identify -format "%h" $tmpA`
@@ -279,7 +279,7 @@ else
 	fi
 fi
 
-# convert trans to none for bgcolor so that background is transparent
+# magick trans to none for bgcolor so that background is transparent
 [ "$bgcolor" = "trans" ] && bgcolor="none"
 
 # add resize if size != ""
@@ -288,11 +288,11 @@ fi
 # process image
 if [ "$mode" = "pad" ]
 	then
-	convert \( -size ${dim}x${dim} xc:$bgcolor \) \( $tmpA $resize \) \
+	magick \( -size ${dim}x${dim} xc:$bgcolor \) \( $tmpA $resize \) \
 		-gravity $gravity -composite +repage "$outfile"
 elif [ "$mode" = "crop" ]
 	then
-	convert $tmpA $resize -gravity $gravity \
+	magick $tmpA $resize -gravity $gravity \
 		-crop ${dim}x${dim}+0+0 +repage "$outfile"
 fi
 exit 0
