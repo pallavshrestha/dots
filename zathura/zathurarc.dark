@@ -41,8 +41,8 @@ map <F4> focus_inputbar ":set recolor-darkcolor \#3c3836"
 map @ feedkeys "<F3><Return><F4><Return>"    
 
 
-set recolor-lightcolor		"#f2e5bc" #rgba(59,66,82,1)" 
-set recolor-darkcolor		"#3c3836" #FFFFFF" 
+set recolor-lightcolor		"rgba(59,66,82,1)" 
+set recolor-darkcolor		"#FFFFFF" 
 
 #set recolor-lightcolor          "#f2e5bc" # bg
 #set recolor-darkcolor           "#3c3836" # fg
