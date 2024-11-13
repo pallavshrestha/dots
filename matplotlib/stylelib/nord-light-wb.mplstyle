@@ -44,7 +44,7 @@ axes.prop_cycle: cycler('color', ['5e81ac', 'd08770', 'a3be8c', 'bf616a', 'b48ea
 image.cmap: magma
 
 # Axes
-axes.facecolor: eceff4 #e5e9f0  #white
+axes.facecolor: white #eceff4 #e5e9f0
 axes.edgecolor: d8dee9
 axes.labelcolor: 2e3440
 axes.axisbelow: True
