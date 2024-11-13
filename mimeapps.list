@@ -1,7 +1,7 @@
 [Added Associations]
 application/x-trash=vim.desktop;
 application/x-ms-dos-executable=wine.desktop;
-text/plain=vim.desktop;:
+text/plain=vim.desktop;draw.io-AM.desktop;:;
 x-scheme-handler/mailto=userapp-Thunderbird-O7G0R1.desktop;userapp-Thunderbird-UGL0R1.desktop;userapp-Thunderbird-7ZA8R2.desktop;
 x-scheme-handler/mid=userapp-Thunderbird-O7G0R1.desktop;userapp-Thunderbird-UGL0R1.desktop;userapp-Thunderbird-7ZA8R2.desktop;
 x-scheme-handler/webcal=userapp-Thunderbird-X3J7R1.desktop;userapp-Thunderbird-2N2YR1.desktop;
@@ -9,7 +9,7 @@ x-scheme-handler/webcals=userapp-Thunderbird-X3J7R1.desktop;userapp-Thunderbird-
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-writer.desktop;libreoffice.desktop;librewolf.desktop;
 application/vnd.openxmlformats-officedocument.presentationml.presentation=libreoffice.desktop;
 text/markdown=vim.desktop;markdown.desktop;librewolf.desktop;org.qutebrowser.qutebrowser.desktop;
-application/pdf=librewolf.desktop;org.qutebrowser.qutebrowser.desktop;llpp.desktop;libreoffice-writer.desktop;libreoffice-impress.desktop;libreoffice-draw.desktop;org.pwmt.zathura-pdf-mupdf.desktop;
+application/pdf=org.qutebrowser.qutebrowser.desktop;librewolf.desktop;llpp.desktop;libreoffice-writer.desktop;libreoffice-impress.desktop;libreoffice-draw.desktop;org.pwmt.zathura-pdf-mupdf.desktop;
 text/html=vim.desktop;org.qutebrowser.qutebrowser.desktop;librewolf.desktop;
 application/xhtml+xml=org.qutebrowser.qutebrowser.desktop;
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice.desktop;
@@ -22,13 +22,13 @@ image/jpeg=org.qutebrowser.qutebrowser.desktop;rawtherapee.desktop;feh.desktop;
 application/vnd.ms-visio.drawing.main+xml=libreoffice.desktop;
 application/xml=vim.desktop;anylogic-ple.desktop;
 application/x-zerosize=xarchiver.desktop;org.pwmt.zathura.desktop;vim.desktop;
-image/x-fuji-raf=feh.desktop;rawtherapee.desktop;geeqie.desktop;
+image/x-fuji-raf=feh.desktop;AM-rawtherapee.desktop;rawtherapee.desktop;geeqie.desktop;
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/zoomtg=Zoom.desktop;
 x-scheme-handler/zoomus=Zoom.desktop;
 application/x-desktop=vim.desktop;wine-extension-txt.desktop;
-text/csv=vim.desktop;libreoffice-calc.desktop;
+text/csv=libreoffice-calc.desktop;vim.desktop;
 application/json=vim.desktop;libreoffice-calc.desktop;
 application/mat=vim.desktop;libreoffice-calc.desktop;
 text/x-tex=vim.desktop;org.qutebrowser.qutebrowser.desktop;libreoffice-writer.desktop;
@@ -42,6 +42,7 @@ message/rfc822=vim.desktop;
 image/x-nikon-nef=feh.desktop;
 image/x-xcf=feh.desktop;
 application/zip=xarchiver.desktop;freecad-AM.desktop;
+text/x-bibtex=vim.desktop;
 
 [Default Applications]
 x-scheme-handler/msteams=teams-for-linux.desktop
@@ -67,3 +68,4 @@ x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
 image/x-xcf=feh.desktop
 x-scheme-handler/discord-424004941485572097=discord-424004941485572097.desktop
+text/plain=draw.io-AM.desktop
