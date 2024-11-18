@@ -21,7 +21,7 @@ image/png=feh.desktop;AM-gimp.desktop;gimp.desktop;rawtherapee.desktop;llpp.desk
 image/jpeg=org.qutebrowser.qutebrowser.desktop;rawtherapee.desktop;feh.desktop;
 application/vnd.ms-visio.drawing.main+xml=libreoffice.desktop;
 application/xml=vim.desktop;anylogic-ple.desktop;
-application/x-zerosize=xarchiver.desktop;org.pwmt.zathura.desktop;vim.desktop;
+application/x-zerosize=mpv.desktop;xarchiver.desktop;org.pwmt.zathura.desktop;vim.desktop;
 image/x-fuji-raf=feh.desktop;AM-rawtherapee.desktop;rawtherapee.desktop;geeqie.desktop;
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
@@ -43,6 +43,8 @@ image/x-nikon-nef=feh.desktop;
 image/x-xcf=feh.desktop;
 application/zip=xarchiver.desktop;freecad-AM.desktop;
 text/x-bibtex=vim.desktop;
+application/x-mswinurl=vim.desktop;
+text/x-log=vim.desktop;
 
 [Default Applications]
 x-scheme-handler/msteams=teams-for-linux.desktop
@@ -68,4 +70,4 @@ x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
 image/x-xcf=feh.desktop
 x-scheme-handler/discord-424004941485572097=discord-424004941485572097.desktop
-text/plain=draw.io-AM.desktop
+text/plain=vim.desktop
