@@ -33,9 +33,5 @@ Xcursor.size: 16
 ?*on3Clicks: regex [[:alpha:]]+://([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
 
 
-
-
-
-
 #include "/home/pallav/.config/nord-resources"
 
