@@ -1,0 +1,14 @@
+set $darkblue		#08052b
+set $nordblue		#81a1c1
+set $nord10blu		#5e81ac
+set $white	    	#eceff4
+set $nordblack		#2e3440
+set $nordgreen		#8fbcbb
+set $darkgrey		#3b4252
+set $grey		    #b0b5bd
+set $mediumgrey		#8b8b8b
+set $yellowbrown	#e1b700
+set $transparent	#81a1c110
+set $nordred		#bf616a
+set $nordorange		#d08770
+
