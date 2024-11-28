@@ -486,7 +486,7 @@ exec --no-startup-id xset s 480 s noblank dpms 480 600 600
 #exec --no-startup-id blank-1
 
 #disable screensaver when fullscreen
-exec_always --no-startup-id ~/.config/scripts/disable-standby.py
+exec_always --no-startup-id /usr/local/bin/disable-standby.py
 
 # Desktop notifications
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
