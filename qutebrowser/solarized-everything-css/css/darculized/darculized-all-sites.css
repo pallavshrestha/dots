@@ -1,5 +1,7 @@
 * {
   border-color: #909396 !important;
+  background-color: rgba(38,38,38,0.2) !important;
+  color: #909396 !important;
 }
 a {
   color: #ce4139 !important;
