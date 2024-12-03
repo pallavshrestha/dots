@@ -4,10 +4,10 @@
   color: #d8dee9 !important;
 }
 a {
-  color: #5e81ac !important;
+  color: #81a1c1 !important;
 }
 a:visited {
-  color: #81a1c1 !important;
+  color: #5e81ac !important;
 }
 body {
   background-color: #2e3440 !important;
@@ -111,7 +111,7 @@ pre {
   border-color: #8fbcbb !important;
 }
 .breadcrumb .repo-root.js-repo-root a {
-  color: #5e81ac !important;
+  color: #81a1c1 !important;
 }
 .breadcrumb strong.final-path {
   color: #d8dee9 !important;
@@ -301,13 +301,13 @@ a.filter-item:hover,
   color: #353c49 !important;
 }
 .pl-c1 {
-  color: #5e81ac !important;
+  color: #81a1c1 !important;
 }
 .pl-e {
   color: #b58900 !important;
 }
 .pl-en {
-  color: #5e81ac !important;
+  color: #81a1c1 !important;
 }
 .pl-k {
   color: #a3be8c !important;
@@ -421,7 +421,7 @@ a.filter-item:hover,
   color: #e5e9f0 !important;
 }
 .build-status-item .build-status-details {
-  color: #5e81ac !important;
+  color: #81a1c1 !important;
 }
 .capped-card h3 {
   background-color: #434c5e !important;
@@ -634,11 +634,11 @@ qul.branches-list * {
 .issues-listing .btn-primary {
   background-color: #a3be8c !important;
   background-image: linear-gradient(#a3be8c, #424d00) !important;
-  color: #000 !important;
+  color: #2e3640 !important;
   filter: opacity(62.5%);
 }
 .entry-title a {
-  color: #5e81ac !important;
+  color: #81a1c1 !important;
 }
 .Header {
   background-color: #3b4252 !important;
@@ -673,7 +673,7 @@ qul.branches-list * {
   color: #e5e9f0 !important;
 }
 .js-directory-link {
-  color: #5e81ac !important;
+  color: #81a1c1 !important;
 }
 .js-site-search-form input,
 .js-chromeless-input-container {
@@ -681,7 +681,7 @@ qul.branches-list * {
   border-color: #353c49 !important;
 }
 a.label {
-  color: #000 !important;
+  color: #2e3640 !important;
   filter: opacity(75%);
 }
 .notifications-list a {
@@ -697,7 +697,7 @@ a.label {
   color: rgba(202,0,0,0.65) !important;
 }
 .type-icon-state-merged {
-  color: #81a1c1 !important;
+  color: #5e81ac !important;
 }
 .type-icon-state-open {
   color: rgba(68,103,0,0.65) !important;
@@ -784,7 +784,7 @@ a.label {
 }
 .merged.octicon,
 .octicon-git-merge {
-  color: #81a1c1 !important;
+  color: #5e81ac !important;
 }
 .uploaded-files {
   background-color: #2e3440 !important;
@@ -804,7 +804,7 @@ a.label {
 }
 .markdown-body a,
 .markdown-body table * a {
-  color: #5e81ac !important;
+  color: #81a1c1 !important;
 }
 .markdown-body code,
 .markdown-body table * code,
@@ -1060,7 +1060,7 @@ input#lst-ib,
   background-color: #2e3440 !important;
 }
 .kpbb {
-  background-image: linear-gradient(to bottom, #59a9e1, #5e81ac) !important;
+  background-image: linear-gradient(to bottom, #59a9e1, #81a1c1) !important;
 }
 #hdtbSum {
   background-color: #2e3440 !important;
@@ -1117,7 +1117,7 @@ tr.Even {
   background-color: #434c5e !important;
 }
 .QuotedText {
-  color: #81a1c1 !important;
+  color: #5e81ac !important;
 }
 DIV.GAByline {
   background-color: #4c566a !important;
@@ -1269,7 +1269,7 @@ table {
 }
 #hnmain > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) a,
 #hnmain > tbody:nth-child(1) > tr:nth-child(1) a {
-  color: #000 !important;
+  color: #2e3640 !important;
 }
 #hnmain > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2),
 #hnmain > tbody:nth-child(1) > tr:nth-child(2) {
@@ -1289,7 +1289,7 @@ a.storylink {
   font-weight: bold;
 }
 .sitestr {
-  color: #5e81ac !important;
+  color: #81a1c1 !important;
 }
 #hnmain > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) {
   background-color: #2e3440 !important;
@@ -1310,7 +1310,7 @@ a.storylink {
   color: rgba(202,0,0,0.65) !important;
 }
 .comment i {
-  color: #81a1c1 !important;
+  color: #5e81ac !important;
 }
 #hnmain > tbody:nth-child(1) > tr:nth-child(4) {
   background-color: #2e3440 !important;
@@ -1322,7 +1322,7 @@ div#page div#header {
   background-color: #2e3440 !important;
 }
 div#page div#header a {
-  color: #81a1c1 !important;
+  color: #5e81ac !important;
 }
 .post {
   background-color: #2e3440 !important;
@@ -1348,7 +1348,7 @@ div#page div#header a {
   border-color: #353c49 !important;
   box-shadow: none !important;
   color: #e5e9f0 !important;
-  text-shadow: 0px 1px 0px #000 !important;
+  text-shadow: 0px 1px 0px #2e3640 !important;
 }
 .post pre.mode-line {
   overflow: visible !important;
@@ -1448,10 +1448,10 @@ body.comment {
   border-color: #8fbcbb !important;
 }
 a {
-  color: #5e81ac !important;
+  color: #81a1c1 !important;
 }
 a:visited {
-  color: #81a1c1 !important;
+  color: #5e81ac !important;
 }
 body {
   background-color: #2e3440 !important;
@@ -1498,7 +1498,7 @@ hr {
 }
 .bounty-indicator,
 .bounty-indicator-tab {
-  background-color: #81a1c1 !important;
+  background-color: #5e81ac !important;
 }
 .bottom-notice {
   background-color: #4c566a !important;
@@ -1515,7 +1515,7 @@ hr {
   color: #2e3440 !important;
 }
 .post-menu a {
-  color: #81a1c1 !important;
+  color: #5e81ac !important;
 }
 .question-status {
   background-color: #4c566a !important;
@@ -1535,7 +1535,7 @@ pre code {
   color: #e5e9f0 !important;
 }
 pre code .atn {
-  color: #5e81ac !important;
+  color: #81a1c1 !important;
 }
 pre code .atv {
   color: #88c0d0 !important;
