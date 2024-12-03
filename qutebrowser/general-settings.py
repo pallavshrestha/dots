@@ -1,4 +1,4 @@
-config.set("colors.webpage.bg", "#93a1a1")
+config.set("colors.webpage.bg", "#3B4252")  # 93a1a1
 config.set("colors.webpage.preferred_color_scheme", "dark")
 config.set("colors.webpage.darkmode.enabled", False)
 config.set("colors.webpage.darkmode.policy.images", "smart-simple")
@@ -24,6 +24,10 @@ config.set("colors.contextmenu.menu.fg", "#E5E9F0")
 config.set("colors.contextmenu.selected.bg", "#4C566A")
 config.set("colors.contextmenu.selected.fg", "#81A1C1")
 config.set("colors.tabs.selected.odd.fg", "#e5e9f0")
+config.set(
+    "content.user_stylesheets",
+    "~/.config/qutebrowser/solarized-everything-css/css/nord-dark-all-sites.css",
+)
 
 # Bindings for cycling through CSS stylesheets from Solarized Everything CSS:
 # https://github.com/alphapapa/solarized-everything-css
