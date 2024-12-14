@@ -1,7 +1,6 @@
 * {
   border-color: #8fbcbb !important;
   background-color: rgba(0, 0, 0, 0.0) !important;
-  --color-neutral-background: #4c556a /*#2e3440*/ !important;
   color: #d8dee9 !important;
 }
 a {
@@ -15,7 +14,7 @@ body {
   color: #d8dee9 !important;
 }
 html {
-  background-color: ##2e3440 !important;
+  background-color: #2e3440 !important;
 }
 input,
 textarea {
@@ -1021,15 +1020,7 @@ a.tabnav-tab.selected,
   background-color: #353c49 !important;
 }
 .menu {
-  color: #d8dee9 !important;  
   background-color: #4c566a !important;
-  background:#4c566a !important;
-
-}
-.menu * {
-  color: #d8dee9 !important;  
-  background-color: #4c566a !important;
-  background: #4c566a !important;
 }
 .menu-item.selected {
   background-color: #434c5e !important;
@@ -1202,9 +1193,6 @@ div#simpleSearch #searchInput {
   background-color: #2e3440 !important;
   padding: 0.05em 0px 0.2em 0.2em !important;
 }
-div#content{
-background: #2e3440 !important;
-}
 .ambox,
 .infobox,
 #toc,
@@ -1325,7 +1313,7 @@ a.storylink {
   color: #5e81ac !important;
 }
 #hnmain > tbody:nth-child(1) > tr:nth-child(4) {
-  background-color: ##2e3440 !important;
+  background-color: #2e3440 !important;
 }
 #hnmain > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(1) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) {
   background-color: #ebcb8b !important;
@@ -1723,13 +1711,4 @@ a.comment-user.owner {
 .answer-votes {
   background-color: #353c49 !important;
   color: #2e3440 !important;
-}
-.sidebar_body {
-  background-color: #4c556a !important;
-  background: #4c556a !important;
-  color: #d8dee9 !important;
-}
-.bartitle{
-  color: #d8dee9 !important;
-  border-color: #8fbcbb !important;
 }
