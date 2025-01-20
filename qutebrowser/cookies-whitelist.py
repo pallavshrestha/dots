@@ -28,3 +28,4 @@ config.set("content.cookies.accept", "all", "https://lut.primo.exlibrisgroup.com
 config.set("content.cookies.accept", "all", "https://*.linkedin.com/*")
 config.set("content.cookies.accept", "all", "https://*.zoom.us/*")
 config.set("content.cookies.accept", "all", "https://*.csc.fi/*")
+config.set("content.cookies.accept", "all", "https://metapixl.com/*")
