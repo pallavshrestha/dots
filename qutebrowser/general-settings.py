@@ -1,4 +1,4 @@
-config.set("colors.webpage.bg", "#3B4252")  # 93a1a1
+config.set("colors.webpage.bg", "#93a1a1")  # 3B4252
 config.set("colors.webpage.preferred_color_scheme", "dark")
 config.set("colors.webpage.darkmode.enabled", False)
 config.set("colors.webpage.darkmode.policy.images", "smart-simple")

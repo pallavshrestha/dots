@@ -525,6 +525,7 @@ for_window [window_role="search"]                       floating enable
 
 # set fullscreen for apps
 for_window [title="Steam Big Picture Mode"] fullscreen
+for_window [class="mpv"] fullscreen
 
 ######################################
 # color settings for bar and windows #

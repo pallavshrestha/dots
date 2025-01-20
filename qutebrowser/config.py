@@ -29,6 +29,7 @@ config.set("content.cookies.store", False)
 # Cookies exceptions
 config.source("cookies-whitelist.py")
 
+
 # Use vim to edit specific line
 # Not working for some reason, probably some fix required
 # config.set("vim", "-f", "{file}", "-c", "normal {line}G{column0}l")
