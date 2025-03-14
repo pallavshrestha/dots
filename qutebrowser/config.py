@@ -28,6 +28,7 @@ config.set("content.cookies.store", False)
 # config.set('content.headers.user_agent','Mozilla/5.0 (Windows NT 10.0; rv:109.0) Gecko/20100101 Firefox/117.0')
 # Cookies exceptions
 config.source("cookies-whitelist.py")
+config.bind(",s", "cmd-set-text -s :session-load -c ")
 
 
 # Use vim to edit specific line
@@ -41,11 +42,7 @@ from qutebrowser.api import interceptor
 def filter_yt(info: interceptor.Request):
     """Block the given request if necessary."""
     url = info.request_url
-    if (
-        url.host() == "www.youtube.com"
-        and url.path() == "/get_video_info"
-        and "&adformat=" in url.query()
-    ):
+    if url.host() == "www.youtube.com" and url.path() == "/get_video_info" and "&adformat=" in url.query():
         info.block()
 
 
