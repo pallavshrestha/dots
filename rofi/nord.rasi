@@ -10,7 +10,7 @@ configuration {
    font:				"Mononoki Nerd Font Regular 12";
     modi:				"drun,run,ssh";
     show-icons:				true;
-    icon-theme:				"nordic";
+    icon-theme:				"Qogir-Dark";
     display-ssh:    			"";
     display-run:    			"";
     display-drun:   			"";
