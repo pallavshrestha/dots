@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-AMVERSION="9.4.1-2"
+AMVERSION="9.6"
 
 # Determine main repository and branch
 AMREPO="https://raw.githubusercontent.com/ivan-hc/AM/main"
@@ -42,7 +42,7 @@ LightBlue='\033[1;34m'
 DIVIDING_LINE="-----------------------------------------------------------------------------"
 
 # Prevent the use of "sudo" ("AM")
-if [ -n "${SUDO_USER:-$DOAS_USER}" ]; then
+if [ "$(id -u)" = 0 ] && [ -n "${SUDO_USER:-$DOAS_USER}" ]; then
 	printf "\n Please do not use \"sudo\" to execute \"%b\", try again.\n\n" "$CLI"
 	exit 1
 fi
@@ -57,8 +57,14 @@ _create_cache_dir() {
 }
 
 _clean_amcachedir() {
-	[ "$AMCLI" = am ] && [ -d "$CACHEDIR"/am ] && rm -f "$CACHEDIR"/am/*
-	[ -d "$CACHEDIR"/appman ] && rm -f "$CACHEDIR"/appman/*
+	if [ "$AMCLI" = am ] && [ -d "$CACHEDIR"/am ]; then
+		rm -f "$CACHEDIR"/am/* rm -f "$CACHEDIR"/am/*/* 2>/dev/null
+		rmdir "$CACHEDIR"/am/* 2>/dev/null
+	fi
+	if [ -d "$CACHEDIR"/appman ]; then
+		rm -f "$CACHEDIR"/appman/* "$CACHEDIR"/appman/*/* 2>/dev/null
+		rmdir "$CACHEDIR"/appman/* 2>/dev/null
+	fi
 }
 
 # Fit texts to an acceptable width
@@ -99,9 +105,9 @@ sed() {
 	fi
 }
 
-################################################################################
+################################################################################################################################################################
 #				AM/APPMAN
-################################################################################
+################################################################################################################################################################
 
 # "APPMAN" CORE VARIABLES AND FUNCTIONS
 APPMAN_SETUP_MSG="Before proceeding with any task, where do you want to install apps?
@@ -241,9 +247,9 @@ _icon_theme_export_to_datadir() {
 	[ -n "$APPMAN_APPSPATH" ] && ln -s "$APPMAN_APPSPATH"/*/icons/*.* "$DATADIR"/icons/hicolor/scalable/apps
 }
 
-################################################################################
+################################################################################################################################################################
 #				FINALIZE
-################################################################################
+################################################################################################################################################################
 
 AMCLIUPPER=$(echo "$AMCLI" | tr '[:lower:]' '[:upper:]')
 
@@ -264,21 +270,17 @@ _betatester_message_on() {
 	fi
 }
 
-################################################################################
+################################################################################################################################################################
 #				APPS DATABASE
-################################################################################
+################################################################################################################################################################
 
 # Apps database in use
 APPSDB="${APPSDB:-$AMREPO/programs/$ARCH}"
 APPSLISTDB="${APPSLISTDB:-$AMREPO/programs/$ARCH-apps}"
 
-# Determine catalogue in use
-export AMCATALOGUEMARKDOWNS="${AMCATALOGUEMARKDOWNS:-https://portable-linux-apps.github.io/apps}"
-export AMCATALOGUEICONS="${AMCATALOGUEICONS:-https://portable-linux-apps.github.io/icons}"
-
-################################################################################
+################################################################################################################################################################
 #				SECURITY
-################################################################################
+################################################################################################################################################################
 
 # SAFETY CHECKS
 _am_dependences_check() {
@@ -356,9 +358,9 @@ elif command -v appimagelauncherd &>/dev/null; then
 	_blacklisted_file
 fi
 
-################################################################################
+################################################################################################################################################################
 #				3RD PARTY
-################################################################################
+################################################################################################################################################################
 
 _use_newrepo() {
 	[ -z "$2" ] && echo " USAGE: $AMCLI $1 [ARGUMENT]" && exit 1
@@ -409,8 +411,6 @@ _am_newrepo_check() {
 		export APPSDB="$AMREPO/programs/$ARCH"
 		export APPSLISTDB="$AMREPO/programs/$ARCH-apps"
 		export MODULES_PATH="$AMPATH/modules"
-		export AMCATALOGUEMARKDOWNS=""
-		export AMCATALOGUEICONS=""
 		if [ "$1" != "newrepo" ] && [ "$1" != "neodb" ]; then
 			echo "$DIVIDING_LINE"; echo " Source: $AMREPO"; echo "$DIVIDING_LINE"
 		fi
@@ -419,42 +419,121 @@ _am_newrepo_check() {
 
 _am_newrepo_check "$@"
 
-# 3RD PARTY SOURCES
-export appbundle_repo="https://github.com/xplshn/AppBundleHUB"
-appbundle_readme="https://raw.githubusercontent.com/xplshn/dbin-metadata/refs/heads/master/misc/cmd/AM-support/AM.txt"
+################################################################################################################################################################
+#				3RD PARTY SOURCES
+################################################################################################################################################################
 
-toolpack_repo="https://github.com/Azathothas/Toolpacks"
-toolpack_readme="https://bin.pkgforge.dev/${ARCH}/AM.txt"
+# APPBUNDLEHUB		
+#export appbundle_repo="https://github.com/xplshn/AppBundleHUB"
+#export appbundle_readme="https://raw.githubusercontent.com/ivan-hc/am-extras/main/appbundlehub/${ARCH}.md"
+#[ -n "$appbundle_readme" ] && third_party_flags="$third_party_flags --appbundle"
+
+# SOARPKGS
+export soarpkg_repo="https://github.com/pkgforge/soarpkgs"
+export soarpkg_readme="https://raw.githubusercontent.com/ivan-hc/am-extras/main/soarpkgs/${ARCH}.md"
+[ -n "$soarpkg_readme" ] && third_party_flags="$third_party_flags --soarpkg"
+export soarpkg_missing_file_msg="\nIt appears that the selected file is not available.\n\nThis happens due to pkgforge's mirror Issue.\nLearn more: https://docs.pkgforge.dev/repositories/bincache/cache\n\nAlternatively, install \"soar\" or \"dbin\" and use those.\n\n"
+
+# TOOLPACKS/SOARPKGS
+export toolpack_repo="https://github.com/pkgforge/soarpkgs (ex toolpacks)"
+export toolpack_readme="https://raw.githubusercontent.com/ivan-hc/am-extras/main/soarpkgs-toolpacks/${ARCH}.md"
+[ -n "$toolpack_readme" ] && third_party_flags="$third_party_flags --toolpack"
+export toolpack_missing_file_msg="\nIt appears that the selected file is not available.\n\nThis happens due to pkgforge's mirror Issue.\nLearn more: https://docs.pkgforge.dev/repositories/bincache/cache\n\nAlternatively, install \"soar\" or \"dbin\" and use those.\n\n"
+
+#################################
+#	ALL THE ABOVE
+#################################
+third_party_lists=$(echo "$third_party_flags" | tr '-' '\n' | sed 's/ //g' | xargs)
+
+_remove_known_third_party_extensions() {
+	sed "s/$(echo "$third_party_lists" | sed 's/ /\\|/g')$//g; s/\.$//g"
+}
+
+_files_db_third_party() {
+	for tp_list in $third_party_lists; do
+		if test -f "$APPSPATH"/"$arg"/.am-installer/*."$tp_list"; then
+			export DB="$tp_list"
+		fi
+	done
+}
+
+_third_party_lsts_filter() {
+	grep -v -- "---\|^| appname" | grep "^| .* | .* | http.* | http.* | .* |$" 2>/dev/null | awk -F'|' '{print $2, $3}' | sed 's/^/◆/g; s/   / : /g; s/ $//g'
+}
+
+_sync_third_party_lists() {
+	for tp_list in $third_party_lists; do
+		rm -f "$AMDATADIR"/"$ARCH"-"$tp_list"
+		tprepo_readme="${tp_list}_readme"
+		if [ -n "${!tprepo_readme}" ]; then
+			curl -Ls "${!tprepo_readme}" | _third_party_lsts_filter \
+			| sed "s/$/. To install it use the --$tp_list flag or the .$tp_list extension./g" | sort > "$AMDATADIR"/"$ARCH"-"$tp_list" \
+			|| touch "$AMDATADIR"/"$ARCH"-"$tp_list"
+		fi
+	done
+}
+
+_completion_list_third_party() {
+	for tp_list in $third_party_lists; do
+		[ -f "$AMDATADIR"/"$ARCH"-"$tp_list" ] && awk '{print $2}' "$AMDATADIR"/"$ARCH"-"$tp_list" >> "$AMDATADIR"/list && awk '{print $2}' "$AMDATADIR"/"$ARCH"-"$tp_list" | sed -e "s/$/.$tp_list/" >> "$AMDATADIR"/list
+	done
+}
 
 export awk_name="1" awk_description="2" awk_site="3" awk_dl="4" awk_ver="5" # Numbers to use in "awk" to determine columns
 
-################################################################################
+third_party_flags_message=""
+
+if [ -n "$third_party_flags" ]; then
+for flag in $third_party_flags; do
+tpflag_name=$(echo "$flag" | tr '-' '\n ' | grep .)
+tprepo_name="${tpflag_name}_repo"
+third_party_flags_message="$third_party_flags_message\n
+${Gold}--$tpflag_name\033[0m
+
+	${LightBlue}$AMCLI -i --$tpflag_name {PROGRAM}\033[0m
+	${LightBlue}am -i --$tpflag_name --user {PROGRAM}\033[0m
+	${LightBlue}$AMCLI -l --$tpflag_name\033[0m
+
+Description: This is a flag to use in \"-i\" and \"-l\" to install/list ${tpflag_name^}s from ${!tprepo_name}. You can also use it in \"-q\" as a keyword. For installations you can use .$tpflag_name as the package extension instead of using the flag.
+"
+done
+fi
+
+[ -z "$third_party_flags_message" ] && third_party_flags_message="none\n"
+
+################################################################################################################################################################
 #				UTILITIES
-################################################################################
+################################################################################################################################################################
 
 # COMPLETION LIST
-available_options="about add apikey backup clean config disable downgrade download enable extra files home icons info \
-	install install-appimage launcher list lock neodb newrepo nolibfuse off on overwrite purge query remove sandbox \
-	select sync template test unlock update --all --appimages --apps --byname --config --convert --debug \
+available_options="about add apikey backup clean config disable downgrade download enable extra files hide home icons info \
+	install install-appimage launcher list lock neodb newrepo nolibfuse off on overwrite purge query reinstall remove sandbox \
+	select sync template test unhide unlock update --all --appimages --apps --byname --config --convert --debug \
 	--devmode-disable --devmode-enable --disable-notifications --enable-notifications --force-latest --home --icons \
-	-ias --launcher --less --pkg --rollback --disable-sandbox --sandbox --system --toolpack --user"
+	-ias --launcher --less --pkg --rollback --disable-sandbox --sandbox --system --user $third_party_flags"
 
 _completion_lists() {
 	# Remove existing lists and download new ones
 	curl -Ls "$APPSLISTDB" > "$AMDATADIR/$ARCH-apps"
 	awk -v FS="(◆ | : )" '{print $2}' <"$AMDATADIR"/"$ARCH"-apps > "$AMDATADIR"/list
-	[ -f "$AMDATADIR"/"$ARCH"-appbundle ] && awk '{print $2}' "$AMDATADIR"/"$ARCH"-appbundle >> "$AMDATADIR"/list
-	[ -f "$AMDATADIR"/"$ARCH"-toolpack ] && awk '{print $2}' "$AMDATADIR"/"$ARCH"-toolpack | sed -e 's/$/.toolpack/' >> "$AMDATADIR"/list
+	_completion_list_third_party
 	# Append options to the list
 	for o in $available_options; do
 		echo "$o" >> "$AMDATADIR"/list
 	done
+	# Detecl valid lists
+	valid_lists="apps$\|appimages$"
+	for tp_list in $third_party_lists; do
+		valid_lists="$valid_lists\|$tp_list$"
+	done
+	for l in "$AMDATADIR"/"$ARCH"-*; do
+		! echo "$l" | grep -q "$valid_lists" && rm -f "$l"
+	done
 }
 
-# BASH AND ZSH COMPLETION
+# BASH, FISH AND ZSH COMPLETION
 completion_file="$DATADIR/bash-completion/completions/$AMCLI"
 mkdir -p "$DATADIR/bash-completion/completions" || exit 1
-[ -f "$HOME"/.bash_completion ] && sed -i "/ $AMCLI$/d" "$HOME"/.bash_completion
 if ! grep -o " $AMCLI$" "$completion_file" >/dev/null 2>&1; then
 	echo "complete -W \"\$(cat $AMDATADIR/list 2>/dev/null)\" $AMCLI" >> "$completion_file"
 	if [ -f "${ZDOTDIR:-$HOME}"/.zshrc ] && echo "$SHELL" | grep -q "zsh"; then
@@ -465,6 +544,9 @@ if ! grep -o " $AMCLI$" "$completion_file" >/dev/null 2>&1; then
 		HEREDOC
 	fi
 	echo "Shell completion has been enabled!"
+fi
+if [ -d "$DATADIR"/fish/completions ] || [ -d /etc/fish/completions ] || [ -d /usr/share/fish/completions ]; then
+	command -v fish 1>/dev/null && [ ! -f "$CONFIGDIR"/fish/completions/am.fish ] && mkdir -p "$CONFIGDIR"/fish/completions && echo "complete -c am -f -a \"(cat $DATADIR/AM/list 2>/dev/null)\"" > "$CONFIGDIR"/fish/completions/am.fish
 fi
 
 # VERSION OF THE INSTALLED APPS
@@ -574,9 +656,9 @@ _remove_info_files() {
 	rm -f "$AMCACHEDIR"/version-args
 }
 
-################################################################################
+################################################################################################################################################################
 #				APIKEY
-################################################################################
+################################################################################################################################################################
 
 ghapikey_file="$AMDATADIR/ghapikey.txt"
 # Set header authorization if GitHub API key file exists
@@ -617,9 +699,9 @@ _update_github_api_key_in_the_updater_files() {
     	fi
 }
 
-################################################################################
+################################################################################################################################################################
 #				APPMAN MODE
-################################################################################
+################################################################################################################################################################
 
 APPMAN_MSG="$DIVIDING_LINE\n \"AM\" is running as \"AppMan\", use ${Green}am --system\033[0m to switch it back to \"AM\"\n$DIVIDING_LINE\n"
 APPMAN_MSG_OFF="$DIVIDING_LINE\n \"AppMan Mode\" disabled! \n$DIVIDING_LINE\n"
@@ -655,9 +737,9 @@ if [ "$AMCLI" = am ]; then
 	fi
 fi
 
-################################################################################
+################################################################################################################################################################
 #				CLEAN
-################################################################################
+################################################################################################################################################################
 
 _clean_amcachedir_message() {
 	_clean_amcachedir
@@ -752,9 +834,32 @@ _use_clean() {
 	_clean_old_modules
 }
 
-################################################################################
+################################################################################################################################################################
+#				HIDE/UNHIDE
+################################################################################################################################################################
+
+_use_hide_unhide() {
+	entries="$(echo "$@" | cut -f2- -d ' ')"
+	if [ "$1" = hide ]; then
+		for arg in $entries; do
+			argpath=$(echo "$ARGPATHS" | grep "/$arg$")
+			[ -f "$argpath/remove" ] && mv "$argpath/remove" "$argpath/remove.old" \
+			&& echo "✔ $argpath has been hidden" || echo "✖ Can't hide \"$arg\", app already hidden or non-existent"
+		done
+	else
+		for arg in $entries; do
+			[ "$AMCLI" = am ] && [ -f "/opt/$arg/remove.old" ] && mv "/opt/$arg/remove.old" "/opt/$arg/remove" \
+			&& echo "✔ /opt/$arg can be managed again"
+			[ -n "$APPMAN_APPSPATH" ] && [ -f "$APPMAN_APPSPATH/$arg/remove.old" ] && mv "$APPMAN_APPSPATH/$arg/remove.old" "$APPMAN_APPSPATH/$arg/remove" \
+			&& echo "✔ $APPMAN_APPSPATH/$arg can be managed again"
+		done
+		_clean_amcachedir
+	fi
+}
+
+################################################################################################################################################################
 #				SYNC
-################################################################################
+################################################################################################################################################################
 
 _sync_installation_scripts() {
 	printf "%b\n Checking for changes of the installation scripts in the online database...\n" "$DIVIDING_LINE"
@@ -770,7 +875,8 @@ _sync_installation_scripts() {
 				if [ "$CURRENT" = "$SOURCE" ]; then
 					echo -ne "\r" 2>/dev/null
 				else
-					printf " ◆ Changed https://github.com/ivan-hc/AM/blob/main/programs/%b/%b\n" "$ARCH" "$scriptname"
+					printf " ◆ %b%b\033[0m has changed, you may need to reinstall it, see\n   https://github.com/ivan-hc/AM/blob/main/programs/%b/%b\n" "${RED}" "$scriptname" "$ARCH" "$scriptname"
+					to_reinstall_true=1
 				fi
 			else
 				if curl --output /dev/null --silent --head --fail "$APPSDB"/"$arg"  1>/dev/null; then
@@ -781,41 +887,18 @@ _sync_installation_scripts() {
 			fi
 		fi
 	done
+	[ -n "$to_reinstall_true" ] && printf "\n To fix the above, just run \"%b%b reinstall\033[0m\", without arguments\n" "${Green}" "$AMCLI"
 }
 
 _sync_appimages_list() {
-	APPIMAGES_LIST="${APPIMAGES_LIST:-https://raw.githubusercontent.com/Portable-Linux-Apps/Portable-Linux-Apps.github.io/main/x86_64-appimages}"
-	if [ "$ARCH" = x86_64 ]; then
-		curl -Ls "$APPIMAGES_LIST" > "$AMDATADIR/$ARCH-appimages"
-	else
-		rm -f "$AMDATADIR/$ARCH-appimages"
-		APPIMAGE_NAMES=$(curl -Ls "$APPIMAGES_LIST" | awk -v FS="(◆ | : )" '{print $2}')
-		for appimage in $APPIMAGE_NAMES; do
-			grep "◆ $appimage :" "$AMDATADIR/$ARCH-apps" >> "$AMDATADIR/$ARCH-appimages" &
-		done
-		wait
-	fi
-}
-
-_sync_appbundle_list() {
-	rm -f "$AMDATADIR/$ARCH-appbundle"
-	curl -Ls "$appbundle_readme" | grep -v "\.appimage \|?" | grep "\.appbundle " | cut -d":" -f1 | cut -d"@" -f2 | sed 's/^| /◆ /g; s/ https$//g; s/ :$//g; s/ | / : /g; s/ |$/./g; s/\.\.$/./g;' | sort > "$AMDATADIR/$ARCH-appbundle"
-}
-
-_sync_toolpacks_list() {
-	rm -f "$AMDATADIR/$ARCH-toolpack"
-	curl -Ls "$toolpack_readme" | grep -v "\.appimage \|.appbundle \|?" | cut -d":" -f1 | cut -d"@" -f2 | sed 's/^| /◆ /g; s/ | https$/. To install it use the "--toolpack" flag./g; s/ | / : /g' | sort > "$AMDATADIR/$ARCH-toolpack"
-}
-
-_sync_third_party_lists() {
-	_sync_appbundle_list
-	_sync_toolpacks_list
+	APPIMAGES_LIST="${APPIMAGES_LIST:-$AMREPO/programs/$ARCH-appimages}"
+	curl -Ls "$APPIMAGES_LIST" > "$AMDATADIR/$ARCH-appimages"
 }
 
 _sync_databases() {
 	printf "%b\n Check and update offline lists of additional databases...\n" "$DIVIDING_LINE"
 	_sync_appimages_list
-	_sync_third_party_lists
+	_sync_third_party_lists 2>/dev/null
 	_completion_lists
 }
 
@@ -873,9 +956,9 @@ _use_sync() {
 	echo "$DIVIDING_LINE"
 }
 
-################################################################################
+################################################################################################################################################################
 #				UPDATE
-################################################################################
+################################################################################################################################################################
 
 _update_updatable_apps_msg_head() {
 	printf " \"%b\" CAN MANAGE UPDATES FOR THE FOLLOWING PROGRAMS:\n%b\n\n" "$AMCLIUPPER" "$DIVIDING_LINE"
@@ -917,11 +1000,28 @@ _update_determine_apps_version_changes() {
 	fi
 }
 
+_update_torsocks_handler() {
+	torsocks_congif_file=$(find /etc -type f -name torsocks.conf 2>/dev/null)
+	if [ -n "$torsocks_congif_file" ]; then
+		if grep -q "^#AllowOutboundLocalhost 1" "$torsocks_congif_file" && command -v appimageupdatetool 1>/dev/null; then
+			[ ! -f "$AMDATADIR"/torsocks.conf ] && cat "$torsocks_congif_file" > "$AMDATADIR"/torsocks.conf
+			sed -i 's/^#AllowOutboundLocalhost 1/AllowOutboundLocalhost 1/g' "$AMDATADIR"/torsocks.conf
+			[ -f "$AMDATADIR"/torsocks.conf ] && export TORSOCKS_CONF_FILE="$AMDATADIR"/torsocks.conf
+			GH_API_ALLOWED=$(torsocks curl -Ls $HeaderAuthWithGITPAT https://api.github.com/repos/ivan-hc/AM/releases/latest | sed 's/[()",{} ]/\n/g' | grep "^ivan-hc" | head -1)
+			if [ -z "$GH_API_ALLOWED" ]; then
+				printf " ✖ %b update failed, please restart %btor.service\033[0m to fix! \n" "$APPNAME" "${Green}"
+				exit 1
+			fi
+		fi
+	fi
+}
+
 _update_run_updater() {
 	if grep -q "api.github.com" "$argpath"/AM-updater; then
 		GH_API_ALLOWED=$(curl -Ls $HeaderAuthWithGITPAT https://api.github.com/repos/ivan-hc/AM/releases/latest | sed 's/[()",{} ]/\n/g' | grep "^ivan-hc" | head -1)
 		if [ -z "$GH_API_ALLOWED" ]; then
 			if command -v torsocks 1>/dev/null; then
+				_update_torsocks_handler
 				if [ -z "$debug_update" ]; then
 					torsocks "$argpath"/AM-updater >/dev/null 2>&1
 				else
@@ -946,7 +1046,8 @@ _update_run_updater() {
 		fi
 	fi
 	end=$(date +%s)
-	echo " ◆ $APPNAME is updated, $((end - start)) seconds elapsed!"
+	timelapsed=$((end - start))
+	[ "$timelapsed" = 1 ] && echo " ◆ $APPNAME is updated, $timelapsed second elapsed!" || echo " ◆ $APPNAME is updated, $timelapsed seconds elapsed!"
 	[ -n "$debug_update" ] && echo "$DIVIDING_LINE"
 }
 
@@ -970,6 +1071,7 @@ _update_all_apps() {
 		fi
 	done
 	wait
+	rm -f "$AMDATADIR"/torsocks.conf
 	_update_determine_apps_version_changes
 	rm -Rf "$APPSPATH"/*/tmp
 	[ -d "$APPMAN_APPSPATH" ] && rm -Rf "$APPMAN_APPSPATH"/*/tmp
@@ -1043,6 +1145,8 @@ _use_update() {
 			if [ -f "$argpath"/AM-updater ]; then
 				cd "$argpath" 2>/dev/null || exit 1
 				_update_app
+			elif [ ! -d "$argpath" ]; then
+				echo " ✖ ERROR: \"$(echo "$arg" | tr '[:lower:]' '[:upper:]')\" does not exists!"
 			else
 				UPDATERS=$(cd "$argpath" 2>/dev/null && find . -name "*update*" -print 2>/dev/null)
 				[ -n "$UPDATERS" ] && arg_autoupdatable=", it may have its update system"
@@ -1050,6 +1154,7 @@ _use_update() {
 			fi
 		done
 		wait
+		rm -f "$AMDATADIR"/torsocks.conf
 		exit 0
 	fi
 }
@@ -1077,9 +1182,9 @@ _use_force_latest() {
 	done
 }
 
-################################################################################
+################################################################################################################################################################
 #				USAGE
-################################################################################
+################################################################################################################################################################
 
 # HANDLE ALL THE EXTERNAL MODULES
 _use_module() {
@@ -1132,7 +1237,8 @@ case "$1" in
 	'download'|'-d'|\
 	'extra'|'-e'|\
 	'install'|'-i'|'-ias'|\
-	'install-appimage'|'-ia')
+	'install-appimage'|'-ia'|\
+	'reinstall')
 		MODULE="install.am"
 		_online_check
 		[ "$CLI" = am ] && [ -f "$APPMANCONFIG"/appman-mode ] && printf "%b" "$APPMAN_MSG"
@@ -1163,6 +1269,10 @@ case "$1" in
 	'clean'|'-c')
 		_use_clean
 		;;
+	'hide'|'unhide')
+		_determine_args
+		_use_hide_unhide "$@"
+		;;
 	'newrepo'|'neodb')
 		_use_newrepo "$@"
 		;;
@@ -1184,9 +1294,9 @@ case "$1" in
 		for n in $ARGPATHS; do sed -e '/notify-send/ s/^#*//' -i "$n/AM-updater" 2>/dev/null; done
 		;;
 	'help'|'-h')
-		################################################################################
+		################################################################################################################################################################
 		#				HELP
-		################################################################################
+		################################################################################################################################################################
 
 		_use_help() {
 			[ "$CLI" = am ] && [ -f "$APPMANCONFIG"/appman-mode ] && printf "%b" "$APPMAN_MSG"
@@ -1265,6 +1375,12 @@ case "$1" in
 
 			Description: Prints this message.
 
+			${Gold}hide\033[0m
+
+					${LightBlue}$AMCLI hide {PROGRAM}\033[0m
+
+			Description: Prevents an installed application from being shown or managed by \"$AMCLI\".
+
 			${Gold}home, -H, --home\033[0m
 
 					${LightBlue}$AMCLI -H {PROGRAM}\033[0m
@@ -1286,7 +1402,7 @@ case "$1" in
 					${LightBlue}$AMCLI -i --icons {PROGRAM}
 					${LightBlue}$AMCLI -i --sandbox {PROGRAM}\033[0m
 
-			Description: Install one or more programs or libraries from the list. With the \"--debug\" option you can see log messages to debug the script. For more details on \"--force-latest\", see the dedicated option, below. Use the \"--icons\" flag to allow the program to use icon themes. It can also be extended with additional flags (see \"--toolpack\"). The \"--sandbox\" flag allows you to set sandboxes for AppImage packages.
+			Description: Install one or more programs or libraries from the list. With the \"--debug\" option you can see log messages to debug the script. For more details on \"--force-latest\", see the dedicated option, below. Use the \"--icons\" flag to allow the program to use icon themes. It can also be extended with additional flags (see third-party flags, at the bottom of this message). The \"--sandbox\" flag allows you to set sandboxes for AppImage packages.
 
 			${Gold}install-appimage, -ia, -ias\033[0m
 
@@ -1309,10 +1425,9 @@ case "$1" in
 
 					${LightBlue}$AMCLI -l
 					${LightBlue}$AMCLI -l --all
-					${LightBlue}$AMCLI -l --appimages
-					${LightBlue}$AMCLI -l --toolpack {KEYWORD}\033[0m
+					${LightBlue}$AMCLI -l --appimages\033[0m
 
-			Description: Shows the list of all the apps available, or just the AppImages. It can also be extended with additional flags, the \"--all\" flag allows you to consult the set of all supported databases (see \"--toolpack\").
+			Description: Shows the list of all the apps available, or just the AppImages. It can also be extended with additional flags, the \"--all\" flag allows you to consult the set of all supported databases (see third-party flags, at the bottom of this message).
 
 			${Gold}newrepo, neodb\033[0m
 
@@ -1341,10 +1456,15 @@ case "$1" in
 					${LightBlue}$AMCLI -q {KEYWORD}
 					${LightBlue}$AMCLI -q --all {KEYWORD}
 					${LightBlue}$AMCLI -q --appimages {KEYWORD}
-					${LightBlue}$AMCLI -q --pkg {PROGRAM1} {PROGRAM2}
-					${LightBlue}$AMCLI -q --toolpack {KEYWORD}\033[0m
+					${LightBlue}$AMCLI -q --pkg {PROGRAM1} {PROGRAM2}\033[0m
 
-			Description: Search for keywords in the list of available applications, add the \"--appimages\" option to list only the AppImages or add \"--pkg\" to list multiple programs at once. It can also be extended with additional flags, the \"--all\" flag allows you to consult the set of all supported databases (see \"--toolpack\").
+			Description: Search for keywords in the list of available applications, add the \"--appimages\" option to list only the AppImages or add \"--pkg\" to list multiple programs at once. The \"--all\" flag allows you to consult the set of all supported databases.
+
+			${Gold}reinstall\033[0m
+
+					${LightBlue}$AMCLI reinstall\033[0m
+
+			Description: Reinstall only programs whose installation script has been modified in AM's online database.
 
 			${Gold}remove, -r\033[0m
 
@@ -1377,6 +1497,12 @@ case "$1" in
 					${LightBlue}$AMCLI -t {PROGRAM}\033[0m
 
 			Description: Generate a custom installation script. To test the scripts, use the \"${LightBlue}$AMCLI -i '/path/to/script'\033[0m\" command or enter the directory of the script and run the \"${LightBlue}$AMCLI -i ./script\033[0m\" command, even using dedicated flags, if necessary (see \"-i\").
+
+			${Gold}unhide\033[0m
+
+					${LightBlue}$AMCLI unhide {PROGRAM}\033[0m
+
+			Description: Allow a hidden app to be shown and managed again (nulls \"hide\").
 
 			${Gold}unlock\033[0m
 
@@ -1430,7 +1556,7 @@ case "$1" in
 
 					${LightBlue}$AMCLI --enable-notifications\033[0m
 
-			Description: Eable notifications during apps update (nulls \"--disable-notifications\").
+			Description: Enable notifications during apps update (nulls \"--disable-notifications\").
 
 			${Gold}--force-latest\033[0m
 
@@ -1449,19 +1575,6 @@ case "$1" in
 			${Gold}--system\033[0m
 
 					${LightBlue}am --system\033[0m
-
-			Description: Switch \"AM\" back to \"AM\" from \"AppMan Mode\" (see \"--user\").
-
-			${Gold}--toolpack\033[0m
-
-					${LightBlue}$AMCLI -i --toolpack {PROGRAM}\033[0m
-					${LightBlue}am -i --toolpack --user {PROGRAM}
-					${LightBlue}$AMCLI -l --toolpack
-					${LightBlue}$AMCLI -q --toolpack {KEYWORD}\033[0m
-
-			Description: This is a flag to use in \"-i\" to install Toolpack programs, in \"-l\" to list all available Toolpacks, and \"-q\" to search the Toolpack list. Toolpack is a collection of programs external to the \"AM\" database. Visit $toolpack_repo to learn more.
-
-			NOTE, for installations you can use \".toolpack\" as the package extension instead of using the flag.
 
 			${Gold}--user\033[0m
 
@@ -1489,16 +1602,21 @@ case "$1" in
 				${LightBlue}am -ia --user --debug {PROGRAM}
 				${LightBlue}am -ia --user --force-latest {PROGRAM}
 				${LightBlue}am -ia --user --icons {PROGRAM}
-				${LightBlue}am -ia --user --debug --force-latest {PROGRAM}
+				${LightBlue}am -ia --user --debug --force-latest {PROGRAM}\033[0m
 				${LightBlue}am -ia --user --debug --force-latest --icons {PROGRAM}\033[0m
 
 			- External AppImages can be installed like this as well, option \"-e\" or \"extra\":
 
-				${LightBlue}am -e --user user/project {APPNAME}
+				${LightBlue}am -e --user user/project {APPNAME}\033[0m
 				${LightBlue}am -e --user user/project {APPNAME} {KEYWORD}\033[0m
 
 			NOTE, \"AM\" 9 or higher is also able to, update and manage apps locally, by default, and without having to switch to \"AppMan Mode\".
 
+			Description: Switch \"AM\" back to \"AM\" from \"AppMan Mode\" (see \"--user\").
+
+			$DIVIDING_LINE
+
+			THIRD-PARTY FLAGS: $third_party_flags_message
 			$DIVIDING_LINE
 
 			 SITES:
