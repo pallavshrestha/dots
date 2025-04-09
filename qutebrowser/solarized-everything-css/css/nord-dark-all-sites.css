@@ -1735,3 +1735,6 @@ a.comment-user.owner {
   background-color: #4c556a !important;
   background: #4c556a !important;
 }
+shreddit-ad-post {
+    display: none !important;
+}
