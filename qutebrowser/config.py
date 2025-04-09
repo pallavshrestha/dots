@@ -30,12 +30,15 @@ config.set("content.cookies.store", False)
 config.source("cookies-whitelist.py")
 config.bind(",s", "cmd-set-text -s :session-load -c ")
 
+# spellcheck
+config.set("spellcheck.languages", ["en-US"])
+
 
 # Use vim to edit specific line
 # Not working for some reason, probably some fix required
 # config.set("vim", "-f", "{file}", "-c", "normal {line}G{column0}l")
 
-# ================== Youtube Add Blocking ======================= {{{
+# ================== Youtube Add Blocking ======================={{{
 from qutebrowser.api import interceptor
 
 
