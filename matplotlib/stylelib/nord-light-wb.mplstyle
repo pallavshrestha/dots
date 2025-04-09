@@ -76,8 +76,11 @@ ytick.minor.size: 2.5
 
 # Font
 text.color: 3b4252
-font.family: sans-serif
+# font.family: sans-serif
 font.sans-serif: Myriad Pro, Gill Sans Nova, Gill Sans MT, Gill Sans, Helvetica, Arial, DejaVu Sans, Bitstream Vera Sans, sans-serif
+font.family : serif
+font.serif : STIXGeneral
+mathtext.fontset : stix
 # font.size: 14
 # axes.labelsize: 16
 # axes.titlesize: 16
