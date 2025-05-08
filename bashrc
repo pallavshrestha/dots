@@ -129,3 +129,18 @@ unset __conda_setup
 
 ################################################################################
 
+# pipx completions
+eval "$(register-python-argcomplete pipx)"
+
+
+################################################################################
+neofetch() {
+    # Define the list of arguments
+    local args=("tree" "oni" "trollface" "trollface_alt" "witcher" "witcher_small" "darkos")
+
+    # Get a random index
+    local random_index=$(( RANDOM % ${#args[@]} ))
+
+    # Call neofetch with the random argument
+    command neofetch --ascii_distro "${args[$random_index]}"
+}

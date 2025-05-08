@@ -524,6 +524,7 @@ for_window [window_type="menu"]                         floating enable
 for_window [window_role="search"]                       floating enable
 for_window [window_role="about"]                        floating enable
 for_window [window_role="filterlist"]                   floating enable
+for_window [window_role="(?i)manager"]                  floating enable
 
 # set fullscreen for apps
 for_window [title="Steam Big Picture Mode"] fullscreen
