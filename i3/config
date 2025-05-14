@@ -417,10 +417,10 @@ assign [class="^xterm$|^uxterm$|^XTerm$|^UXTerm$"] $ws1
 assign [class="(?i)xfce4-terminal"] $ws1
 assign [class="(?i)qutebrowser"] $ws2
 assign [class="mpv"] $ws3
-assign [class="LibreWolf"] $ws3
+assign [class="librewolf"] $ws3
 assign [class="Thunar"] $ws4
 assign [title="(?i)raw(?i)therapee*"] $ws5
-assign [class="Vmware-view"] $ws5
+assign [class="(?i)horizon-client"] $ws5
 assign [class="thunderbird"] $ws6
 assign [class="teams-for-linux"] $ws7
 assign [class="(?i)microsoft (?i)teams - (?i)preview"] $ws7
@@ -525,6 +525,7 @@ for_window [window_role="search"]                       floating enable
 for_window [window_role="about"]                        floating enable
 for_window [window_role="filterlist"]                   floating enable
 for_window [window_role="(?i)manager"]                  floating enable
+for_window [window_role="Accounts"]                     floating enable
 
 # set fullscreen for apps
 for_window [title="Steam Big Picture Mode"] fullscreen
