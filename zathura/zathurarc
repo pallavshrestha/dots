@@ -3,6 +3,8 @@ set default-fg 			"#eceff4"  # nord6, white-ish
 # set default-bg 			"#3b4252" # nord1 
 set default-bg 			"rgba(46,52,64,1)"  #2e3440" # nord0, darkest
 
+set guioptions none
+
 # set completion-bg		"#3b4252"
 set completion-bg		"#2e3440"
 set completion-fg		"#eceff4"
@@ -11,10 +13,12 @@ set completion-highlight-fg	"#eceff4"
 set completion-group-bg		"#3b4252"
 set completion-group-fg		"#88c0d0" # nord8
 
-set statusbar-fg		"#2e3440" # "#eceff4"
-set statusbar-bg		"#88c0d0" # "#4c5566a"
-set statusbar-h-padding		10
-set statusbar-v-padding		10
+set statusbar-fg		"#2e3440" #"#eceff4" # "#2e3440"
+set statusbar-bg		"#8fbcbb"
+set statusbar-h-padding		5
+set statusbar-v-padding		5
+set statusbar-home-tilde "true"
+# set statusbar-basename "true"
 
 set notification-bg		"#2e3440"
 set notification-fg		"#eceff4"
@@ -34,6 +38,7 @@ set recolor			"true"
 map <F1> focus_inputbar ":set recolor-lightcolor rgba(59,66,82,1)" #\#3b4252"    
 map <F2> focus_inputbar ":set recolor-darkcolor \#ffffff"    
 map ! feedkeys "<F1><Return><F2><Return>"    
+map <C-s> toggle_statusbar
 
 # gruvbox light recolor 
 map <F3> focus_inputbar ":set recolor-lightcolor \#f2e5bc"    
@@ -70,3 +75,4 @@ set recolor-keephue
 
 # for inversesearch
 set synctex true
+set synctex-editor-command "vim --remote-silent +%{line} %{input}"

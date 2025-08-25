@@ -12,7 +12,11 @@ export BROWSER='/usr/bin/qutebrowser'
 export PATH="$HOME/Applications:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.config/scripts:$PATH"
-export BAT_THEME="base16"
+export BAT_THEME="Nord"
+export TERM=xterm-256color
+export FZF_COMPLETION_TRIGGER='**'
+export FZF_COMPLETION_OPTS="--preview 'fzf-preview.sh {}'"
+
 ################################################################################
 
 #############
