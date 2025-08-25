@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# If arguments are provided, use them; otherwise, grab all .md files
+if [[ $# -gt 0 ]]; then
+    files=("$@")
+else
+    files=( *.md )
+fi
+
+for file in "${files[@]}"; do
+    if [[ -e "$file" ]]; then
+        base_name="${file%.md}"
+        pandoc "$file" \
+            -o "${base_name}.pdf" \
+            --pdf-engine=pdflatex \
+            -V geometry:a4paper \
+            -V header-includes:"\usepackage{xcolor}\pagecolor[HTML]{3b4252}\color[HTML]{eceff4}"
+        echo "Converted $file to ${base_name}.pdf"
+    else
+        echo "Warning: '$file' not found."
+    fi
+done
