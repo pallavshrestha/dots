@@ -1,6 +1,5 @@
 Electron/
 GIMP*/
-Kitware/
 Microsoft/
 QtProject.conf
 RawTherapee*
@@ -11,7 +10,6 @@ ardour*
 autostart
 btop
 cef_user_data
-chromium/
 dconf
 discord/
 fontconfig/
@@ -66,4 +64,3 @@ tenacity/
 /steam-rom-manager/
 /sway.bak/
 /sway/
-/iamb/

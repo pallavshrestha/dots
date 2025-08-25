@@ -273,8 +273,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # Backlight control
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10-
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
 # change focus
 bindsym $mod+h focus left
@@ -641,12 +641,14 @@ bindsym F10 exec --no-startup-id rofi -show window \
 -theme ~/.config/rofi/nord.rasi
 
 # Keyboard map changes
-bindsym $mod+space exec --no-startup-id (setxkbmap -query | grep -q "layout:\s\+us") && setxkbmap fi || setxkbmap us 
+bindsym $mod+space exec --no-startup-id (setxkbmap -query | grep -q "layout:\s\+us") && setxkbmap fi || (setxkbmap us && xmodmap ~/.Xmodmap)
 # aring, adiaeresis and odiaersis already included in xmodmap
+# modmap needs reloading after chaning
 
 ## Swapcaps and escape# already included in xmodmap
 exec_always --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape" 
-exec_always --no-startup-id xmodmap ~/.Xmodmap 
+# exec_always --no-startup-id xmodmap ~/.Xmodmap 
+exec_always --no-startup-id sh -c "sleep 0.5 && xmodmap ~/.Xmodmap"
 ##Touch pad toggle
 bindsym $mod+F9 exec --no-startup-id touchpad_toggle.sh
 
