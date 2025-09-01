@@ -75,4 +75,5 @@ set recolor-keephue
 
 # for inversesearch
 set synctex true
-set synctex-editor-command "vim --remote-silent +%{line} %{input}"
+# set synctex-editor-command "vim --remote-silent +%{line} %{input}"
+ set synctex-editor-command "vim -v --not-a-term -T dumb -c \"VimtexInverseSearch %{line}:%{column} '%{input}'\""
