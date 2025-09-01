@@ -52,6 +52,7 @@ axes.grid: False
 axes.linewidth: 1.25
 axes.titlelocation: left
 axes.titleweight: bold
+axes.labelweight: bold
 
 # Grid
 grid.color: e5e9f0 #eceff4
