@@ -1,34 +1,49 @@
-! /usr/bin/env bash
+#!/usr/bin/env bash
+# switch-audio-port.sh
+# Cycle through available PulseAudio sinks and switch to the next one.
 
-set -eu
+set -euo pipefail
 
-# Get the ID for the current DEFAULT_SINK
-defaultSink=$(pactl info | grep "Default Sink: " | awk '{ print $3 }')
+# Get the name of the currently active sink
+current_sink=$(pactl get-default-sink 2>/dev/null || \
+    pactl info | awk -F': ' '/Default Sink/ {print $2}')
 
-# Query the list of all available sinks
-sinks=()
-i=0
-while read line; do
-    index=$(echo $line | awk '{ print $1 }')
-    sinks[${#sinks[@]}]=$index
+if [[ -z "$current_sink" ]]; then
+    echo "Error: No default sink found."
+    exit 1
+fi
 
-    # Find the current DEFAULT_SINK
-    if grep -q "$defaultSink" <<< "$line"; then
-        defaultIndex=$index
-        defaultPos=$i
+# List all sinks (just their names) in the order PulseAudio reports them
+mapfile -t sinks < <(pactl list short sinks | awk '{print $2}')
+
+if [[ ${#sinks[@]} -eq 0 ]]; then
+    echo "Error: No sinks detected."
+    exit 1
+fi
+
+# Find the index of the current sink
+current_index=-1
+for i in "${!sinks[@]}"; do
+    if [[ "${sinks[i]}" == "$current_sink" ]]; then
+        current_index=$i
+        break
     fi
+done
 
-    i=$(( $i + 1 ))
-done <<< "$(pactl list sinks short)"
+if [[ $current_index -eq -1 ]]; then
+    echo "Warning: Current sink not in list; defaulting to first sink."
+    next_index=0
+else
+    # Compute the index of the next sink (wrap around)
+    next_index=$(( (current_index + 1) % ${#sinks[@]} ))
+fi
 
-# Compute the ID of the new DEFAULT_SINK
-newDefaultPos=$(( ($defaultPos + 1) % ${#sinks[@]} ))
-newDefaultSink=${sinks[$newDefaultPos]}
+next_sink="${sinks[next_index]}"
 
-# Update the DEFAULT_SINK
-pacmd set-default-sink $newDefaultSink
+# Switch the default sink
+pactl set-default-sink "$next_sink"
 
-# Move all current playing streams to the new DEFAULT_SINK
+# Move all currently playing streams to the new sink
 while read stream; do
     # Check whether there is a stream playing in the first place
     if [ -z "$stream" ]; then
@@ -38,3 +53,11 @@ while read stream; do
     streamId=$(echo $stream | awk '{ print $1 }')
     pactl move-sink-input $streamId @DEFAULT_SINK@
 done <<< "$(pactl list short sink-inputs)"
+
+
+# echo "Switched audio output from \"$current_sink\" to \"$next_sink\"."
+
+
+
+
+
