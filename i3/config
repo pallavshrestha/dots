@@ -368,7 +368,7 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Redirect sound to headphones
-bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
+bindsym $mod+p exec --no-startup-id ~/.config/scripts/switch-audio-port
 
 ## App shortcuts
 bindsym $mod+b exec --no-startup-id /usr/bin/qutebrowser

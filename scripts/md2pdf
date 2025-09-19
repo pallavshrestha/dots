@@ -13,7 +13,7 @@ for file in "${files[@]}"; do
         pandoc "$file" \
             -o "${base_name}.pdf" \
             --pdf-engine=pdflatex \
-            -V geometry:a4paper \
+            -V geometry:a2paper \
             -V header-includes:"\usepackage{xcolor}\pagecolor[HTML]{3b4252}\color[HTML]{eceff4}"
         echo "Converted $file to ${base_name}.pdf"
     else
