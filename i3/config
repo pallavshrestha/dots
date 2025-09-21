@@ -66,7 +66,7 @@ set $og 5
 
 # Set inner/outer gaps
 gaps inner $ig
-gaps outer $og 
+gaps outer $og
 
 ## Default_border style for new windows
 # default_border normal|none]pixel
@@ -491,9 +491,7 @@ exec_always --no-startup-id /usr/local/bin/disable-standby.py
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 
 # Some gtk specific values are sometimes not loaded properly
-exec_always --no-start-up-id dconf write /org/gnome/gesktop/interface/color-scheme '"prefer-dark"'
-exec_always --no-startup-id
-
+exec_always --no-startup-id dconf write /org/gnome/gesktop/interface/color-scheme "prefer-dark"
 exec_always --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme 'nordic'
 exec_always --no-startup-id gsettings set org.gnome.desktop.interface font-name 'Iosevka Nerd Fond Mono 12'
 exec_always --no-startup-id gsettings set org.gnome.desktop.interface icon-theme 'Qogir-dark' 
@@ -656,8 +654,8 @@ bindsym $mod+space exec --no-startup-id (setxkbmap -query | grep -q "layout:\s\+
 
 ## Swapcaps and escape# already included in xmodmap
 exec_always --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape" 
-# exec_always --no-startup-id xmodmap ~/.Xmodmap 
-exec_always --no-startup-id sh -c "sleep 0.5 && xmodmap ~/.Xmodmap"
+exec_always --no-startup-id xmodmap ~/.Xmodmap 
+# exec_always --no-startup-id sh -c "sleep 0.5 && xmodmap ~/.Xmodmap"
 ##Touch pad toggle
 bindsym $mod+F9 exec --no-startup-id touchpad_toggle.sh
 
