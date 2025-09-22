@@ -13,7 +13,7 @@ export PATH="$HOME/Applications:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.config/scripts:$PATH"
 export BAT_THEME="Nord"
-export TERM=xterm-256color
+export TERMINAL='alacritty'
 export FZF_COMPLETION_TRIGGER='**'
 export FZF_COMPLETION_OPTS="--preview 'fzf-preview.sh {}'"
 
@@ -34,7 +34,7 @@ alias m='devour mpv'
 alias top='btop'
 alias htop='btop'
 alias feh='feh --conversion-timeout 1'
-alias t='xfce4-terminal'
+alias t='$TERMINAL &'
 alias showorphans='pacman -Qtdq'
 alias removeorphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias present='impressive --noquit --nologo --wrap' 
