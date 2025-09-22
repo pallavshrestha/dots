@@ -1,0 +1,51 @@
+// Custom US Keyboard Layout with finnish alphabets and euro symbol
+partial alphanumeric_keys  modifier_keys
+xkb_symbols "fi-eu" {
+    name[Group1] = "English(us, intl., with fi and eu symbols)"
+    include "us(basic)"
+    key <AE10>	{[	 0,	 parenright,    degree,     periodcentered ]};
+    key <AE11>	{[   minus,	 underscore, endash, emdash	]};
+    key <AE12>	{[   equal,	 plus,  multiply, division	]};
+
+//    key <CAPS>  {[Escape]}; // keycode 66
+//    key <ESC>   {[Caps_Lock]} //keycode 9
+
+    key <AD03>	{[	 e,	 E, EuroSign, cent	]};
+    key <AD09>	{[	 o,	 O, odiaeresis, Odiaeresis]};
+    key <AD11>	{[ bracketleft,	 braceleft, aring,  Aring ]}; //keycode 34
+
+    key <AC01>	{[	 a,	 A, adiaeresis, Adiaeresis	]};
+    key <AC10>	{[ semicolon,	 colon,		odiaeresis,     Odiaeresis]};
+    key <AC11>	{[ apostrophe,	 quotedbl,	adiaeresis,     Adiaeresis]};
+
+    key <AB07>	{[	 m,	 M, mu, emdash	]};
+    key <AB10>	{[   slash,	 question, questiondown, U2026	]};
+
+    // key <MO01> { [ Mode_switch ] }; // keycode 108 */
+
+    include "level3(ralt_switch)"
+};
+
+
+// Author: Pallav Shrestha <pallav.shrestha@ik.me>
+// Layout based on classic US qwerty, with some extra keys from Finnish layout and internation layout
+// Features:
+// - Some commonly used special characters available:
+//
+//
+// ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━┓
+// │ ~   │ !   │ @   │ #   │ $   │ %   │ ^   │ &   │ *   │ (   │ ) · │ _ — │ = ÷ ┃Backspace┃
+// │ @   │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0 ° │ - – │ + × ┃ ⌫       ┃
+// ┢━━━━━┷━┱───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┺━┯━━━━━━━┫
+// ┃Tab    ┃ Q   │ W   │ E € │ R   │ T   │ Y   │ U   │ I   │ O Ö │ P   │ { Å │ }   │  |    ┃
+// ┃ ↹     ┃ q   │ w   │ e € │ r   │ t   │ y   │ u   │ i   │ o ö │ p   │ [ å │ ]   │  \    ┃
+// ┣━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┲━━━━┷━━━━━━━┫
+// ┃Caps    ┃ A   │ S   │ D   │ F   │ G   │ H   │ J   │ K   │ L   │ : Ö │ " Ä ┃   ⏎        ┃
+// ┃Lock  ⇬ ┃ a   │ s   │ d   │ f   │ g   │ h   │ j   │ k   │ l   │ ; ö │ ' ä ┃  Enter     ┃
+// ┣━━━━━━━━┻━━━┱─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┲━┻━━━━━━━━━━━━┫
+// ┃Shif        ┃ Z   │ X   │ C   │ V   │ B   │ N   │ M — │ <   │ >   │ ? … ┃  Shift       ┃
+// ┃ ⇧          ┃ z   │ x   │ c   │ v   │ b   │ n   │ m µ │ ,   │ .   │ / ¿ ┃   ⇧          ┃
+// ┣━━━━━━━┳━━━━┻━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴────┲┷━━━━━╈━━━━━┻┳━━━━━━┳━━━━━━┫
+// ┃Ctrl   ┃ Fn    ┃Alt    ┃ ␣ Space            Nobreakspace ⍽ ┃AltGr ┃Multi ┃ Ctxt ┃ Ctrl ┃
+// ┃       ┃       ┃       ┃ ␣ Space            Nobreakspace ⍽ ┃      ┃      ┃ Menu ┃      ┃
+// ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹───────────────────────────────────┺━━━━━━┻━━━━━━┻━━━━━━┻━━━━━━┛

@@ -1,0 +1,144 @@
+
+[bell]
+animation = "EaseOutCirc"
+color = "0x464d6a"
+duration = 0
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.bright]
+black = "#4c566a"
+red = "#bf616a"
+green = "#a3be8c"
+yellow = "#ebcb8b"
+blue = "#81a1c1"
+magenta = "#b48ead"
+cyan = "#8fbcbb"
+white = "#eceff4"
+
+
+[colors.normal]
+black = "#4c566a"
+red = "#bf616a"
+green = "#a3be8c"
+yellow = "#ebcb8b"
+blue = "#81a1c1"
+magenta = "#b48ead"
+cyan = "#8fbcbb"
+white = "#eceff4"
+
+[colors.dim] 
+black = "#373e4d"
+red = "#94545d"
+green = "#809575"
+yellow = "#b29e75"
+blue = "#68809a"
+magenta = "#8c738c"
+cyan = "#6d96a5"
+white = "#aeb3bb"
+
+
+
+[colors.primary]
+background = "#2e3440"
+foreground = "#d8dee9"
+dim_foreground = "#a5abb6"
+
+[colors.cursor]
+text = "#2e3440"
+cursor = "#d8dee9"
+
+[colors.vi_mode_cursor]
+text = "#2e3440"
+cursor = "#d8dee9"
+
+[colors.selection]
+text = "CellForeground"
+background = "#4c566a"
+
+[colors.search.matches]
+foreground = "CellBackground"
+background = "#88c0d0"
+
+[colors.footer_bar]
+background = "#434c5e"
+foreground = "#d8dee9"
+
+
+
+[cursor]
+blink_interval = 500
+thickness = 0.15
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "On"
+shape = "Block"
+
+
+[font]
+size = 12
+
+[font.bold]
+family = "Iosevka Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "Iosevka Nerd Font"
+style = "Bold Italic"
+
+[font.italic]
+family = "Iosevka Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "Iosevka Nerd Font"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
+
+[mouse]
+hide_when_typing = false
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+
+[[mouse.bindings]]
+action = "Copy"
+mouse = "Right"
+
+#[mouse.double_click]
+#threshold = 300
+
+#[mouse.triple_click]
+#threshold = 300
+
+[scrolling]
+history = 500
+multiplier = 1
+
+[window]
+decorations = "Full"
+decorations_theme_variant = "Dark"
+dynamic_padding = true
+dynamic_title = true
+opacity = 0.98
+# blur = true
+startup_mode = "Windowed"
+title = "Alacritty"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.padding]
+x = 12 
+y = 12
+
+[general]
+live_config_reload = true
+working_directory = "None"

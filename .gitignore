@@ -26,7 +26,6 @@ legendary/
 libreoffice
 lutris
 menus
-niri/
 obs-studio/
 pavucontrol.ini
 pipewire
@@ -49,7 +48,6 @@ torbrowser/
 uad/
 user-dirs.dirs
 user-dirs.locale
-waybar
 xarchiver/
 xfce4/
 xfce4/xfconf
