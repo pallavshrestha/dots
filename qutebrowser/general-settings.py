@@ -1,3 +1,4 @@
+config.set("fonts.web.family.fixed", "Iosevka Nerd Font")
 config.set("colors.webpage.bg", "#93a1a1")  # 3B4252
 config.set("colors.webpage.preferred_color_scheme", "dark")
 config.set("colors.webpage.darkmode.enabled", False)
