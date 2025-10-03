@@ -1,0 +1,69 @@
+// Global
+* {
+    bg: #2e3440;
+    bg-alt: #3b425280;
+    bg3: #88c0d0;
+    fg: #81a1c1;
+
+    background-color: @bg;
+    text-color: #81A1C1;
+    font: "Mononoki Nerd Font 12";
+}
+
+// Window 
+window {
+    fullscreen: true;
+    background-color: @bg;
+}
+
+// Main Box
+mainbox {
+  padding: 10%;
+  spacing: 4em;
+}
+
+// Input Bar
+inputbar {
+  background-color: @bg-alt;
+  children: ["prompt", "entry"];
+  border-radius: 15px;
+  margin: 0 30%;
+  padding: 12px;
+  spacing: 0.5em;
+}
+
+prompt{
+    background-color:inherit;
+    }
+entry {
+  placeholder: "Search:";
+  placeholder-color: @fg;
+  background-color: @bg-alt;
+  border:1px;
+  border-radius: 5px;
+}
+
+// List View
+listview {
+  columns: 8;
+  fixed-columns: true;
+  flow: horizontal;
+}
+element {
+  border-radius: 5px;
+  orientation: vertical;
+  padding: 2em;
+  children: [element-icon, element-text];
+  spacing: 0.5em;
+}
+element-icon {
+  size: 2em;
+}
+element-text {
+  highlight: none;
+  horizontal-align: 0.5;
+}
+element.selected {
+  border-color: @bg3;
+  border:1px;
+}

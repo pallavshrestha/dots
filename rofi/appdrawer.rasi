@@ -1,0 +1,17 @@
+configuration {
+    modes: [drun];
+    drun-display-format: "{name}";
+    matching: "fuzzy";
+    sort: true;
+    sorting-method: "fzf";
+    icon-theme: "Qogir-dark";
+    display-drun: " ";
+}
+
+@theme "themes/appdrawer_theme.rasi"   
+// @theme "themes/nord.rasi"   
+
+window {
+    fullscreen: true;
+    background-color: #2E3440;
+    }
