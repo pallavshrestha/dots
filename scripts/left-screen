@@ -1,2 +1,14 @@
 #!/bin/sh
-xrandr --output eDP --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI-A-0 --mode 1920x1080 --pos 0x0 --rotate normal
+
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    wlr-randr --output HDMI-A-1 --left-of eDP-1
+elif [ "$xdg_session_type" = "wayland" ]; then
+    xrandr --output edp --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output hdmi-a-0 --mode 1920x1080 --pos 0x0 --rotate normal
+else 
+    echo "unknown session type"
+    notify-send "unknown session type"
+    exit 1
+fi
+
+echo "Default HDMI-1 position: Left"
+notify-send "Default HDMI-1 position: Left"

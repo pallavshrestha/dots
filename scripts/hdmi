@@ -2,7 +2,8 @@
 
 status=$(cat /sys/class/drm/card1/card1-HDMI-A-1/status)
 if [[ $status == "connected" ]]; then
-      right-screen
+    notify-send "HDMI detected"
+      left-screen
       echo success 1
 else
     edp

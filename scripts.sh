@@ -6,7 +6,7 @@
 #########################
 
 pdfzf () {
-    open='devour xdg-open'   # this will open pdf file withthe default PDF viewer on KDE, xfce, LXDE and perhaps on other desktops.
+    open='xdg-open'   # this will open pdf file withthe default PDF viewer on KDE, xfce, LXDE and perhaps on other desktops.
 
     ag -U -g ".pdf$" \
     | fast-p \
@@ -62,27 +62,29 @@ __fzf_cd__() {
   opts="--height ${FZF_TMUX_HEIGHT:-40%} --bind=ctrl-z:ignore --reverse ${FZF_DEFAULT_OPTS-} ${FZF_ALT_C_OPTS-} +m"
   dir=$(set +o pipefail; eval "$cmd" | FZF_DEFAULT_OPTS="$opts" $(__fzfcmd)) && printf 'builtin cd -- %q' "$dir"
 }
-
-# Required to refresh the prompt after fzf
-bind -m emacs-standard '"\er": redraw-current-line'
- 
-
-bind -m vi-command '"\C-z": emacs-editing-mode'
-bind -m vi-insert '"\C-z": emacs-editing-mode'
-bind -m emacs-standard '"\C-z": vi-editing-mode'
-
-# CTRL-T - Paste the selected file path into the command line
-if [[ "${FZF_CTRL_T_COMMAND-x}" != "" ]]; then
-  bind -m emacs-standard -x '"\C-t": fzf-file-widget'
-  bind -m vi-command -x '"\C-t": fzf-file-widget'
-  bind -m vi-insert -x '"\C-t": fzf-file-widget'
-fi
-
-# ALT-C - cd into the selected directory
-if [[ "${FZF_ALT_C_COMMAND-x}" != "" ]]; then
-  bind -m emacs-standard '"\ec": " \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
-  bind -m vi-command '"\ec": "\C-z\ec\C-z"'
-  bind -m vi-insert '"\ec": "\C-z\ec\C-z"'
+if [[ $- = *i* ]]
+then
+    # Required to refresh the prompt after fzf
+    bind -m emacs-standard '"\er": redraw-current-line'
+     
+    
+    bind -m vi-command '"\C-z": emacs-editing-mode'
+    bind -m vi-insert '"\C-z": emacs-editing-mode'
+    bind -m emacs-standard '"\C-z": vi-editing-mode'
+    
+    # CTRL-T - Paste the selected file path into the command line
+    if [[ "${FZF_CTRL_T_COMMAND-x}" != "" ]]; then
+      bind -m emacs-standard -x '"\C-t": fzf-file-widget'
+      bind -m vi-command -x '"\C-t": fzf-file-widget'
+      bind -m vi-insert -x '"\C-t": fzf-file-widget'
+    fi
+    
+    # ALT-C - cd into the selected directory
+    if [[ "${FZF_ALT_C_COMMAND-x}" != "" ]]; then
+      bind -m emacs-standard '"\ec": " \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+      bind -m vi-command '"\ec": "\C-z\ec\C-z"'
+      bind -m vi-insert '"\ec": "\C-z\ec\C-z"'
+    fi
 fi
 
 ################################################################################
