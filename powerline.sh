@@ -14,8 +14,8 @@ __powerline() {
     # Symbols
     SYMBOL_GIT_BRANCH=${SYMBOL_GIT_BRANCH:- }
     SYMBOL_GIT_MODIFIED=${SYMBOL_GIT_MODIFIED:-*}
-    SYMBOL_GIT_PUSH=${SYMBOL_GIT_PUSH:-↑}
-    SYMBOL_GIT_PULL=${SYMBOL_GIT_PULL:-↓}
+    SYMBOL_GIT_PUSH=${SYMBOL_GIT_PUSH:-↑ }
+    SYMBOL_GIT_PULL=${SYMBOL_GIT_PULL:-↓ }
 
     if [[ -z "$PS_SYMBOL" ]]; then
       case "$(uname)" in
