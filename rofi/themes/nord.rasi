@@ -6,37 +6,6 @@
  * Copyright: *!
  */
 
-configuration {
-   font:				"Mononoki Nerd Font Regular 12";
-    modi:				"drun,run,ssh";
-    show-icons:				true;
-    icon-theme:				"Qogir-Dark";
-    display-ssh:    			"";
-    display-run:    			"";
-    display-drun:   			"";
-    display-window: 			"";
-    display-combi:  			"";
-
-    drun-display-format:		"{name}";
-    scroll-method:			0;
-    disable-history:			false;
-    sidebar-mode:			false;
-    terminal: "xfce4-terminal";
-    ssh-client: "ssh";
-    ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";
-    run-command: "{cmd}";
-    run-shell-command: "{terminal} -e {cmd}";
-    fixed-num-lines: false;
-    location: 2;
-    yoffset: 200;
-
-
-  timeout {
-    delay: 30;
-    action: "kb-cancel";
-  }
-}
-
 * {
   border: 0;
   margin: 0;
@@ -54,11 +23,12 @@ configuration {
 }
 
 window {
-  transparency: "real";
+transparency: "real";
 border-radius: 18px;
 border-color: @bg3;
 border:1px;
-width:500px;
+// width:500px;
+// location: center;
 }
 
 mainbox {

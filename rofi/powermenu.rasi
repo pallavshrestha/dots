@@ -32,6 +32,8 @@ timeout {
 }
 
 window {
+    // fullscreen: true;
+    border-radius: 10px;
     border:                         0;
     padding:                        5;
     transparency:                   "real";
@@ -41,13 +43,20 @@ window {
     border-color: @bord1;
 
 y-offset:                      -350;
-/*x-offset:	                    850;*/
+// x-offset:	                    850;
 }
+
+// mainbox{ //
+//     enabled: true;
+//     padding: 40% 13%;
+//     children: ["listview"];
+//     }
 
 listview {
     lines:                          1;
     columns:                        6;
     scrollbar:                     false;
+    flow: horizontal;
 }
 element {
     border:  0;
