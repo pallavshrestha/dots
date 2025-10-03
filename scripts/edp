@@ -1,3 +1,8 @@
 #!/bin/sh
-xrandr --output eDP --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-A-0 --off
-notify-send "eDp"
+if  [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    notify-send "eDP mode"
+    exit 1
+elif [ "$XDG_SESSION_TYPE" = "x11" ]; then
+    xrandr --output eDP --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-A-0 --off
+fi
+    notify-send "eDP mode"

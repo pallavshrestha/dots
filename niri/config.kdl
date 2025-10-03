@@ -3,7 +3,10 @@
 
 environment{
     QT_QPA_PLATFORMTHEME "qt6ct"
+    //QT_STYLE_OVERRIDE "GTK+"
     QT_STYLE_OVERRIDE "kvantum"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    GTK_THEME "nordic"
 }
 
 cursor {
@@ -122,6 +125,8 @@ spawn-at-startup "dunst"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "xwayland-satellite"
 spawn-sh-at-startup "~/.config/niri/scripts/refresh.sh"
+spawn-sh-at-startup "~/.config/scripts/left-screen"
+spawn-sh-at-startup "swayidle -w timeout 300 'swaylock -f -i ~/.config/dogagawa1080.png' timeout 600 'niri msg action power-off-monitors'  before-sleep 'swaylock -f -i ~/.config/dogagawa1080.png' &"
 
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
@@ -130,6 +135,7 @@ spawn-sh-at-startup "~/.config/niri/scripts/refresh.sh"
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
     skip-at-startup
+    hide-not-bound
 }
 
 // workspace "main"
@@ -143,11 +149,6 @@ animations {
     slowdown 2.0
 }
 
-window-rule{
-    geometry-corner-radius 7
-    clip-to-geometry true
-}
-
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     match app-id="Bluetooth-sendo" title="bluetooth-sendto"
@@ -156,9 +157,10 @@ window-rule {
     match app-id="qutebrowser" title="Whoops!"
     match app-id="zoom" //title="Presenter layout"
     match app-id="KeePassXC"
-    match app-id="thunar" title=r#"^Rename"#
+    match title="Reminder"
     open-floating true
 }
+
 
 window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
@@ -169,11 +171,12 @@ window-rule {
     match app-id="teams-for-linux"
     match app-id="zoom"
     match title=r#"^Duck"#
-    match title=r#"reddit$"#
-    match title=r#"Reddit$"#
+    match title=r#"(?i)reddit"#
     match title=r#"r/"#
     match title=r#"Login"#
     match title=r#"Telegram"#
+    match title=r#"Private"#
+    match title=r#"Mepco"#
 
     block-out-from "screen-capture"
 }
@@ -186,19 +189,53 @@ window-rule {
 window-rule{
     draw-border-with-background false
     match app-id="alacritty"
-    match app-id="thunar"
-    opacity 0.98
+    match app-id="foot"
+    match app-id="(?i)nautilus"
+    match app-id="swayimg"
+    // opacity 0.95
 }
-
 
 layer-rule {
     match namespace="waybar"
-    block-out-from "screen-capture"
+    match at-startup=true
+    place-within-backdrop true
+
+    //   opacity 0.9
+    // block-out-from "screen-capture"
+
+    shadow {
+        off
+        softness 10
+        spread 10
+        offset x=0 y=5
+    }
 }
 
 layer-rule {
     match namespace="^wallpaper$"
     place-within-backdrop true
+}
+
+window-rule {
+    match is-window-cast-target=true
+
+    focus-ring {
+        active-color "#f38ba8"
+        inactive-color "#7d0d2d"
+    }
+
+    border {
+        inactive-color "#7d0d2d"
+    }
+
+    shadow {
+        color "#7d0d2d70"
+    }
+
+    tab-indicator {
+        active-color "#f38ba8"
+        inactive-color "#7d0d2d"
+    }
 }
 
 
@@ -218,17 +255,18 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return hotkey-overlay-title="Open a Terminal: xfce-terminal" { spawn "alacritty"; }
-    Mod+d hotkey-overlay-title="Run an Application: rofi" { spawn-sh "rofi -show drun -them ~/.config/rofi/nord.rasi"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal" { spawn-sh "xdg-terminal-exec"; }
+    Mod+d hotkey-overlay-title="Run an Application: rofi" { spawn "rofi-drun"; }
     Mod+b hotkey-overlay-title="Run Qutebrowser" {spawn-sh "/usr/bin/qutebrowser";}
     Mod+Shift+b hotkey-overlay-title="Qutebrowser: Private window" {spawn-sh "/usr/bin/qutebrowser --target private-window";}
-    Mod+n hotkey-overlay-title="Terminal file manager: Ranger"  {spawn-sh "alacritty -e /usr/bin/ranger";}
-    Mod+m hotkey-overlay-title="File Manager: Thunar" {spawn-sh "/usr/bin/thunar";}
-    Mod+Shift+Escape hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-    Mod+x {spawn "pkill" "xwayland-satellite" "&&" "xwayland-satellite";}
+    Mod+a  {spawn "appdrawer";}
+    Mod+n hotkey-overlay-title="Terminal file manager: Ranger"  {spawn-sh "xdg-terminal-exec -e /usr/bin/ranger";}
+    Mod+m hotkey-overlay-title="File Manager: Nautilus" {spawn-sh "/usr/sbin/nautilus";}
+    Mod+Shift+Escape allow-inhibiting=false hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "swaylock -i ~/.config/dogagawa1080.png"; }
+    Mod+x {spawn-sh "killall xwayland-satellite; xwayland-satellite";}
     Mod+Shift+R {spawn-sh "~/.config/niri/scripts/refresh.sh";}
     Mod+p {spawn-sh "~/.config/scripts/switch-audio-port";}
-    Alt+Tab {spawn-sh "rofi -show window -theme ~/.config/rofi/nord.rasi";}
+    Alt+Tab {spawn-sh "rofi -show window -theme ~/.config/rofi/themes/nord.rasi";}
 
        // Mod+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
@@ -354,6 +392,7 @@ binds {
     Mod+Shift+F { fullscreen-window; }
 
     Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+Ctrl+Shift+F { toggle-windowed-fullscreen; }
 
 
 

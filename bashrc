@@ -12,8 +12,7 @@ export BROWSER='/usr/bin/qutebrowser'
 export PATH="$HOME/Applications:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.config/scripts:$PATH"
-export BAT_THEME="Nord"
-export TERMINAL='alacritty'
+export TERMINAL='xdg-terminal-exec'
 export FZF_COMPLETION_TRIGGER='**'
 export FZF_COMPLETION_OPTS="--preview 'fzf-preview.sh {}'"
 
@@ -24,13 +23,10 @@ export FZF_COMPLETION_OPTS="--preview 'fzf-preview.sh {}'"
 #############
 
 alias nay='yay -Rns'
-alias purge='yay -Rs $(yay -Qqtd)'
+alias purge='yay -Rns $(yay -Qqtd)'
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 alias v='vim'
-alias P='ipython'
 alias r='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
-alias z='devour zathura'
-alias m='devour mpv'
 alias top='btop'
 alias htop='btop'
 alias feh='feh --conversion-timeout 1'
@@ -40,12 +36,20 @@ alias removeorphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias present='impressive --noquit --nologo --wrap' 
 alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
 alias ytfzf='ytfzf -u umpv'
+alias mvi='mpv -profile image'
+alias img='swayimg'
 
 ## Conda Aliases
 alias maths='conda activate maths'
 alias neural='conda activate neural'
 alias lca='conda activate brightway2'
 alias deconda='conda deactivate'
+
+## Niri dynamic cast
+alias dyncast-pick='$ niri msg action set-dynamic-cast-window --id $(niri msg --json pick-window | jq .id)'
+alias dyncast-window='niri msg action set-dynamic-cast-window'
+alias dyncast-monitor='niri msg action set-dynamic-cast-monitor'
+alias dyncast-clear='niri msg action clear-dynamic-cast-target'
 
 #############
 #  Sources  #
