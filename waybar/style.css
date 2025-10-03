@@ -1,25 +1,30 @@
-@define-color nord0  rgba(46, 52, 64, 0.9);
-@define-color nord1  rgba(59, 66, 82, 0.9);
-@define-color nord2  rgba(67, 76, 94, 0.9);
-@define-color nord3  rgba(76, 86, 106, 0.9);
-@define-color nord4  rgba(216, 222, 233, 0.9);
-@define-color nord5  rgba(229, 233, 240, 0.9);
-@define-color nord6  rgba(236, 239, 244, 0.9);
+@define-color nord0  rgba(46, 52, 64, 1);
+@define-color nord1  rgba(59, 66, 82, 1);
+@define-color nord2  rgba(67, 76, 94, 1);
+@define-color nord3  rgba(76, 86, 106, 1);
+@define-color nord4  rgba(216, 222, 233, 1);
+@define-color nord5  rgba(229, 233, 240, 1);
+@define-color nord6  rgba(236, 239, 244, 1);
 
-@define-color nord7  rgba(143, 188, 187, 0.9);
-@define-color nord8  rgba(136, 192, 208, 0.9);
-@define-color nord9  rgba(129, 161, 193, 0.9);
-@define-color nord10 rgba(94, 129, 172, 0.9);
-@define-color nord11 rgba(191, 97, 106, 0.9);
-@define-color nord12 rgba(208, 135, 112, 0.9);
-@define-color nord13 rgba(235, 203, 139, 0.9);
-@define-color nord14 rgba(163, 190, 140, 0.9);
-@define-color nord15 rgba(180, 142, 173, 0.9);
+@define-color nord7  rgba(143, 188, 187, 1);
+@define-color nord8  rgba(136, 192, 208, 1);
+@define-color nord9  rgba(129, 161, 193, 1);
+@define-color nord10 rgba(94, 129, 172, 1);
+@define-color nord11 rgba(191, 97, 106, 1);
+@define-color nord12 rgba(208, 135, 112, 1);
+@define-color nord13 rgba(235, 203, 139, 1);
+@define-color nord14 rgba(163, 190, 140, 1);
+@define-color nord15 rgba(180, 142, 173, 1);
 @define-color white rgba(0,0,0,1);
 
 * {
     background-color: transparent;
-    font-family: 'Iosevka';
+    font-family: 'IosevkaTerm Nerd Font';
+}
+
+window#waybar {
+    padding:0;
+    margin: 0;
 }
 
 .modules-left  {
@@ -46,6 +51,11 @@
     color:white;
 }
 
+#workspaces {
+    background-color: transparent;
+    padding: 2px 6px;
+}
+
 #tray {
     padding: 0px 8px 0px 0px;
 }
@@ -65,14 +75,26 @@ tooltip {
     border: 1px solid @nord3;
 }
 
-/* #battery.good { */
-    /* color: @nord7; */
-/* } */
+#battery.good{
+    color: @nord14;
+    /* background:rgba(168,255,0,1); */
+}
 
-/* #battery.warning{ */
-/*     color: nord13; */
-/* } */
+#battery.decent{
+    color:@nord13;
+    /* color: rgba(255,246,0,1); */
+}
 
-/* #battery.critical{ */
-/*     color: nord11; */
+#battery.warning{
+    /* color: rgba(255, 174, 0, 1); */
+    color: @nord12;
+}
+
+#battery.critical{
+    color: @nord11;
+    /* color: rgba(255, 0, 0, 1); */
+}
+
+/* #battery.charging{ */
+/*     color:white; */
 /* } */
