@@ -170,13 +170,15 @@ window-rule {
     match app-id="thunderbird"
     match app-id="teams-for-linux"
     match app-id="zoom"
-    match title=r#"^Duck"#
+    match title=r#"(?i)duck"#
     match title=r#"(?i)reddit"#
     match title=r#"r/"#
-    match title=r#"Login"#
-    match title=r#"Telegram"#
-    match title=r#"Private"#
-    match title=r#"Mepco"#
+    match title=r#"login"#
+    match title=r#"(?i)telegram"#
+    match title=r#"(?i)private"#
+    match title=r#"(?i)mepco"#
+    match title=r#"(?i)mail"#
+    match title=r#"(?i)whatsapp"#
 
     block-out-from "screen-capture"
 }
