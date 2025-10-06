@@ -22,6 +22,12 @@ history = 1
 # Number of preloaded images (read ahead)
 preload = 1
 
+################################################################################
+# Image list configuration
+################################################################################
+[list]
+# Default order (none/alpha/reverse/random)
+all = yes
 
 ################################################################################
 # Font configuration
