@@ -128,7 +128,6 @@ spawn-sh-at-startup "~/.config/niri/scripts/refresh.sh"
 spawn-sh-at-startup "~/.config/scripts/left-screen"
 spawn-sh-at-startup "swayidle -w timeout 300 'swaylock -f -i ~/.config/dogagawa1080.png' timeout 600 'niri msg action power-off-monitors'  before-sleep 'swaylock -f -i ~/.config/dogagawa1080.png' &"
 
-
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
