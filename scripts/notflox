@@ -24,7 +24,7 @@ grep -o '<a href="/torrent/.*</a>' $cachedir/tmp.html |
 
 result_count=$(wc -l $cachedir/titles.bw | awk '{print $1}')
 if [ "$result_count" -lt 1 ]; then
-  notify-send "No Result found. Try again " -i "NONE"
+  notify-send "No Result found. Possible due to botdetection. This is all because of AI-explosion :((. You can try again " -i "NONE"
   exit 0
 fi
 
@@ -56,7 +56,7 @@ LINE=$(paste -d\   $cachedir/size.bw $cachedir/seedleech.bw $cachedir/titles.bw 
   awk '{$1=$1; print}')
 
 if [ -z "$LINE" ]; then
-  notify-send "No Result selected. Exiting... " -i "NONE"
+  notify-send "No Result selected.  Exiting... " -i "NONE"
   exit 0
 fi
 notify-send "Searching Magnet seeds " -i "NONE"

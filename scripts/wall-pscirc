@@ -1,0 +1,45 @@
+#!/bin/bash
+
+set -e
+
+TIME_INTERVAL=30 #seconds
+BG=$(find ~/.config/wallpaper -type f |shuf -n 1)
+
+while [ 1 ]; do
+    pscircle \
+        --output=/tmp/output.png \
+        --background-color=4c566a \
+	    --link-color-min=88c0d0a0 \
+	    --link-color-max=88c0d0 \
+	    --dot-color-min=ebcb8ba0 \
+	    --dot-color-max=ebcb8b \
+	    --tree-font-size=18 \
+	    --tree-font-color=d8dee9 \
+	    --tree-font-face="Iosevka Nerd Font" \
+	    --toplists-row-height=35 \
+	    --toplists-font-size=24 \
+	    --toplists-font-color=C8D2D7 \
+	    --toplists-pid-font-color=7B9098 \
+	    --toplists-font-face="Iosevka Nerd Font" \
+	    --toplists-bar-height=7 \
+	    --toplists-bar-background=444444 \
+	    --toplists-bar-color=b48ead \
+        # --root-pid=1 \
+    	# --collapse-threads=true \
+    	# --max-children=35 \
+    	# --tree-sector-angle=3.1415 \
+    	# --tree-rotate=true \
+    	# --tree-rotation-angle=1.5708 \
+    	# --tree-center=-1580:0 \
+    	# --cpulist-center=300:0 \
+    	# --memlist-center=800:0
+
+
+
+    killall swaybg || true
+    swaybg -i /tmp/output.png &
+    sleep $TIME_INTERVAL
+done
+
+
+
