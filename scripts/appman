@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-AMVERSION="9.8.2-1"
+AMVERSION="9.9-1"
 
 # Determine main repository and branch
 AMREPO="https://raw.githubusercontent.com/ivan-hc/AM/main"
@@ -295,6 +295,7 @@ _appman() {
 	APPSPATH="$APPSDIR"
 	AMPATH="$APPSDIR/$AMCLI"
 	_create_cache_dir
+	[ -n "$APPSPATH" ] && mkdir -p "$APPSPATH" 2>/dev/null
 	if [ ! -w "$APPSPATH" ]; then
 		echo $"ERROR: You don't have write access to $APPSPATH" | _fit
 		exit 1
@@ -583,16 +584,15 @@ _third_party_lsts_filter() {
 	grep -v -- "---\|^| appname" | grep "^| .* | .* | http.* | http.* | .* |$" 2>/dev/null | awk -F'|' '{print $2, $3}' | sed 's/^/◆/g; s/   / : /g; s/ $//g'
 }
 
+_third_party_lsts_generator() {
+	tprepo_readme="${tp_list}_readme" && curl -Ls "${!tprepo_readme}" 2>/dev/null | _third_party_lsts_filter \
+	| sed "s/$/. To install it use the --$tp_list flag or the .$tp_list extension./g" | sort > "$AMDATADIR"/"$ARCH"-"$tp_list" || touch "$AMDATADIR"/"$ARCH"-"$tp_list"
+}
+
 _sync_third_party_lists() {
 	_am_extras_sources
 	for tp_list in $third_party_lists; do
-		rm -f "$AMDATADIR"/"$ARCH"-"$tp_list"
-		tprepo_readme="${tp_list}_readme"
-		if [ -n "${!tprepo_readme}" ]; then
-			curl -Ls "${!tprepo_readme}" | _third_party_lsts_filter \
-			| sed "s/$/. To install it use the --$tp_list flag or the .$tp_list extension./g" | sort > "$AMDATADIR"/"$ARCH"-"$tp_list" \
-			|| touch "$AMDATADIR"/"$ARCH"-"$tp_list"
-		fi
+		_third_party_lsts_generator &
 	done
 }
 
@@ -612,16 +612,37 @@ for flag in $third_party_flags_byname; do
 tpflag_name=$(echo "$flag" | tr '-' '\n ' | grep .)
 tprepo_name="${tpflag_name}_repo"
 tprepo_info="${tpflag_name}_info"
-third_party_flags_message=$(printf $"$third_party_flags_message\n
+third_party_flags_message=$(printf "$third_party_flags_message\n
 ${Gold}--$tpflag_name\033[0m
 
-	${LightBlue}$AMCLI -i --$tpflag_name {PROGRAM}\033[0m
-	${LightBlue}am -i --$tpflag_name --user {PROGRAM}\033[0m
-	${LightBlue}$AMCLI -l --$tpflag_name\033[0m
+	Source: ${!tprepo_name}
+	Related flag: ${Gold}--$tpflag_name\033[0m
+	Related extension: ${Gold}.$tpflag_name\033[0m
 
-Description: This is a flag to use in \"-i\" and \"-l\" to install/list software from ${!tprepo_name}. You can also use it in \"-q\" as a keyword. For installations you can use .$tpflag_name as the package extension instead of using the flag.
-"
-printf "\nInfo: %b\n\n" "${!tprepo_info}")
+	To get more info about a program:
+
+		${LightBlue}$AMCLI -a {PROGRAM}.$tpflag_name\033[0m
+
+	To install a program near others from other databases (recommended):
+
+		${LightBlue}$AMCLI -i {PROGRAM}.$tpflag_name\033[0m
+		${LightBlue}am -i --user {PROGRAM}.$tpflag_name\033[0m
+
+	To install a program only from this third-party database:
+
+		${LightBlue}$AMCLI -i --$tpflag_name {PROGRAM}\033[0m
+		${LightBlue}am -i --$tpflag_name --user {PROGRAM}\033[0m
+
+	To list all programs available in this third-party database:
+
+		${LightBlue}$AMCLI -l --$tpflag_name\033[0m
+
+	To search for keywords in this third-party database:
+
+		${LightBlue}$AMCLI -q --all --$tpflag_name {KEYWORD}\033[0m
+		${LightBlue}$AMCLI -q --all {KEYWORD} --$tpflag_name\033[0m
+
+Description: %b" "${!tprepo_info}")
 done
 fi
 
@@ -632,11 +653,11 @@ fi
 ################################################################################################################################################################
 
 # COMPLETION LIST
-available_options="about add apikey backup clean config disable downgrade download enable extra files hide home icons info \
-	install install-appimage launcher list lock neodb newrepo nolibfuse off on overwrite purge query reinstall remove sandbox \
-	select sync template test translate unhide unlock update --all --appimages --apps --byname --config --convert --debug \
+available_options="about add apikey backup clean clone config disable downgrade download enable extra files hide home icons info \
+	install install-appimage launcher list lock neodb newrepo nolibfuse off on overwrite purge query reinstall relocate remove sandbox \
+	select sync template test translate unhide unlock update --all --appimages --apps --byname --clone --config --convert --debug \
 	--devmode-disable --devmode-enable --disable-notifications --enable-notifications --force-latest --home --icons \
-	-ias --launcher --less --pkg --portable --rollback --disable-sandbox --sandbox --system --translate --user $third_party_flags"
+	-ias --launcher --less --pkg --portable --rollback --disable-sandbox --relocate --sandbox --system --translate --user $third_party_flags"
 
 _completion_lists() {
 	# Remove existing lists and download new ones
@@ -784,8 +805,10 @@ fi
 
 # This function removes all info and versions from the register
 _remove_info_files() {
-	rm -f "$AMCACHEDIR"/files*
-	rm -f "$AMCACHEDIR"/version-args
+	rm -f "$CACHEDIR"/am/files*
+	rm -f "$CACHEDIR"/am/version-args
+	rm -f "$CACHEDIR"/appman/files*
+	rm -f "$CACHEDIR"/appman/version-args
 }
 
 ################################################################################################################################################################
@@ -1021,6 +1044,86 @@ _use_clean() {
 }
 
 ################################################################################################################################################################
+#				CLONE
+################################################################################################################################################################
+
+_clone_create_clone_file() {
+	_determine_args
+	rm -f "$SCRIPTDIR"/am-clone.source
+	for arg in $ARGS; do
+		argpath=$(echo "$ARGPATHS" | grep "/$arg$")
+		[ -d "$argpath"/.am-installer ] && scriptname=$(ls "$argpath/.am-installer/" | head -1)
+		[ -z "$scriptname" ] && scriptname="$arg"
+		if [ "$arg" != am ]; then
+			echo "$argpath" | sed "s/\/$arg$/\/$scriptname/g" >> "$SCRIPTDIR"/am-clone.source
+		fi
+		scriptname=""
+	done
+	[ -f "$SCRIPTDIR"/am-clone.source ] && CLONE_FILE="$SCRIPTDIR/am-clone.source"
+}
+
+_clone_show_items_msg() {
+	echo "$DIVIDING_LINE"
+	if [ -f "$CLONE_FILE" ]; then
+		CLONE_FILE_CONTENT=$(sort -u "$CLONE_FILE")
+		if echo "$@" | grep -q -- "system"; then
+			CLONE_FILE_CONTENT=$(echo "$CLONE_FILE_CONTENT" | sed 's#^#/opt/#; s#//#/#g')
+		elif echo "$@" | grep -q -- "user"; then
+			CLONE_FILE_CONTENT=$(echo "$CLONE_FILE_CONTENT" | sed 's#^/opt/#/local/#g; s#//#/#g')
+		fi
+		printf "File: %b\n" "$CLONE_FILE"
+		system_apps=$(echo "$CLONE_FILE_CONTENT" | grep "^/opt/" 2>/dev/null | sed -- 's:.*/::; s/^/ - /g' | sort -u)
+		local_apps=$(echo "$CLONE_FILE_CONTENT" | grep -v "^/opt/" 2>/dev/null | sed -- 's:.*/::; s/^/ - /g' | sort -u)
+		[ -n "$system_apps" ] && printf "\nContent (system-wide installation):\n\n%b\n" "$system_apps" | _fit
+		[ -n "$local_apps" ] && printf "\nContent (local/rootless installation):\n\n%b\n" "$local_apps" | _fit
+	else
+		echo " ERROR: am-clone.source file not found"
+	fi
+	echo "$DIVIDING_LINE"
+}
+
+_clone_install() {
+	if [ -f "$CLONE_FILE" ]; then
+		AMCLIPATH_ORIGIN="$AMCLIPATH"
+		ARGS=$(echo "$CLONE_FILE_CONTENT" | sed 's:.*/::' | xargs)
+		for arg in $ARGS; do
+			argpath=$(echo "$CLONE_FILE_CONTENT" | grep "/$arg$")
+			if [ "$AMCLI" = "am" ] && ! echo "$argpath" | grep -q "^/opt/"; then
+				"$AMCLIPATH_ORIGIN" -i --user "$arg"
+			else
+				"$AMCLIPATH_ORIGIN" -i "$arg"
+			fi
+		done
+	else
+		echo "$DIVIDING_LINE"
+		echo " ERROR: am-clone.source file not found"
+		echo "$DIVIDING_LINE"
+	fi
+}
+
+_use_clone() {
+	[ -z "$CLONE_FILE" ] && CLONE_FILE=$(find "$SCRIPTDIR" -type f -name am-clone.source 2>/dev/null | head -1)
+	[ -z "$CLONE_FILE" ] && CLONE_FILE=$(find "$HOME" -type f -name am-clone.source 2>/dev/null | grep -v "share/Trash" | head -1)
+	[ -z "$CLONE_FILE" ] && CLONE_FILE=$(find / -type f -name am-clone.source 2>/dev/null | grep -v "share/Trash" | head -1)
+	if [ -z "$CLONE_FILE" ]; then
+		_clone_create_clone_file
+	fi
+	if echo "$1" | grep -q -- "clone"; then
+
+		_clone_show_items_msg "$@"
+
+		if echo "$@" | grep -oq -- "install\|-i"; then
+			read -r -p $" Do you want to install the set of programs listed above (y,N)?" yn
+			if ! echo "$yn" | grep -i '^y' >/dev/null 2>&1; then
+				echo "$DIVIDING_LINE"
+			else
+				_clone_install "$@"
+			fi
+		fi
+	fi
+}
+
+################################################################################################################################################################
 #				HIDE/UNHIDE
 ################################################################################################################################################################
 
@@ -1038,6 +1141,41 @@ _use_hide_unhide() {
 			[ -n "$APPMAN_APPSPATH" ] && [ -f "$APPMAN_APPSPATH/$arg/remove.old" ] && mv "$APPMAN_APPSPATH/$arg/remove.old" "$APPMAN_APPSPATH/$arg/remove" && echo $"✔ $APPMAN_APPSPATH/$arg can be managed again"
 		done
 		_clean_amcachedir
+	fi
+}
+
+################################################################################################################################################################
+#				RELOCATE
+################################################################################################################################################################
+
+_use_relocate() {
+	if [ ! -f "$APPMANCONFIG"/appman-config ]; then
+		echo "$DIVIDING_LINE"
+		echo " ERROR: appman-config file not found"
+		echo "$DIVIDING_LINE"
+	else
+		APPMAN_APPSPATH=$(sort "$APPMANCONFIG/appman-config")
+		printf $"The local path currently in use for programs is as follows:\n\n%b\n\n" "$APPMAN_APPSPATH" | _fit
+		read -r -p $" Do you want to remove and re-install everything to a new location (y,N)?" yn
+		if echo "$yn" | grep -i '^y' >/dev/null 2>&1; then
+			AMCLIPATH_ORIGIN="$AMCLIPATH"
+			rm -f "$SCRIPTDIR"/am-clone.source
+			_clone_create_clone_file
+			sort -u "$SCRIPTDIR"/am-clone.source | grep -v "^/opt/" > "$SCRIPTDIR"/am-clone.source.appman
+			_determine_args
+			APPMAN_APPS_OLD=$(echo "$ARGPATHS" | grep -v "^/opt/")
+			if [ -n "$APPMAN_APPS_OLD" ]; then
+				for arg in $APPMAN_APPS_OLD; do
+					appname=$(echo "$arg" | sed 's:.*/::')
+					"$AMCLIPATH_ORIGIN" -R "$appname"
+				done
+			fi
+			rm -f "$APPMANCONFIG"/appman-config
+			_appman
+			APPMAN_APPS_NEW=$(sort -u "$SCRIPTDIR"/am-clone.source.appman | sed 's:.*/::' | xargs)
+			"$AMCLIPATH_ORIGIN" -i --user "$APPMAN_APPS_NEW"
+		fi
+		
 	fi
 }
 
@@ -1088,8 +1226,10 @@ _sync_portable_list() {
 
 _sync_databases() {
 	printf $"%b\n Check and update offline lists of additional databases...\n" "$DIVIDING_LINE"
-	_sync_appimages_list
-	_sync_portable_list
+	if [ -z "$MODULE" ]; then
+		_sync_appimages_list
+		_sync_portable_list
+	fi
 	_sync_third_party_lists 2>/dev/null
 	_completion_lists
 }
@@ -1489,6 +1629,9 @@ case "$1" in
 	'clean'|'-c')
 		_use_clean
 		;;
+	'clone'|'--clone')
+		_use_clone "$@"
+		;;
 	'devmode-disable'|'devmode-enable'|'--devmode-disable'|'--devmode-enable')
 		if [ "$CLI_PATH" = "/usr/bin/am" ]; then
 			echo $"This feature is disabled by your organization" | _fit
@@ -1523,6 +1666,9 @@ case "$1" in
 		;;
 	'newrepo'|'neodb')
 		_use_newrepo "$@"
+		;;
+	'relocate'|'--relocate')
+		_use_relocate "$@"
 		;;
 	'sync'|'-s')
 		_use_sync
@@ -1585,6 +1731,18 @@ case "$1" in
 					${LightBlue}$AMCLI -c\033[0m
 
 			Description: Removes all the unnecessary files and folders.
+
+			${Gold}clone, --clone\033[0m
+
+					${LightBlue}$AMCLI --clone
+					${LightBlue}$AMCLI --clone -i
+					${LightBlue}$AMCLI --clone -i --system
+					${LightBlue}$AMCLI --clone -i --user\033[0m
+
+			Description: Clone the list of installed apps to an \"am-clone.source\" file, or search for an existing one on the desktop (priority), in $HOME, or across the entire system and removable devices. Add \"-i\" or \"install\" if you want to install or add the listed apps to a new configuration, to share it with anyone on other PCs and configurations. Add the \"--system\" or \"--user\" flag if you want all listed apps to be installed system-wide or locally respectively.
+
+			You can also set the path to a custom file by exporting the \$CLONE_FILE variable.
+
 
 			${Gold}config, -C, --config\033[0m
 
@@ -1729,6 +1887,13 @@ case "$1" in
 			Description: Reinstall only programs whose installation script has been modified in AM's online database. Use the \"--all\" flaf to reinstall everything instead.
 
 			NOTE, this only works with the \"AM\" database. Apps installed with the \"-e\" option and custom scripts created with the \"-t\" option are not supported.
+
+			${Gold}relocate, --relocate\033[0m
+
+					${LightBlue}$AMCLI --relocate\033[0m
+
+			Description: Remove and reinstall local/AppMan apps to a new location.
+
 
 			${Gold}remove, -r\033[0m
 
