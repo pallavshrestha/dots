@@ -3,14 +3,13 @@
     "height": 10,
     "margin": "6 4 0 4",
     "modules-left": ["custom/appdrawer","niri/workspaces","backlight","group/network","mpd"],
-    "modules-center": ["clock","wlr/taskbar"],
+    "modules-center": ["clock","idle_inhibitor","wlr/taskbar"],
     "modules-right": ["group/hardware","battery","temperature","pulseaudio","tray"],
     "layer": "top",
     "custom/appdrawer": {
         "format": " 󰀻",
         "on-click": "appdrawer",
         "tooltip": false
-
     },
     "group/network": {
 		"orientation": "inherit",
@@ -82,11 +81,11 @@
     "backlight": {
     "device": "intel_backlight",
     "format": "{icon} {percent}%",
-    "format-icons": ["  ", "  ", "  ", "  "]
+    "format-icons": [" ", " ", " ", " "]
     },
     "cpu": {
      "interval": 1,
-     "format": "  {avg_frequency} GHz"
+     "format": "   {avg_frequency:0.2f} GHz"
     },
     "memory": {
     "interval": 30,
@@ -121,10 +120,18 @@
 		// Named workspaces
 		// (you need to configure them in niri)
 		// Icons by state
-        "active": " ", //"     "
-			"default": ""
+        "active": "", //"     " 
+			"default": ""
 	},
     "tooltip-format": "{value} | {name} | {index} | {output}"
+},
+"idle_inhibitor": {
+	"format": "{icon}",
+	"format-icons": {
+		"activated": " ", //"  "
+		"deactivated": " "
+	},
+	"timeout": 30.5
 },
     "keyboard-state": {
     "numlock": false,
@@ -134,8 +141,8 @@
         "capslock": " C {icon}"                                                                                                                                                       
     },
     "format-icons": {
-        "locked": "  ",
-        "unlocked": "  "
+        "locked": " ",
+        "unlocked": " "
     }
     },
     "custom/network": {
@@ -158,18 +165,18 @@
     "pulseaudio": {
     "format": "{icon}  {volume}%",
     "format-bluetooth": "{icon}  {volume}%",
-    "format-muted": "  ",
+    "format-muted": " ",
     "format-icons": {
         "alsa_output.pci-0000_00_1f.3.analog-stereo": "  ",
         "alsa_output.pci-0000_00_1f.3.analog-stereo-muted": "  ",
-        "headphone": "  ",
-        "hands-free": " 󱆏 ",
+        "headphone": " ",
+        "hands-free": "󱆏 ",
         "headset": " ",
-        "phone": "  ",
-        "phone-muted": "  ",
-        "portable": " 󰦢 ",
-        "car": "  ",
-        "default": ["  ", "  "]
+        "phone": " ",
+        "phone-muted": " ",
+        "portable": "󰦢 ",
+        "car": " ",
+        "default": [" ", " "]
     },
     "scroll-step": 1,
     "on-click": "pavucontrol",
