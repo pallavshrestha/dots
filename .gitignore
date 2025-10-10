@@ -33,8 +33,8 @@ powerline.sh.bak
 pulse
 qutebrowser/autoconfig.yml
 qutebrowser/bookmarks
-qutebrowser/quickmarks
 qutebrowser/qsettings
+qutebrowser/quickmarks
 rclone
 rncbc.org
 rpcs3
@@ -51,4 +51,5 @@ user-dirs.locale
 xarchiver/
 xfce4/
 xfce4/xfconf
+youtube*
 zoom*
