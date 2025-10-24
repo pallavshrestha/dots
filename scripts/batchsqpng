@@ -18,9 +18,9 @@ echo "This will create new squared jpegs for all the jpegs in the directory"
 read -p "Type [yes] to continue: " choice
 case "$choice" in 
     yes ) echo "Processing..."
-        for file in *.jpg; do echo "$file"; squareup -c black "$file" "square_${file}"
+        for file in *.jpg; do echo "$file"; squareup -c transparent "$file" "square_${file%.jpg}.png"
     if [ -n $1 ]; then
-          magick "square_${file}" -bordercolor black -border ${1:-0}%x${1:-0}% "square_${file}";
+          magick "square_${file%.jpg}.png" -bordercolor transparent -border ${1:-0}%x${1:-0}% "square_${file%.jpg}.png";
     fi
         done;;
     * ) echo "Cancelled";;
