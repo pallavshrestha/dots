@@ -20,7 +20,7 @@ timeout {
   padding: 0;
   spacing: 0;
 
-  bg: #2E344080;
+  bg: #2E344090;
   bg-alt: #3B425295;
   bord1: #88C0D0;
   bord2: #8FBCBB;
