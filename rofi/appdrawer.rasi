@@ -9,9 +9,3 @@ configuration {
 }
 
 @theme "themes/appdrawer_theme.rasi"   
-// @theme "themes/nord.rasi"   
-
-window {
-    fullscreen: true;
-    background-color: #2E3440;
-    }

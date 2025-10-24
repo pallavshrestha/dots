@@ -116,7 +116,7 @@ typeset -A menu
 menu=(
   [ Shutdown]="systemctl poweroff"
   [ Reboot]="systemctl reboot"
-  [ Suspend]="systemctl suspend"
+  [ Suspend]="systemctl suspend-then-hibernate"
   [ Lock]="swaylock -i ~/.config/dogagawa1080.png"
   [ Logout]="niri msg action quit --skip-confirmation"
   [ Cancel]=""
