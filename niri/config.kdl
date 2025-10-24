@@ -137,8 +137,6 @@ hotkey-overlay {
     hide-not-bound
 }
 
-// workspace "main"
-
 prefer-no-csd
 
 screenshot-path "~/pictures/0-screenshots/Screenshot-%Y-%m-%d_%H.%M.%S.png"
@@ -156,7 +154,9 @@ window-rule {
     match app-id="qutebrowser" title="Whoops!"
     match app-id="zoom" //title="Presenter layout"
     match app-id="KeePassXC"
-    match title="Reminder"
+    match title="(?i)reminder"
+    match app-id=r#"thunderbird"#
+    exclude title="^.*Thunderbird"
     open-floating true
 }
 
@@ -190,6 +190,7 @@ window-rule {
 window-rule{
     draw-border-with-background false
     match app-id="alacritty"
+    match app-id="kitty"
     match app-id="foot"
     match app-id="(?i)nautilus"
     match app-id="swayimg"
