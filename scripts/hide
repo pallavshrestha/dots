@@ -1,0 +1,16 @@
+set -e
+
+TERM_ID=$(niri msg focused-window | head -n 1 | grep -o '[0-9]*')
+
+$@ &
+# may need to adjust this
+sleep 0.5
+
+niri msg action focus-window --id "$TERM_ID"
+niri msg action consume-window-into-column
+niri msg action move-window-down
+niri msg action set-window-height --id "$TERM_ID" 0%
+niri msg action focus-window-up
+
+wait
+niri msg action set-window-height --id "$TERM_ID" 100%
