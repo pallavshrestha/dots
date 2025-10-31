@@ -1,7 +1,7 @@
 set font			"JetBrains Mono Nerd Font 10"
 set default-fg 			"#eceff4"  # nord6, white-ish
-# set default-bg 			"#3b4252" # nord1 
-set default-bg 			"rgba(46,52,64,1)"  #2e3440" # nord0, darkest
+# set default-bg 			"#3b4252" # nord1
+set default-bg 			"rgba(46,52,64,0.5)"  #2e3440" # nord0, darkest
 
 set guioptions none
 
@@ -33,25 +33,26 @@ set inputbar-bg 		"#434c5e"
 #set inputbar-bg 		"#3b4252"
 
 set recolor			"true"
-# Nord dark recolor  
-#map <F1> focus_inputbar ":set recolor-lightcolor \#434c5e"    
-map <F1> focus_inputbar ":set recolor-lightcolor rgba(59,66,82,1)" #\#3b4252"    
-map <F2> focus_inputbar ":set recolor-darkcolor \#ffffff"    
-map ! feedkeys "<F1><Return><F2><Return>"    
+# Nord dark recolor
+#map <F1> focus_inputbar ":set recolor-lightcolor \#434c5e"
+map <F1> focus_inputbar ":set recolor-lightcolor rgba(59,66,82,1)" #\#3b4252"
+map <F2> focus_inputbar ":set recolor-darkcolor \#ffffff"
+map ! feedkeys "<F1><Return><F2><Return>"
 map <C-s> toggle_statusbar
 
-# gruvbox light recolor 
-map <F3> focus_inputbar ":set recolor-lightcolor \#f2e5bc"    
-map <F4> focus_inputbar ":set recolor-darkcolor \#3c3836"    
-map @ feedkeys "<F3><Return><F4><Return>"    
+# solarized light recolor
+map <F3> focus_inputbar ":set recolor-lightcolor \#eee8d5"
+map <F4> focus_inputbar ":set recolor-darkcolor \#4e4e4e"
+map @ feedkeys "<F3><Return><F4><Return>"
+set recolor-lightcolor		"#eee8d5"
+set recolor-darkcolor		"#4e4e4e"
 
-
-set recolor-lightcolor		"#f2e5bc" #rgba(59,66,82,1)" 
-set recolor-darkcolor		"#3c3836" #FFFFFF" 
-
-#set recolor-lightcolor          "#f2e5bc" # bg
-#set recolor-darkcolor           "#3c3836" # fg
-#set recolor                     "true"
+# gruvbox light recolor
+# map <F3> focus_inputbar ":set recolor-lightcolor \#fbf1c7"
+# map <F4> focus_inputbar ":set recolor-darkcolor \#3c3836"
+# map @ feedkeys "<F3><Return><F4><Return>"
+# set recolor-lightcolor          "#fbf1c7" # bg
+# set recolor-darkcolor           "#3c3836" # fg
 
 set index-fg			"#eceff4"
 set index-bg			"#2e3440"
@@ -76,4 +77,4 @@ set recolor-keephue
 # for inversesearch
 set synctex true
 # set synctex-editor-command "vim --remote-silent +%{line} %{input}"
- set synctex-editor-command "vim -v --not-a-term -T dumb -c \"VimtexInverseSearch %{line}:%{column} '%{input}'\""
+set synctex-editor-command "vim -v --not-a-term -T dumb -c \"VimtexInverseSearch %{line}:%{column} '%{input}'\""
