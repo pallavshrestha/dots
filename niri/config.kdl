@@ -123,7 +123,7 @@ overview {
 spawn-at-startup "dunst"
 // spawn-at-startup "nm-applet"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-spawn-at-startup "xwayland-satellite"
+// spawn-at-startup "xwayland-satellite"
 spawn-sh-at-startup "~/.config/niri/scripts/refresh.sh"
 spawn-sh-at-startup "~/.config/scripts/left-screen"
 spawn-sh-at-startup "swayidle -w timeout 300 'swaylock -f -i ~/.config/dogagawa1080.png' timeout 600 'niri msg action power-off-monitors'  before-sleep 'swaylock -f -i ~/.config/dogagawa1080.png' &"
@@ -194,6 +194,7 @@ window-rule{
     match app-id="foot"
     match app-id="(?i)nautilus"
     match app-id="swayimg"
+    match app-id="zathura"
     // opacity 0.95
 }
 
