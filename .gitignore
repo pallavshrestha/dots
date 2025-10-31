@@ -1,3 +1,4 @@
+.mono/
 EmuDeck/
 GIMP*/
 LanguageTool/
@@ -24,6 +25,7 @@ hu.irl.cameractrls/
 keepassxc
 legendary/
 libreoffice
+lsp-plugins/
 lutris
 menus
 obs-studio/
