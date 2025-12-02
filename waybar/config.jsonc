@@ -2,12 +2,12 @@
     "spacing": 10,
     "height": 10,
     "margin": "6 4 0 4",
-    "modules-left": ["custom/appdrawer","niri/workspaces","backlight","group/network","mpd"],
-    "modules-center": ["clock","idle_inhibitor","wlr/taskbar"],
+    "modules-left": ["custom/appdrawer","niri/workspaces","backlight","group/network"],
+    "modules-center": ["mpris","clock","idle_inhibitor","wlr/taskbar"],
     "modules-right": ["group/hardware","battery","temperature","pulseaudio","tray","custom/powerbutton"],
     "layer": "top",
     "custom/appdrawer": {
-        "format": " 󰀻",
+        "format": "  󰀻",
         "on-click": "appdrawer",
         "tooltip": false
     },
@@ -99,7 +99,7 @@
     "wlr/taskbar": {
         "format": "{icon}",
         "icon-size": 20,
-        "icon-theme": "Qogir-dark",
+        "icon-theme": "Qogir-Dark",
         "tooltip-format": "{title} | {app_id}",
         "on-click": "activate",
         "on-click-right": "minimize",
@@ -107,8 +107,7 @@
         "on-click-middle": "close",
         "ignore-list": [
             "Alacritty",
-            "foot",
-            "kitty"
+            "foot"
         ],
         "app_ids-mapping": {
             "zoom": "Zoom Workplace"
@@ -195,19 +194,19 @@
                "teams-for-linux": "$HOME/applications/teams/icons/mono-light.png"
            }
         },
-        "mpd": {
-            "format": "{stateIcon} {title}",
-            "state-icons": {
-                "playing": "  ",     // Icon for playing
-                "paused": "  ",      // Icon for paused
-                "stopped": "  "      // Icon for stopped
-            },
-            "tooltip-format": "  {album}\n  {artist}\n  {title}",
-            "interval": 1,
-            "on-click": "mpc toggle",         
-            "on-scroll-up": "mpc next",     
-            "on-scroll-down": "mpc prev"
-        },
+        //"mpd": {
+        //    "format": "{stateIcon} {title}",
+        //    "state-icons": {
+        //        "playing": "  ",     // Icon for playing
+        //        "paused": "  ",      // Icon for paused
+        //        "stopped": "  "      // Icon for stopped
+        //    },
+        //    "tooltip-format": "  {album}\n  {artist}\n  {title}",
+        //    "interval": 1,
+        //    "on-click": "mpc toggle",         
+        //    "on-scroll-up": "mpc next",     
+        //    "on-scroll-down": "mpc prev"
+        //},
     	"temperature": {
     		"thermal-zone": 1,
     		// "hwmon-path":
@@ -231,5 +230,22 @@
     		// "smooth-scrolling-threshold":
     		// "tooltip":
     		//"tooltip-format": "Temp in Fahrenheit: {temperatureF}°F"
-    	}
+    	},
+        "mpris": {
+            "player":"playerctld",
+        	"format": "{player_icon} {status_icon}{dynamic}",
+        	"format-paused": "{player_icon} {status_icon} {dynamic}",
+            "dynamic-order": ["title", "artist", "album"],
+            "dynamic-len": 20,
+            "dynamic-separator": "-",
+        	"player-icons": {
+        		"default": " 🎵",
+        		"mpv": "🎵"
+        	},
+        	"status-icons": {
+        		"playing": " ",
+                "paused": " "
+        	},
+        	"ignored-players": ["firefox","chromium"]
+        }
 }

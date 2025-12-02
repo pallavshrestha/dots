@@ -1,6 +1,7 @@
 # sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 # it is best to leave the --target and --bootloader as it will take from default grub configuration
-sudo grub-install --efi-directory=/boot/efi &&
+sudo grub-install --efi-directory=/boot/efi --bootloader-id=GRUB --removable &&
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
-# GRUB_CMDLINE_LINUX_DEFAULT='nowatchdog nvme_load=YES resume=UUID=cc2f0eb9-f543-4553-8e0f-7aaef38be033 loglevel=3
+# GRUB_DISTRIBUTOR='EndeavourOS'
+# GRUB_CMDLINE_LINUX_DEFAULT='nowatchdog nvme_load=YES resume=UUID=cc2f0eb9-f543-4553-8e0f-7aaef38be033 loglevel=3 

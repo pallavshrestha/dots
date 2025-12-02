@@ -63,7 +63,7 @@ window#waybar {
     background-color: @nord1;
 }
 
-#mpd {
+#mpris {
     min-width: 100px;
 }
 
