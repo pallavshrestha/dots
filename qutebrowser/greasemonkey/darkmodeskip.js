@@ -1,5 +1,6 @@
 // ==UserScript==
 // @match https://*.google.com/*
+// @match https://*.youtube.com/*
 // @match https://letterboxd.com/*
 // ==/UserScript==
 

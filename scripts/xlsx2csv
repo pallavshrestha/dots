@@ -1,0 +1,83 @@
+#!/usr/bin/env python
+
+"""
+xlsx_to_csv: A script to convert xlsx files to csv.
+
+This script can be used to convert one or more xlsx files to csv files.
+It can also convert all xlsx files in a specified directory or the current directory.
+
+Usage:
+    xlsx_to_csv.py file1.xlsx file2.xlsx
+    xlsx_to_csv.py /doc/
+    xlsx_to_csv.py ./
+    xlsx_to_csv.py
+    xlsx_to_csv.py -h
+
+Author: Pallav
+Email:  pallav.shrestha@ik.me, pallav.shrestha@lut.fi
+"""
+
+import argparse
+import glob
+import os
+import sys
+
+import pandas as pd
+
+
+def sanitize(name: str):
+    "Replaces space with underscore(_)"
+    return name.replace(" ", "_")
+
+
+def xlsx_to_csv(xlsx_file):
+    """
+    Converts xlsx files to csv.
+    file1.xlsx -> file1_sheet1.csv file1_sheet.csv
+
+    :param xlsx_file: Path to the xlsx file
+    :return: None
+    """
+    try:
+        excel_file = pd.read_excel(xlsx_file, sheet_name=None)
+        base_name = os.path.splitext(xlsx_file)[0]
+
+        for sheet_name, df in excel_file.items():
+            csv_file = f"{sanitize(base_name).lower()}_{sanitize(sheet_name).lower()}.csv"
+
+            df.to_csv(csv_file, index=False)
+            print(f"Converted {xlsx_file} sheet {sheet_name} to {csv_file}")
+    except Exception as e:
+        print(f"Error converting {xlsx_file}: {str(e)}")
+
+
+def main():
+    """
+    Select action according to arguments
+    no args: current directory
+    arg: directory: specified directory
+    arg: file (xlsx): specified files(s)
+    """
+    parser = argparse.ArgumentParser(description="Convert xlsx files to csv")
+    parser.add_argument("files", nargs="*", help="xlsx files or directories to convert")
+    args = parser.parse_args()
+
+    if not args.files:
+        # Convert all xlsx files in the current directory
+        for file in glob.glob("*.xlsx"):
+            xlsx_to_csv(file)
+    else:
+        for file in args.files:
+            if os.path.isdir(file):
+                # Convert all xlsx files in the specified directory
+                for xlsx_file in glob.glob(os.path.join(file, "*.xlsx")):
+                    xlsx_to_csv(xlsx_file)
+            elif file.endswith(".xlsx"):
+                # Convert the specified xlsx file
+                xlsx_to_csv(file)
+            else:
+                print(f"Skipping {file} (not an xlsx file or directory)")
+
+
+if __name__ == "__main__":
+    main()

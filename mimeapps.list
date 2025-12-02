@@ -1,7 +1,7 @@
 [Added Associations]
 application/x-trash=vim.desktop;
 application/x-ms-dos-executable=wine.desktop;
-text/plain=draw.io-AM.desktop;vim.desktop;:;
+text/plain=vim.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird-O7G0R1.desktop;userapp-Thunderbird-UGL0R1.desktop;userapp-Thunderbird-7ZA8R2.desktop;
 x-scheme-handler/mid=userapp-Thunderbird-O7G0R1.desktop;userapp-Thunderbird-UGL0R1.desktop;userapp-Thunderbird-7ZA8R2.desktop;
 x-scheme-handler/webcal=userapp-Thunderbird-X3J7R1.desktop;userapp-Thunderbird-2N2YR1.desktop;
@@ -24,8 +24,7 @@ application/xml=vim.desktop;anylogic-ple.desktop;
 application/x-zerosize=libreoffice-calc.desktop;mpv.desktop;xarchiver.desktop;org.pwmt.zathura.desktop;vim.desktop;
 image/x-fuji-raf=org.geeqie.Geeqie.desktop;swayimg.desktop;feh.desktop;AM-rawtherapee.desktop;rawtherapee.desktop;geeqie.desktop;
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
-x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
-x-scheme-handler/zoomtg=Zoom.desktop;
+x-scheme-handler/https=org.qutebrowser.qutebrowser.desktohandler/zoomtg=Zoom.desktop;
 x-scheme-handler/zoomus=Zoom.desktop;
 application/x-desktop=vim.desktop;wine-extension-txt.desktop;
 text/csv=libreoffice-calc.desktop;vim.desktop;libreoffice-calc-AM.desktop;
@@ -75,3 +74,4 @@ x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
 image/x-xcf=swayimg.desktop;feh.desktop
 text/plain=vim.desktop
 x-scheme-handler/discord-424004941485572097=discord-424004941485572097.desktop
+text/csv-semi=libreoffice-calc.desktop

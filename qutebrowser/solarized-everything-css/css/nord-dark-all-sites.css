@@ -1,7 +1,7 @@
 * {
   border-color: #8fbcbb !important;
   background-color: rgba(0, 0, 0, 0.0) !important;
-  --color-neutral-background: *#2e3440 !important;
+  --color-neutral-background: #2e3440 !important;
   color: #d8dee9 !important;
 }
 a {

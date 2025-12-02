@@ -3,15 +3,15 @@
 
 environment{
     QT_QPA_PLATFORMTHEME "qt6ct"
-    //QT_STYLE_OVERRIDE "GTK+"
-    QT_STYLE_OVERRIDE "kvantum"
+    QT_STYLE_OVERRIDE "GTK+"
+    // QT_STYLE_OVERRIDE "kvantum"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     GTK_THEME "nordic"
 }
 
 cursor {
-    xcursor-theme "Qogir-dark"
-    xcursor-size 16
+    xcursor-theme "Qogir-Dark"
+    xcursor-size 28
     
     hide-when-typing
     hide-after-inactive-ms 1000
@@ -22,10 +22,8 @@ input {
         track-layout "global"
         xkb {
             // For example:
-            // layout "us"
-            // file "~/.config/xkb/symbol/us"
-            // variant "usfieu"
-            options "caps:swapescape" 
+            layout "us"
+            options "caps:swapescape" //grp:alt_shift_toggle"
         }
     }
 
@@ -38,7 +36,7 @@ input {
     }
     warp-mouse-to-focus
     focus-follows-mouse
-
+    
     trackpoint {
     }
 }
@@ -155,8 +153,22 @@ window-rule {
     match app-id="zoom" //title="Presenter layout"
     match app-id="KeePassXC"
     match title="(?i)reminder"
+    match app-id="ibus-ui-emojier"
+    exclude app-id=r#"^org\.gnome\.Nautilus"#
     match app-id=r#"thunderbird"#
     exclude title="^.*Thunderbird"
+    match app-id="unknown" title=""
+    match app-id=r#"librewolf"#
+    exclude title="^.*LibreWolf"
+
+    match app-id=r#"(?i)ardour"#
+    exclude title="^.*Ardour"
+
+    match app-id=r#"guitarix"#
+    exclude title="^.*gx_head"
+
+
+
     open-floating true
 }
 
@@ -241,6 +253,36 @@ window-rule {
     }
 }
 
+recent-windows {
+    // off
+    debounce-ms 750
+
+    open-delay-ms 150
+
+
+    highlight {        
+
+        active-color "#7fc8ff"
+        // active-color "#ffffff50"
+        urgent-color "#bf616a"
+        padding 30
+        corner-radius 12
+    }
+
+    previews {
+        max-height 480
+        max-scale 0.5
+    }
+
+    binds {
+        Alt+Tab         { next-window; }
+        Alt+Shift+Tab   { previous-window; }
+        Alt+grave       { next-window     filter="app-id"; }
+        Alt+Shift+grave { previous-window filter="app-id"; }
+
+    }
+}
+
 
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
@@ -262,24 +304,24 @@ binds {
     Mod+d hotkey-overlay-title="Run an Application: rofi" { spawn "rofi-drun"; }
     Mod+b hotkey-overlay-title="Run Qutebrowser" {spawn-sh "/usr/bin/qutebrowser";}
     Mod+Shift+b hotkey-overlay-title="Qutebrowser: Private window" {spawn-sh "/usr/bin/qutebrowser --target private-window";}
-    Mod+a  {spawn "appdrawer";}
+    Mod+a hotkey-overlay-title="App Drawer" {spawn "appdrawer";}
     Mod+n hotkey-overlay-title="Terminal file manager: Ranger"  {spawn-sh "xdg-terminal-exec -e /usr/bin/ranger";}
     Mod+m hotkey-overlay-title="File Manager: Nautilus" {spawn-sh "/usr/sbin/nautilus";}
-    Mod+Shift+Escape allow-inhibiting=false hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "swaylock -i ~/.config/dogagawa1080.png"; }
-    Mod+x {spawn-sh "killall xwayland-satellite; xwayland-satellite";}
-    Mod+Shift+R {spawn-sh "~/.config/niri/scripts/refresh.sh";}
-    Mod+p {spawn-sh "~/.config/scripts/switch-audio-port";}
-    Alt+Tab {spawn-sh "rofi -show window -theme ~/.config/rofi/themes/nord.rasi";}
+    Mod+Shift+Escape allow-inhibiting=false hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "swaylock -f -i ~/.config/dogagawa1080.png"; }
+    Mod+Shift+R hotkey-overlay-title="Refresh" {spawn-sh "~/.config/niri/scripts/refresh.sh";}
+    Mod+p hotkey-overlay-title="Switch audio ports" {spawn-sh "~/.config/scripts/switch-audio-port";}
+    CTRL+Tab {spawn-sh "rofi -show window -no-fixed-num-lines -theme ~/.config/rofi/themes/nord.rasi";}
 
        // Mod+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
+    Mod+x hotkey-overlay-title="Restart xwayland-satellite" {spawn-sh "killall xwayland-satellite; xwayland-satellite";}
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+05%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "05%-"; }
 
     Mod+Tab repeat=false { toggle-overview; }
 
@@ -423,7 +465,7 @@ binds {
 
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
-    Mod+Shift+E { spawn-sh "~/.config/niri/scripts/powermenu"; }
+    Mod+Shift+E hotkey-overlay-title="Open Powermenu" { spawn-sh "~/.config/niri/scripts/powermenu"; }
     Ctrl+Alt+Delete { quit; }
 
     Mod+Shift+P { power-off-monitors; }

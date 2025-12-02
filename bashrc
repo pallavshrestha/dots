@@ -12,6 +12,7 @@ export BROWSER='/usr/bin/qutebrowser'
 export PATH="$HOME/Applications:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.config/scripts:$PATH"
+export PATH=$PATH:$(find $HOME/.config/scripts -type d) # subdirectories include
 export TERMINAL='xdg-terminal-exec'
 export FZF_COMPLETION_TRIGGER='**'
 export FZF_COMPLETION_OPTS="--preview 'fzf-preview.sh {}'"
@@ -22,11 +23,14 @@ export FZF_COMPLETION_OPTS="--preview 'fzf-preview.sh {}'"
 #  Aliases  #
 #############
 
+alias rm='rm -i'
+alias remove='rm -f'
 alias nay='yay -Rns'
 alias purge='yay -Rns $(yay -Qqtd)'
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 alias v='vim'
 alias r='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+alias z='hide zathura'
 alias top='btop'
 alias htop='btop'
 alias feh='feh --conversion-timeout 1'
@@ -34,7 +38,8 @@ alias t='$TERMINAL &'
 alias showorphans='pacman -Qtdq'
 alias removeorphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias present='impressive --noquit --nologo --wrap' 
-alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
+alias ef='xdg-open'
+# alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
 alias ytfzf='ytfzf -u umpv'
 alias mvi='mpv -profile image'
 alias img='swayimg'

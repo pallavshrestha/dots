@@ -101,3 +101,33 @@ tex-update(){
     TEXMFDIST="/usr/share/texmf-dist"
     sudo sed -i 's/\$Master = "\$Master\/..\/..";/\$Master = "\$Master\/..\/..\/..";/' "$TEXMFDIST/scripts/texlive/tlmgr.pl"
 }
+
+###################
+#  Giltogue menu  #
+###################
+
+# gilogue menu
+
+gitlogue-menu() {
+  local choice
+  choice=$(echo -e "Random commits\nSpecific commit\nBy author\nBy date range\nTheme selection" | \
+           fzf --prompt="gitlogue> " --height=40% --reverse)
+
+  case "$choice" in
+    "Random commits")
+      gitlogue
+      ;;
+    "Specific commit")
+      local commit=$(git log --oneline | fzf --prompt="Select commit> " | awk '{print $1}')
+      [ -n "$commit" ] && gitlogue --commit "$commit"
+      ;;
+    "By author")
+      local author=$(git log --format='%an' | sort -u | fzf --prompt="Select author> ")
+      [ -n "$author" ] && gitlogue
+      ;;
+    "Theme selection")
+      local theme=$(gitlogue theme list | tail -n +2 | sed 's/^  - //' | fzf --prompt="Select theme> ")
+      [ -n "$theme" ] && gitlogue --theme "$theme"
+      ;;
+  esac
+}

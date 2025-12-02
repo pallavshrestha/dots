@@ -9,12 +9,16 @@
 // @run-at        document-end
 // @grant         none
 // @include       http*
+// @exclude       *://*.youtube.com/*   // Exclude YouTube
+// @exclude       *://*.google.com/*        // Exclude google
 // @require       https://cdn.jsdelivr.net/npm/darkreader/darkreader.min.js
 // @noframes
 // ==/UserScript==
 
 DarkReader.disable({
-	brightness: 90,
-	contrast: 90,
+    darkSchemeBackgroudColor: "#002b3600",    
+    darkSchemeTextColor: "#93a1a1",
+	brightness: 100,
+	contrast: 100,
 	sepia: 0
 });

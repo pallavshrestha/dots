@@ -1,14 +1,33 @@
 // ==UserScript==
-// @name     Hide Reddit's promoted posts
-// @namespace HideRedditsPromotedPosts
-// @description Hide Reddit's promoted links so they don't bother you.
-// @match *://*.reddit.com/*
-// @version  1.01
-// @grant    none
+// @name         Reddit Hide Promoted Links (New Design)
+// @namespace    http://github.com/rohenaz
+// @version      0.1
+// @description  remove promoted posts and advertisements
+// @author       Satchmo
+// @match        https://www.reddit.com/*
+// @grant        none
 // ==/UserScript==
- 
+// https://gist.github.com/rohenaz/8b0528add5c03c1788af46cbf97f4089
+
 (function() {
     'use strict';
-    const ads = document.querySelectorAll('shreddit-ad-post');
-    ads.forEach(ad => ad.remove());
+
+    let els = document.getElementsByClassName('promotedlink')
+    clean(els)
+    setInterval(() => {
+        let adEls = document.querySelectorAll('[data-google-query-id]')
+        clean(adEls)
+    }, 2000)
 })();
+
+function clean(els) {
+    if(els) {
+        let x = els.length
+        while(x--) {
+            if (els[x].getAttribute('data-slot')) {
+                els[x] = els[x].parentElement.parentElement.parentElement
+            }
+            els[x].style.display = 'none'
+        }
+    }
+}
