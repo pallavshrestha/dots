@@ -455,9 +455,11 @@ binds {
     Mod+Shift+Space { switch-focus-between-floating-and-tiling; }
 
     Mod+W { toggle-column-tabbed-display; }
+    Mod+Shift+V { spawn-sh "~/.config/scripts/keecli";}
+
 
     Mod+V       { switch-layout "next"; }
-    Mod+Shift+V { switch-layout "prev"; }
+    // Mod+Shift+V { switch-layout "prev"; }
 
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }

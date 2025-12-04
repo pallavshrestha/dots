@@ -12,4 +12,4 @@ open='hide xdg-open'   # this will open pdf file withthe default PDF viewer on K
             v=$(echo {q} | tr " " "|");
             echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
             ' \
-            | cut -z -f 1 -d $'\t'| xargs -0 -I {} $open "{}"
+            | cut -z -f 1 -d $'\t'| tr -d '\n' |xargs -0 -I {} $open "{}"
