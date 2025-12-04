@@ -1,2 +1,5 @@
 #!/bin/bash
 rclone sync -v -i ~/work/vaults/ google1:archbook
+rclone sync -v -i ~/work/vaults/ megaJoe:vaults
+rclone sync -v -i ~/work/vaults/ megaPal:vaults
+

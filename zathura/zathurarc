@@ -54,10 +54,11 @@ set recolor-darkcolor		"#4e4e4e"
 # set recolor-lightcolor          "#fbf1c7" # bg
 # set recolor-darkcolor           "#3c3836" # fg
 
-set index-fg			"#eceff4"
-set index-bg			"#2e3440"
-set index-active-fg		"#eceff4"
-set index-active-bg		"#4c566a"
+# set index-fg			"#eceff4"
+# set index-bg			"#2e3440"
+# set index-active-fg		"#eceff4"
+# set index-active-bg		"#4c566a"
+# set sandbox none #these don't exist anymore
 
 set render-loading-bg		"#2e3440"
 set render-loading-fg		"#eceff4"
@@ -68,7 +69,6 @@ set highlight-active-color	"rgba(236,239,244,0.5)"  #ebcbb8
 
 set adjust-open			"width"
 
-set sandbox none
 set selection-clipboard clipboard
 set recolor-keephue
 

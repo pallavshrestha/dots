@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-open='hide xdg-open'   # this will open pdf file withthe default PDF viewer on KDE, xfce, LXDE and perhaps on other desktops.
+open='hide xdg-open'   # this will open pdf file withthe default PDF viewer on KDE, xfce, LXDE and perhaps on other desktops. 
 
 # using silver searcher # ag -U -g ".pdf$" \
 # useing ripgrep
@@ -12,5 +12,4 @@ open='hide xdg-open'   # this will open pdf file withthe default PDF viewer on K
             v=$(echo {q} | tr " " "|");
             echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
             ' \
-    | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null 
- 
+            | cut -z -f 1 -d $'\t'| xargs -0 -I {} $open "{}"
