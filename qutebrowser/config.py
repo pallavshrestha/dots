@@ -28,7 +28,7 @@ config.set("content.cookies.store", False)
 # config.set('content.headers.user_agent','Mozilla/5.0 (Windows NT 10.0; rv:109.0) Gecko/20100101 Firefox/117.0')
 # Cookies exceptions
 config.source("cookies-whitelist.py")
-config.bind(",s", "cmd-set-text -s :session-load -c ")
+config.bind(",S", "cmd-set-text -s :session-load -c ")
 
 # spellcheck
 config.set("spellcheck.languages", ["en-US"])
