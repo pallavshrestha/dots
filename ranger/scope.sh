@@ -146,7 +146,7 @@ handle_image() {
         #           && exit 6 || exit 1;;
 
         ## Image
-        image/x-fuji-raf)
+        image/x-fuji-raf|image/x-nikon-nef|image/x-canon-cr2|image/x-olympus-orf|image/tiff)
             raf-preview "${FILE_PATH}" "${IMAGE_CACHE_PATH}" \
             && exit 6 || exit 1;;
 

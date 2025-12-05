@@ -1,7 +1,10 @@
 #!/bin/sh
 
 DIR=/tmp/ranger-previews
-BASE=$(basename $1 .RAF)
+BASE=$(basename $1)
+EXT="${BASE##.*}"
+BASE="${BASE%.*}"
+
 
 mkdir -p $DIR
 exiv2 -e p2 -l /tmp/ranger-previews "$1"
