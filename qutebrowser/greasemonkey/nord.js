@@ -56,7 +56,8 @@
             }
 
             // Check if the text color is dark
-            if (luminance(currentColor) < 0.5 && el instanceof HTMLElement) {
+            // if (luminance(currentColor) < 0.5 && el instanceof HTMLElement) {
+            if (isDarkerThan(nordColor.foreground, currentColor) && el instanceof HTMLElement) {
                 el.style.color = nordColors.foreground; // Change to light
             }
         });
