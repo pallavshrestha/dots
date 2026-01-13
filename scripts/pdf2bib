@@ -1,0 +1,188 @@
+
+#!/bin/bash
+
+# Copyright 2025 [Pallav Shrestha]
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+display_help() {
+    echo "Usage: pdf2bib [directory | pdf_file] [options]"
+    echo
+    echo "This script processes single pdf file or a directory with pdf files"
+    echo "It extracts the DOI from PDFs, retrieves corresponding BibTeX entries, and renames the PDF files."
+    echo
+    echo "Arguments:"
+    echo "  directory      The directory containing PDF files to process. Default is the current directory."
+    echo "  pdf_file       A single PDF file to process."
+    echo
+    echo "Options:"
+    echo "  -h, --help     Display this help message."
+    echo "  -r, --rename Renames the file, if argument is pdf_file"
+    echo
+    echo "Description:"
+    echo "The script performs the following tasks for each PDF:"
+    echo "1. Extracts the DOI from the PDF file."
+    echo "2. Retrieves the BibTeX entry using the CrossRef API."
+    echo "3. Checks if a PDF with the corresponding BibTeX key exists."
+    echo "4. Renames the PDF file to match the BibTeX key."
+    echo "5. Appends the BibTeX entry to 'local.bib'."
+    echo
+    echo "Dependecies:'pdftotext', 'curl'"
+}
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    display_help
+    exit 0
+fi
+
+
+
+
+set -e
+
+make_file() {
+    new_pdf="$directory/$title.pdf"
+    echo "Renaming file $pdf > $title.pdf"
+    mv "$directory/$pdf" "$new_pdf"
+    echo ""
+}
+
+check_file() {
+    file="$directory/$title.pdf"
+    file=${file,,}
+    # file="$title.pdf"
+    echo "Checking file: $title.pdf"
+    if [[ -f $file ]]; then
+        echo "$file exists"
+            file_name="$file"
+    else
+        file_name="$file"
+        make_file "$1"
+    fi
+    echo ""
+}
+
+# [x]TODO: specified directory else current directory <10-12-25, pallav> #
+input="${1:-.}"
+
+rename=false
+
+if [[ $# -ge 2 ]]; then
+    if [[ "$2" == "-r" || "$3" == "--rename" ]];then
+        rename=true
+    fi
+fi
+
+if [[ -d "$input" ]]; then
+    dir=$input
+
+    # [x]TODO: change to directory <10-12-25, pallav> #
+    cd "$dir" || { echo "Directory not found"; exit 1; }
+
+    : > local.bib 
+
+    shopt -s nullglob # wildcard expand to nothing when no pdfs 
+
+    pdf_array=( *.pdf )
+
+    # [x]TODO: check pdf file present <10-12-25, pallav> #
+    if [[ ${#pdf_array[@]} -eq 0 ]]; then
+        echo "No PDF files found in the directory"
+        exit 1
+    fi
+
+    for pdf in "${pdf_array[@]}"; do
+        echo "Processing $pdf ..."
+
+
+        # [x]TODO: get doi from pdf <10-12-25, pallav> #
+        echo "Getting doi ..."
+        directory=$(dirname $(realpath $pdf))
+        doi=$(pdftotext "$pdf" - | awk '/References/{flag=1} !flag' | grep -oP "\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![\"&\'<>])\S)+)\b" | head -n 1)
+
+
+        # [x]TODO: check doi retrieved from pdf <10-12-25, pallav> #
+        if [[ -z "$doi" ]]; then
+            echo "Failed to retrieve DOI for $pdf"
+            echo ""
+            # continue
+        fi
+
+
+        # [x]TODO: get bib from doi <10-12-25, pallav> #
+        bib=$(curl -s -L -H "Accept: application/x-bibtex" "https://api.crossref.org/works/$doi/transform")
+
+        # [x]TODO: format bib <10-12-25, pallav> #
+        resource_file=$(mktemp)
+        echo "DOI obtained : $doi"
+        bib=$(echo "$bib" | bibtool -r "$resource_file")
+        rm "$resource_file"
+
+
+
+        # [x]TODO: check bib retrieval, rename pdf to bibkey if bib<10-12-25, pallav> #
+        if [[ -z "$bib" || "$bib" == *"Resource not found"* ]]; then
+            echo "Resource not found"
+            echo ""
+            # title=$(basename -a $pdf)
+            # title=${title%.*}
+        else
+            # [x]TODO: add bib to local.bib<10-12-25, pallav> #
+            echo "$bib" >> local.bib
+            title=$(echo "$bib" | sed -n 's/^[[:space:]]*@[[:alnum:]]\+{\s*\([^,]*\).*$/\1/p')
+            title=${title,,}
+            echo "Title: $title"
+            if [ "$pdf" == "$title.pdf" ];then
+                echo "Previously processed"
+                echo ""
+            else
+                check_file $pdf
+        fi
+    fi
+done
+    
+
+# [x]TODO: run local.bib through bibtool<10-12-25, pallav> #
+echo "Formatting local bib file ..."
+bibtool -s -q "$local_bib" -o "$local_bib"
+
+elif [[ -f "$input" && "${input,,}" == *.pdf ]]; then
+    pdf=$(basename "$input")
+    directory=$(dirname $(realpath "$input"))
+    doi=$(pdftotext "$input" - | awk '/References/{flag=1} !flag' | grep -oP "\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![\"&\'<>])\S)+)\b" | head -n 1)
+
+    if [[ -z "$doi" ]]; then
+        echo "Failed to retrieve DOI for $pdf"
+        exit 1
+    fi
+
+    bib=$(curl -s -L -H "Accept: application/x-bibtex" "https://api.crossref.org/works/$doi/transform")
+    echo "$bib"
+    if [[ $# -ge 2 ]]; then
+        if [[ "$2" == "-r" || "$3" == "--rename" ]];then
+            title=$(echo "$bib" | sed -n 's/^[[:space:]]*@[[:alnum:]]\+{\s*\([^,]*\).*$/\1/p')
+            title=${title,,}
+            if [ "$pdf" == "$title.pdf" ]; then
+                echo "Filename already correct"
+                exit 1
+            else
+                check_file $pdf
+            fi
+        fi
+    fi 
+else
+    echo "Input must be a directory or a PDF file."
+    exit 1
+fi
+

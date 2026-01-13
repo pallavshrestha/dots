@@ -1,9 +1,37 @@
 #!/usr/bin/env bash
 
-open='hide xdg-open'   # this will open pdf file withthe default PDF viewer on KDE, xfce, LXDE and perhaps on other desktops. 
+# open='hide xdg-open'   # this will open pdf file withthe default PDF viewer on KDE, xfce, LXDE and perhaps on other desktops. 
+open='xdg-open'
+
+function display_help () {
+    echo "Usage: $(basename "$0") [OPTIONS]"
+    echo
+    echo "Options:"
+    echo "  -d, --devour         Use 'hide xdg-open' for opening files."
+    echo "  -h, --help           Display this help message."
+    echo
+}
+
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        -d|--devour)
+            open='hide xdg-open'
+            shift
+            ;;
+        -h|--help)
+            display_help
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            display_help
+            exit 1
+            ;;
+    esac
+done
 
 # using silver searcher # ag -U -g ".pdf$" \
-# useing ripgrep
+# using ripgrep
     rg --files --glob '*.pdf' \
     | fast-p \
     | fzf --read0 --reverse --no-multi-line -e -d $'\t'  \
@@ -12,4 +40,4 @@ open='hide xdg-open'   # this will open pdf file withthe default PDF viewer on K
             v=$(echo {q} | tr " " "|");
             echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
             ' \
-            | cut -z -f 1 -d $'\t'| tr -d '\n' |xargs -0 -I {} $open "{}"
+            | cut -z -f 1 -d $'\t'| tr -d '\n' |xargs -0 -I {} bash -c "$open \"{}\" &"
