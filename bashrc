@@ -37,12 +37,18 @@ alias feh='feh --conversion-timeout 1'
 alias t='$TERMINAL &'
 alias showorphans='pacman -Qtdq'
 alias removeorphans='sudo pacman -Rns $(pacman -Qtdq)'
-alias present='impressive --noquit --nologo --wrap' 
-alias ef='xdg-open'
-# alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
+alias clear="printf '\033[2J\033[3J\033[1;1H'"
+# alias ef='xdg-open'
+alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
 alias ytfzf='ytfzf -u umpv'
 alias mvi='mpv -profile image'
 alias img='swayimg'
+
+
+
+## Ledger Aliases
+alias ledg='ledger -f $HOME/work/vaults/personal.ldg'
+alias pers='vim $HOME/work/vaults/personal.ldg'
 
 ## Conda Aliases
 alias maths='conda activate maths'
