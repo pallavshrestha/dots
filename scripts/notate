@@ -23,7 +23,8 @@ set -e
 
 pdf="$(realpath $1)"
 doi="$(pdf2doi ${1})"
-bib=$(curl -s "http://api.crossref.org/works/$doi/transform/application/x-bibtex")
+# bib=$(curl -s "http://api.crossref.org/works/$doi/transform/application/x-bibtex")
+bib=$(curl -s -L -H "Accept: application/x-bibtex" "https://api.crossref.org/works/$doi/transform")
 resource_file=$(mktemp)
 bib=$(echo "$bib" | bibtool -r "$resource_file")
 rm "$resource_file"

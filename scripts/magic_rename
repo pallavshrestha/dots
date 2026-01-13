@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+rename_files() {
+    for item in "$1"/*; do
+        new_name=$(echo "$item" | tr ' ' '_' )
+        if [ "$item" != "$new_name" ]; then
+            mv "$item" "$new_name"
+            echo "Renamed: '$item' to '$new_name'"
+        fi
+    done
+}
+
+if [ $# -gt 1 ]; then
+    echo "Usage: $0 [directory|file]"
+    exit 1
+fi
+
+target=${1:-.}
+
+if [ -d "$target" ]; then
+    rename_files "$target"
+elif [ -f "$target" ]; then
+    new_name=$(echo "$target" | tr ' ' '_')
+    if [ "$target" != "$new_name" ]; then
+        mv "$target" "$new_name"
+        echo "Renamed: '$target' to '$new_name'"
+    fi
+else
+    echo "'$target' is not a valid file or directry."
+    exit 1
+fi

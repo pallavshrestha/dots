@@ -18,12 +18,53 @@
 # Original script by Conner McDaniel
 # https://github.com/connermcd/bin
 
+display_help() {
+    echo "Usage: doi2bib <DOI> [options]"
+    echo
+    echo "Fetches the BibTeX format for a given DOI from the CrossRef API."
+    echo
+    echo "Arguments:"
+    echo "  <DOI>        The DOI (Digital Object Identifier) for the publication."
+    echo
+    echo "Options:"
+    echo "  -h, --help   Display this help message."
+    echo "  -f, --format Format the bib output."
+}
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    display_help
+    exit 0
+fi
+
+# Check if DOI is provided
+if [ -z "$1" ]; then
+    echo "Error: DOI is required."
+    display_help
+    exit 1
+fi
+
+format=false
+
+if [[ "$2" == "--format" || "$2" == "-f" ]]; then
+    format=true
+fi
+
 set -e
 
 result=
-i=
-while [[ $i < 10 && "$result" != *"author = "* ]]; do
-    result=$(curl -s "http://api.crossref.org/works/$1/transform/application/x-bibtex")
+i=0
+while [[ $i < 10 && "$result" != *"@"* ]]; do
+    result=$(curl -s -L -H "Accept: application/x-bibtex" "https://api.crossref.org/works/$1/transform")
+    # result=$(curl -s "http://api.crossref.org/works/$1/transform/application/x-bibtex")
     i=$(( $i + 1 ))
 done
-echo "$result"
+
+
+if $format; then
+    resource_file=$(mktemp)
+    bib=$(echo "$result" | bibtool -r "$resource_file")
+    rm "$resource_file"
+    echo "$bib"
+else
+    echo "$result"
+fi

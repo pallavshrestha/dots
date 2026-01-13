@@ -15,6 +15,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+display_help() {
+    echo "Usage: pdf2doi <PDF file>"
+    echo
+    echo "Extracts the first DOI (Digital Object Identifier) from the References section of a PDF file."
+    echo
+    echo "Options:"
+    echo "  -h, --help    Display this help message and exit."
+    echo
+}
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    display_help
+    exit 0
+fi
+
+# [x]TODO: check for input <13-01-26, pallav> #
+if [[ -z "$1" ]]; then
+    echo "Error: No PDF file provided."
+    display_help
+    exit 1
+fi
+
 
 set -e
 

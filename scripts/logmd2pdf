@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# If arguments are provided, use them; otherwise, grab all .md files
+
+geometry="a4paper"
+
+display_help() {
+    echo "Usage: $0 [-g geometry] [files...]"
+    echo
+    echo "Options:"
+    echo "  -g geometry   Set the paper size (default: a0paper)."
+    echo "  -h            Display this help message."
+    echo
+    echo "If no files are given, all .md files in the current directory will be processed."
+}
+
+while getopts "g:" opt; do
+    case $opt in
+        g)
+            geometry="$OPTARG"
+            ;;
+        h)
+            display_help
+            exit 0
+            ;;
+        \?)
+            # echo "Usage: $0 [-g geometry] [files...]"
+            display_help
+            exit 1
+            ;;
+    esac
+done
+
+shift $((OPTIND -1))
+
+if [[ $# -gt 0 ]]; then
+    files=("$@")
+else
+    files=( *.md )
+fi
+
+for file in "${files[@]}"; do
+    if [[ -e "$file" ]]; then
+        base_name="${file%.md}"
+        pandoc "$file" \
+            -o "${base_name}.pdf" \
+            --pdf-engine=pdflatex \
+            -V geometry:$geometry \
+            -V header-includes:"\usepackage{xcolor}\pagecolor[HTML]{3b4252}\color[HTML]{eceff4}"
+        echo "Converted $file to ${base_name}.pdf"
+    else
+        echo "Warning: '$file' not found."
+    fi
+done

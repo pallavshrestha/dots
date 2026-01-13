@@ -38,7 +38,16 @@ grep --exclude="*.bib" -r "tags = {" * | while read line; do
     done
 done
 
-[[ -f global.bib ]] && rm global.bib
-pcregrep -r -M -I --exclude-dir=img --exclude=".*pdf" "^@(\n|.)*~~~" . > global.bib
-bibtool -s -q global.bib -o global.bib
+global_bib="$HOME/work/docVault/global.bib"
+local_bib=local.bib
 
+pcregrep -r -M -I --exclude-dir=img --exclude=".*pdf" "^@(\n|.)*~~~" . > global.bib
+
+if [ -n "$1" ]; then
+    [[ -f local.bib ]] && rm local.bib
+    pcregrep -r -M -I --exclude-dir=img --exclude=".*pdf" "^@(\n|.)*~~~" "$1" >> "$local_bib"
+fi
+
+
+bibtool -s -q "$global_bib" -o "$global_bib"
+bibtool -s -q "$local_bib" -o "$local_bib"
