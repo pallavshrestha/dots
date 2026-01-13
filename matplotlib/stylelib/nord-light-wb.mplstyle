@@ -10,6 +10,7 @@
 #----------------------------------------------------------
 
 # Figure-wide
+figure.dpi:300
 figure.facecolor: white #e5e9f0 #eceff4  #white
 lines.linewidth: 1.5
 lines.solid_capstyle: round
