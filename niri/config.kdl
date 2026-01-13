@@ -4,7 +4,7 @@
 environment{
     QT_QPA_PLATFORMTHEME "qt6ct"
     QT_STYLE_OVERRIDE "GTK+"
-    // QT_STYLE_OVERRIDE "kvantum"
+    QT_STYLE_OVERRIDE "kvantum"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     GTK_THEME "nordic"
 }
@@ -102,6 +102,7 @@ layout {
         // top 64
         // bottom 64
     }
+
 }
 
 overview {
@@ -124,7 +125,7 @@ spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 // spawn-at-startup "xwayland-satellite"
 spawn-sh-at-startup "~/.config/niri/scripts/refresh.sh"
 spawn-sh-at-startup "~/.config/scripts/left-screen"
-spawn-sh-at-startup "swayidle -w timeout 300 'swaylock -f -i ~/.config/dogagawa1080.png' timeout 600 'niri msg action power-off-monitors'  before-sleep 'swaylock -f -i ~/.config/dogagawa1080.png' &"
+spawn-sh-at-startup "swayidle -w timeout 300 'swaylock -f -i ~/.config/dogagawa1080.png' timeout 600 'niri msg action power-off-monitors' timeout 900 'systemctl suspend-then-hibernate' before-sleep 'swaylock -f -i ~/.config/dogagawa1080.png'"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -155,8 +156,8 @@ window-rule {
     match title="(?i)reminder"
     match app-id="ibus-ui-emojier"
     exclude app-id=r#"^org\.gnome\.Nautilus"#
-    match app-id=r#"thunderbird"#
-    exclude title="^.*Thunderbird"
+    match app-id=r#"(?i)thunderbird"#
+    exclude title=".*Thunderbird"
     match app-id="unknown" title=""
     match app-id=r#"librewolf"#
     exclude title="^.*LibreWolf"
@@ -166,6 +167,9 @@ window-rule {
 
     match app-id=r#"guitarix"#
     exclude title="^.*gx_head"
+    match app-id="nm-connection-editor"
+
+    match app-id=r#"-config"#
 
 
 
@@ -178,7 +182,7 @@ window-rule {
     match app-id="KeePassXC"
     match app-id=r#"^org\.gnome\.World\.Secrets$"#
     match app-id=r#"^com\.obsproject\.Studio"#
-    match app-id="thunderbird"
+    match app-id=r#"(?i)thunderbird"#
     match app-id="teams-for-linux"
     match app-id="zoom"
     match title=r#"(?i)duck"#
@@ -305,12 +309,13 @@ binds {
     Mod+b hotkey-overlay-title="Run Qutebrowser" {spawn-sh "/usr/bin/qutebrowser";}
     Mod+Shift+b hotkey-overlay-title="Qutebrowser: Private window" {spawn-sh "/usr/bin/qutebrowser --target private-window";}
     Mod+a hotkey-overlay-title="App Drawer" {spawn "appdrawer";}
+    XF86LaunchB {spawn "appdrawer";}
     Mod+n hotkey-overlay-title="Terminal file manager: Ranger"  {spawn-sh "xdg-terminal-exec -e /usr/bin/ranger";}
     Mod+m hotkey-overlay-title="File Manager: Nautilus" {spawn-sh "/usr/sbin/nautilus";}
     Mod+Shift+Escape allow-inhibiting=false hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "swaylock -f -i ~/.config/dogagawa1080.png"; }
     Mod+Shift+R hotkey-overlay-title="Refresh" {spawn-sh "~/.config/niri/scripts/refresh.sh";}
     Mod+p hotkey-overlay-title="Switch audio ports" {spawn-sh "~/.config/scripts/switch-audio-port";}
-    CTRL+Tab {spawn-sh "rofi -show window -no-fixed-num-lines -theme ~/.config/rofi/themes/nord.rasi";}
+    CTRL+grave {spawn-sh "rofi -show window -no-fixed-num-lines -theme ~/.config/rofi/themes/nord.rasi";}
 
        // Mod+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
     Mod+x hotkey-overlay-title="Restart xwayland-satellite" {spawn-sh "killall xwayland-satellite; xwayland-satellite";}
