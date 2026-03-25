@@ -6,7 +6,7 @@ environment{
     QT_QPA_PLATFORMTHEME "qt5ct"
     QT_QPA_PLATFORMTHEME_QT6 "kvantum"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
-    GTK_THEME "nordic"
+    GTK_THEME "nordic-blue"
     GTK_FONT_NAME "Iosevka Nerd Font 12"
     GTK_ICON_THEME "Qogir-Dark"
     GTK_CURSOR_THEME "Qogir-Dark"
@@ -165,20 +165,14 @@ window-rule {
     match app-id="unknown" title=""
     match app-id=r#"librewolf"#
     exclude title="^.*LibreWolf"
-
     match app-id=r#"(?i)ardour"#
     exclude title="^.*Ardour"
-
     match app-id=r#"guitarix"#
     exclude title="^.*gx_head"
     match app-id="nm-connection-editor"
-
     match app-id=r#"-config"#
-    
     match app-id=r#"(?i)thunar"#
     exclude title=r#"Thunar"#
-
-
     open-floating true
 }
 
