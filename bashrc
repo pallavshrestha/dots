@@ -7,7 +7,6 @@
 
 export EDITOR=vim;
 export VISUAL=vim;
-# export BROWSER="usr/bin/librewolf"
 export BROWSER='/usr/bin/qutebrowser'
 export PATH="$HOME/Applications:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -24,7 +23,6 @@ export FZF_COMPLETION_OPTS="--preview 'fzf-preview.sh {}'"
 #############
 
 alias rm='rm -i'
-alias remove='rm -f'
 alias nay='yay -Rns'
 alias purge='yay -Rns $(yay -Qqtd)'
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
@@ -33,7 +31,6 @@ alias r='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd
 alias z='hide zathura'
 alias top='btop'
 alias htop='btop'
-alias feh='feh --conversion-timeout 1'
 alias t='$TERMINAL &'
 alias showorphans='pacman -Qtdq'
 alias removeorphans='sudo pacman -Rns $(pacman -Qtdq)'
@@ -44,7 +41,8 @@ alias ytfzf='ytfzf -u umpv'
 alias mvi='mpv -profile image'
 alias img='swayimg'
 alias ff='fastfetch'
-
+alias fi2en='argos-translate -f fi -t en'
+alias en2fi='argos-translate -f en -t fi'
 
 
 ## Ledger Aliases
@@ -53,9 +51,6 @@ alias pers='vim $HOME/work/vaults/personal.ldg'
 
 ## Conda Aliases
 alias maths='conda activate maths'
-alias neural='conda activate neural'
-alias lca='conda activate brightway2'
-alias notebook='conda activate open-notebook'
 alias deconda='conda deactivate'
 
 ## Niri dynamic cast
@@ -148,11 +143,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-################################################################################
-
-# pipx completions
-eval "$(register-python-argcomplete pipx)"
-
 
 ################################################################################
 neofetch() {
@@ -165,3 +155,13 @@ neofetch() {
     # Call neofetch with the random argument
     command neofetch --ascii_distro "${args[$random_index]}"
 }
+
+################################################################################
+#######################################################################
+#                             Completions                             #
+#######################################################################
+
+# pipx completions
+eval "$(register-python-argcomplete pipx)"
+
+ source ~/.config/bash/git-completion.bash
