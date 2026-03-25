@@ -8,7 +8,9 @@
 
 -- set order by file size for the image list
 swayimg.imagelist.set_order("numeric")
+
 swayimg.imagelist.enable_adjacent(true)
+swayimg.viewer.enable_loop(true)
 
 -- text
 swayimg.text.set_size(14)
@@ -26,8 +28,7 @@ swayimg.text.set_status_timeout(3)
 swayimg.viewer.set_window_background(0xee2e3440)
 
 swayimg.slideshow.set_default_scale("optimal")
-swayimg.viewer.set_default_scale("optimal")
-swayimg.viewer.enable_loop(enable)
+swayimg.viewer.set_default_scale("fit")
 
 -- set top left text block scheme for viewer mode
 swayimg.viewer.set_text("topleft", {
@@ -92,4 +93,6 @@ swayimg.viewer.on_key("q", swayimg.exit )
 swayimg.slideshow.on_key("q", swayimg.exit )
 swayimg.gallery.on_key("q", swayimg.exit )
 
-swayimg.viewer.on_key("k", swayimg.viewer.set_fix_scale("keep") )
+swayimg.viewer.on_key("k",  function() swayimg.viewer.set_fix_scale("keep") end)
+swayimg.viewer.on_key("r", function() swayimg.viewer.set_fix_scale("fit") end)
+swayimg.viewer.on_key("g", function() swayimg.viewer.set_fix_scale("fill") end)
