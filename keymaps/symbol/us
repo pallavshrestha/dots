@@ -5,7 +5,7 @@ xkb_symbols "basic" {
 
     name[Group1]= "English (US)";
 
-    key <TLDE>	{[   grave,	 asciitilde	]};
+    key <TLDE>	{[   grave,	 asciitilde, 	section,    onehalf]};
     key <AE01>	{[	 1,	 exclam		]};
     key <AE02>	{[	 2,	 at		]};
     key <AE03>	{[	 3,	 numbersign	]};
@@ -70,7 +70,7 @@ xkb_symbols "custom" {
 
     name[Group1] = "English(us, intl., with fi and eu symbols)"
 
-    key <TLDE>	{[   grave,	 asciitilde	]};
+    key <TLDE>	{[   grave,	 asciitilde, 	section,    onehalf]};
     key <AE01>	{[	 1,	 exclam		]};
     key <AE02>	{[	 2,	 at		]};
     key <AE03>	{[	 3,	 numbersign	]};
@@ -137,16 +137,16 @@ xkb_symbols "custom" {
 //
 //
 // ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━┓
-// │ ~   │ !   │ @   │ #   │ $   │ %   │ ^   │ &   │ *   │ (   │ ) · │ _ — │ = ÷ ┃Backspace┃
-// │ @   │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0 ° │ - – │ + × ┃ ⌫       ┃
+// │ ~ ½ │ !   │ @   │ #   │ $   │ %   │ ^   │ &   │ *   │ (   │ ) · │ _ — │ = ÷ ┃Backspace┃
+// │ ` § │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0 ° │ - – │ + × ┃ ⌫       ┃
 // ┢━━━━━┷━┱───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┺━┯━━━━━━━┫
 // ┃Tab    ┃ Q   │ W   │ E € │ R   │ T   │ Y   │ U   │ I   │ O Ö │ P   │ { Å │ }   │  |    ┃
 // ┃ ↹     ┃ q   │ w   │ e € │ r   │ t   │ y   │ u   │ i   │ o ö │ p   │ [ å │ ]   │  \    ┃
 // ┣━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┲━━━━┷━━━━━━━┫
-// ┃Caps    ┃ A   │ S   │ D   │ F   │ G   │ H   │ J   │ K   │ L   │ : Ö │ " Ä ┃   ⏎        ┃
-// ┃Lock  ⇬ ┃ a   │ s   │ d   │ f   │ g   │ h   │ j   │ k   │ l   │ ; ö │ ' ä ┃  Enter     ┃
+// ┃esc     ┃ A   │ S   │ D   │ F   │ G   │ H   │ J   │ K   │ L   │ : Ö │ " Ä ┃   ⏎        ┃
+// ┃        ┃ a   │ s   │ d   │ f   │ g   │ h   │ j   │ k   │ l   │ ; ö │ ' ä ┃  Enter     ┃
 // ┣━━━━━━━━┻━━━┱─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┲━┻━━━━━━━━━━━━┫
-// ┃Shif        ┃ Z   │ X   │ C   │ V   │ B   │ N   │ M — │ <   │ >   │ ? … ┃  Shift       ┃
+// ┃Shift       ┃ Z   │ X   │ C   │ V   │ B   │ N   │ M — │ <   │ >   │ ? … ┃  Shift       ┃
 // ┃ ⇧          ┃ z   │ x   │ c   │ v   │ b   │ n   │ m µ │ ,   │ .   │ / ¿ ┃   ⇧          ┃
 // ┣━━━━━━━┳━━━━┻━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴────┲┷━━━━━╈━━━━━┻┳━━━━━━┳━━━━━━┫
 // ┃Ctrl   ┃ Fn    ┃Alt    ┃ ␣ Space            Nobreakspace ⍽ ┃AltGr ┃Multi ┃ Ctxt ┃ Ctrl ┃
@@ -712,9 +712,9 @@ xkb_symbols "dvp" {
 // Based on the Dvorak keyboard layout found in MacOS
 partial alphanumeric_keys
 xkb_symbols "dvorak-mac" {
-    name[Group1]= "English (Dvorak, Macintosh)";
+    name[Group1]= "English (Dvorak, Macintosh, ANSI)";
 
-    key <TLDE> { [ section, plusminus ] };
+    key <TLDE> { [ grave, asciitilde, dead_grave, grave ] };
 
     key <AE01> { [            1,      exclam,          exclamdown,                U2044 ] };
     key <AE02> { [            2,          at,           trademark,             EuroSign ] };
@@ -754,7 +754,6 @@ xkb_symbols "dvorak-mac" {
     key <AC10> { [     s,          S,            ssharp,      Iacute ] };
     key <AC11> { [ minus, underscore,            endash,      emdash ] };
 
-    key <LSGT> { [ grave, asciitilde, dead_grave, grave ] };
     key <AB01> { [ semicolon, colon,       ellipsis,             Uacute ] };
     key <AB02> { [         q,     Q,             oe,                 OE ] };
     key <AB03> { [         j,     J,          U2206,        Ocircumflex ] };
@@ -769,6 +768,20 @@ xkb_symbols "dvorak-mac" {
     key <BKSL> { [ backslash, bar, guillemotleft, guillemotright ] };
 
     include "level3(ralt_switch)"
+};
+
+partial alphanumeric_keys
+xkb_symbols "mac-iso-keys" {
+    key <LSGT> { [ grave, asciitilde, dead_grave, dead_horn ] };
+    key <TLDE> { [ section, plusminus, section, plusminus ] };
+};
+
+partial alphanumeric_keys
+xkb_symbols "dvorak-mac-iso" {
+    include "us(dvorak-mac)"
+    include "us(mac-iso-keys)"
+
+    name[Group1] = "English (Dvorak, Macintosh, ISO)";
 };
 
 // A phonetic layout for typing Russian on a US keyboard.
@@ -829,9 +842,8 @@ xkb_symbols "mac" {
 
     key.type[group1]="FOUR_LEVEL";
 
-    // Slightly improvised from http://homepage.mac.com/thgewecke/kblayout.jpg
-    key <TLDE> { [   section,  plusminus,       section,        plusminus ] };
-    key <LSGT> { [     grave, asciitilde,    dead_grave,        dead_horn ] };
+    // Slightly improvised from https://web.archive.org/web/20120530171635/http://homepage.mac.com/thgewecke/kblayout.jpg
+    key <TLDE> { [     grave, asciitilde,    dead_grave,        dead_horn ] };
     key <AE01> { [	   1,     exclam,    exclamdown,            U2044 ] };
     key <AE02> { [	   2,         at,     trademark,         EuroSign ] };
     key <AE03> { [	   3, numbersign,      sterling,            U2039 ] };
@@ -884,6 +896,14 @@ xkb_symbols "mac" {
     key <AB10> { [     slash,   question,      division,     questiondown ] };
 
     include "level3(ralt_switch)"
+};
+
+partial alphanumeric_keys
+xkb_symbols "mac-iso" {
+    include "us(mac)"
+    include "us(mac-iso-keys)"
+
+    name[Group1] = "English (Macintosh, ABC, ISO)";
 };
 
 // Colemak symbols for xkb on X.Org Server 7.x
