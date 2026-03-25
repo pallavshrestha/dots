@@ -2,10 +2,15 @@
 
 rename_files() {
     for item in "$1"/*; do
-        new_name=$(echo "$item" | tr ' ' '_' )
+        # echo "$item"
+        new_name1=$(echo "$item" | tr ' ' '_')
+        new_name=$(echo "$new_name1" | sed 's/^\(.\)/\l\1/')
+        # echo $new_name
         if [ "$item" != "$new_name" ]; then
             mv "$item" "$new_name"
             echo "Renamed: '$item' to '$new_name'"
+        # else
+        #     echo "$item = $new_name"                
         fi
     done
 }
@@ -18,9 +23,16 @@ fi
 target=${1:-.}
 
 if [ -d "$target" ]; then
-    rename_files "$target"
+    # echo "is dir"
+    new_name=$(echo "$target" | tr ' ' '_' | sed 's/^\(.\)/\l\1/')
+    echo "New_name= $new_name"
+    if [ "$target" != "$new_name" ]; then
+        mv "$target" "$new_name"
+        echo "Renamed: '$target' to '$new_name'"
+    fi
+    rename_files "$new_name"
 elif [ -f "$target" ]; then
-    new_name=$(echo "$target" | tr ' ' '_')
+    new_name=$(echo "$target" | tr ' ' '_' | sed 's/^\(.\)/\l\1/')
     if [ "$target" != "$new_name" ]; then
         mv "$target" "$new_name"
         echo "Renamed: '$target' to '$new_name'"
