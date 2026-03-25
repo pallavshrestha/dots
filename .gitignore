@@ -3,6 +3,7 @@
 .mono/
 EmuDeck/
 GIMP*/
+LM*
 LanguageTool/
 Microsoft/
 QtProject.conf
@@ -32,6 +33,7 @@ lsp-plugins/
 lutris
 menus
 obs-studio/
+opencode
 pavucontrol.ini
 pipewire
 powerline.sh.bak
