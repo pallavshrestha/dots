@@ -11,4 +11,4 @@ gsettings set org.gnome.desktop.interface icon-theme 'Qogir-Dark'
 gsettings set org.gnome.desktop.interface cursor-theme 'Qogir-Dark'
 gsettings set org.gnome.desktop.interface cursor-size 28
 
-env = QT_QPA_PLATFORMTHEME,qt6ct # for Qt apps - breaks on KDE apps. Use "kde" instead as themeing manager.
+# env = QT_QPA_PLATFORMTHEME,qt6ct # for Qt apps - breaks on KDE apps. Use "kde" instead as themeing manager.

@@ -2,11 +2,16 @@
 // "/-" comments out the following node.
 
 environment{
-    QT_QPA_PLATFORMTHEME "qt6ct"
-    QT_STYLE_OVERRIDE "GTK+"
-    QT_STYLE_OVERRIDE "kvantum"
+    // QT_QPA_PLATFORM "wayland"
+    QT_QPA_PLATFORMTHEME "qt5ct"
+    QT_QPA_PLATFORMTHEME_QT6 "kvantum"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     GTK_THEME "nordic"
+    GTK_FONT_NAME "Iosevka Nerd Font 12"
+    GTK_ICON_THEME "Qogir-Dark"
+    GTK_CURSOR_THEME "Qogir-Dark"
+    GTK_CURSOR_THEME_SIZE "16"
+    GTK_APPLICATION_PREFER_DARK_THEME "1"
 }
 
 cursor {
@@ -155,7 +160,6 @@ window-rule {
     match app-id="KeePassXC"
     match title="(?i)reminder"
     match app-id="ibus-ui-emojier"
-    exclude app-id=r#"^org\.gnome\.Nautilus"#
     match app-id=r#"(?i)thunderbird"#
     exclude title=".*Thunderbird"
     match app-id="unknown" title=""
@@ -170,7 +174,9 @@ window-rule {
     match app-id="nm-connection-editor"
 
     match app-id=r#"-config"#
-
+    
+    match app-id=r#"(?i)thunar"#
+    exclude title=r#"Thunar"#
 
 
     open-floating true
@@ -208,7 +214,6 @@ window-rule{
     match app-id="alacritty"
     match app-id="kitty"
     match app-id="foot"
-    match app-id="(?i)nautilus"
     match app-id="swayimg"
     match app-id="zathura"
     // opacity 0.95
@@ -311,11 +316,11 @@ binds {
     Mod+a hotkey-overlay-title="App Drawer" {spawn "appdrawer";}
     XF86LaunchB {spawn "appdrawer";}
     Mod+n hotkey-overlay-title="Terminal file manager: Ranger"  {spawn-sh "xdg-terminal-exec -e /usr/bin/ranger";}
-    Mod+m hotkey-overlay-title="File Manager: Nautilus" {spawn-sh "/usr/sbin/nautilus";}
+    Mod+m hotkey-overlay-title="File Manager: Nautilus" {spawn-sh "/usr/sbin/thunar";}
     Mod+Shift+Escape allow-inhibiting=false hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "swaylock -f -i ~/.config/dogagawa1080.png"; }
     Mod+Shift+R hotkey-overlay-title="Refresh" {spawn-sh "~/.config/niri/scripts/refresh.sh";}
     Mod+p hotkey-overlay-title="Switch audio ports" {spawn-sh "~/.config/scripts/switch-audio-port";}
-    CTRL+grave {spawn-sh "rofi -show window -no-fixed-num-lines -theme ~/.config/rofi/themes/nord.rasi";}
+    CTRL+grave {spawn-sh "rofi -show window -no-fixed-num-lines -theme-str 'window {width:60%;}' -theme ~/.config/rofi/themes/nord.rasi";}
 
        // Mod+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
     Mod+x hotkey-overlay-title="Restart xwayland-satellite" {spawn-sh "killall xwayland-satellite; xwayland-satellite";}
@@ -460,7 +465,7 @@ binds {
     Mod+Shift+Space { switch-focus-between-floating-and-tiling; }
 
     Mod+W { toggle-column-tabbed-display; }
-    Mod+Shift+V { spawn-sh "~/.config/scripts/keecli";}
+    // Mod+Shift+V { spawn-sh "~/.config/scripts/keecli";} //Maintainence mode
 
 
     Mod+V       { switch-layout "next"; }
