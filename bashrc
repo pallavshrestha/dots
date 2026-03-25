@@ -43,6 +43,7 @@ alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
 alias ytfzf='ytfzf -u umpv'
 alias mvi='mpv -profile image'
 alias img='swayimg'
+alias ff='fastfetch'
 
 
 
@@ -54,10 +55,11 @@ alias pers='vim $HOME/work/vaults/personal.ldg'
 alias maths='conda activate maths'
 alias neural='conda activate neural'
 alias lca='conda activate brightway2'
+alias notebook='conda activate open-notebook'
 alias deconda='conda deactivate'
 
 ## Niri dynamic cast
-alias dyncast-pick='$ niri msg action set-dynamic-cast-window --id $(niri msg --json pick-window | jq .id)'
+alias dyncast-pick='niri msg action set-dynamic-cast-window --id $(niri msg --json pick-window | jq .id)'
 alias dyncast-window='niri msg action set-dynamic-cast-window'
 alias dyncast-monitor='niri msg action set-dynamic-cast-monitor'
 alias dyncast-clear='niri msg action clear-dynamic-cast-target'

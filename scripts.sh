@@ -81,7 +81,7 @@ todos() {
         echo
         echo $(ag todo:|wc -l) "tasks"
         echo $(ag x\]todo:|wc -l) "completed"
-        echo $(ag  \]todo:|wc -l) "remaining"
+        echo $(ag ' \]todo:'|wc -l) "remaining"
     else 
         ag -numbers todo: "$1"
         echo

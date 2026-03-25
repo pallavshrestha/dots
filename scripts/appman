@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-AMVERSION="9.9-4"
+AMVERSION="9.9.4"
 
 # Determine main repository and branch
 AMREPO="https://raw.githubusercontent.com/ivan-hc/AM/main"
@@ -80,6 +80,13 @@ APPMANCONFIG="$CONFIGDIR/appman"
 SCRIPTDIR="${SCRIPTDIR:-$(xdg-user-dir DESKTOP 2>/dev/null)}"
 [ -d "$SCRIPTDIR" ] || SCRIPTDIR="$PWD"
 export SCRIPTDIR
+
+# Determine the directory of the launchers
+if ! command -v hildon-home 1>/dev/null; then
+	LAUNCHERS_DIR="applications"
+else
+	LAUNCHERS_DIR="applications/hildon"
+fi
 
 # Colors
 RED='\033[0;31m'
@@ -288,7 +295,7 @@ _appman() {
 	else
 		APPSDIR="$(head -1 "$APPMANCONFIG"/appman-config 2>/dev/null)"
 	fi
-	mkdir -p "$BINDIR" "$DATADIR"/applications "$DATADIR"/icons || exit 1
+	mkdir -p "$BINDIR" "$DATADIR"/"$LAUNCHERS_DIR" "$DATADIR"/icons || exit 1
 	AMCLI="appman"
 	AMCLIPATH="$DIR/$AMCLI"
 	SUDOCMD=""
@@ -351,14 +358,24 @@ _detect_appman_apps() {
 }
 
 _determine_args() {
-	ARGPATHS=$(find "$APPSPATH" -maxdepth 2 -name 'remove' -print 2>/dev/null | sort -u | sed 's|/remove||g')
-	ARGS=$(echo "$ARGPATHS" | xargs -n 1 basename 2>/dev/null)
-	if [ "$AMCLI" = am ]; then
-		_detect_appman_apps
-		if [ -d "$APPMAN_APPSPATH" ]; then
-			APPMAN_PATHS=$(find "$APPMAN_APPSPATH" -maxdepth 2 -name 'remove' -print 2>/dev/null | sort -u | sed 's|/remove||g')
-			ARGPATHS=$(printf "%b\n%b" "$ARGPATHS" "$APPMAN_PATHS")
-			ARGS=$(echo "$ARGPATHS" | xargs -n 1 basename 2>/dev/null)
+	if [ -d "$APPSPATH" ]; then
+		if [ -L "$APPSPATH" ]; then
+			ARGPATHS=$(find -L "$APPSPATH" -type f -name 'remove' -executable -print 2>/dev/null | sort -u | sed 's:/[^/]*$::' | grep -v "$APPSPATH/.*/")
+		else
+			ARGPATHS=$(find "$APPSPATH" -type f -name 'remove' -executable -print 2>/dev/null | sort -u | sed 's:/[^/]*$::' | grep -v "$APPSPATH/.*/")
+		fi
+		ARGS=$(echo "$ARGPATHS" | xargs -n 1 basename 2>/dev/null)
+		if [ "$AMCLI" = am ]; then
+			_detect_appman_apps
+			if [ -d "$APPMAN_APPSPATH" ]; then
+				if [ -L "$APPMAN_APPSPATH" ]; then
+					APPMAN_PATHS=$(find -L "$APPMAN_APPSPATH" -type f -name 'remove' -executable -print 2>/dev/null | sort -u | sed 's:/[^/]*$::' | grep -v "$APPMAN_APPSPATH/.*/")
+				else
+					APPMAN_PATHS=$(find "$APPMAN_APPSPATH" -type f -name 'remove' -executable -print 2>/dev/null | sort -u | sed 's:/[^/]*$::' | grep -v "$APPMAN_APPSPATH/.*/")
+				fi
+				ARGPATHS=$(printf "%b\n%b" "$ARGPATHS" "$APPMAN_PATHS")
+				ARGS=$(echo "$ARGPATHS" | xargs -n 1 basename 2>/dev/null)
+			fi
 		fi
 	fi
 	# use "argpath=$(echo "$ARGPATHS" | grep "/$arg$")" to determine the full path of "arg"
@@ -405,6 +422,29 @@ _betatester_message_on() {
 APPSDB="${APPSDB:-$AMREPO/programs/$ARCH}"
 APPSLISTDB="${APPSLISTDB:-$AMREPO/programs/$ARCH-apps}"
 
+# List of apps from archived repositories or not updated for more than a year
+archived_apps_source="$AMREPO/programs/archived-apps"
+obsolete_apps_source="$AMREPO/programs/obsolete-apps"
+
+_validate_and_download_lists_of_archived_and_obsolete_apps() {
+	if wget -q --tries=10 --timeout=20 --spider https://github.com; then
+		archived_apps_list_content=$(curl -Ls "$archived_apps_source")
+		if [ -n "$archived_apps_list_content" ]; then
+			echo "$archived_apps_list_content" | grep -q "^# ARCHIVED SOURCES$" && echo "$archived_apps_list_content" > "$AMDATADIR"/archived-sources
+		fi
+		obsolete_apps_list_content=$(curl -Ls "$obsolete_apps_source")
+		if [ -n "$obsolete_apps_list_content" ]; then
+			echo "$obsolete_apps_list_content" | grep -q "^# OBSOLETE SOURCES$" && echo "$obsolete_apps_list_content" > "$AMDATADIR"/obsolete-sources
+		fi
+	fi
+}
+
+[ ! -f "$AMDATADIR"/archived-sources ] && _validate_and_download_lists_of_archived_and_obsolete_apps 2>/dev/null
+[ ! -f "$AMDATADIR"/obsolete-sources ] && _validate_and_download_lists_of_archived_and_obsolete_apps 2>/dev/null
+
+[ -f "$AMDATADIR"/archived-sources ] && archived_apps=$(sort -u "$AMDATADIR"/archived-sources)
+[ -f "$AMDATADIR"/obsolete-sources ] && obsolete_apps=$(sort -u "$AMDATADIR"/obsolete-sources)
+
 ################################################################################################################################################################
 #				SECURITY
 ################################################################################################################################################################
@@ -442,10 +482,10 @@ _check_fedora_mess() {
 }
 
 _check_ubuntu_mess() {
-	if command -v unshare >/dev/null 2>&1 && ! unshare --user -p /bin/true >/dev/null 2>&1; then
+	if command -v unshare >/dev/null 2>&1 && ! unshare -Urm /bin/true 2>/dev/null; then
 		echo "$DIVIDING_LINE"
 		printf $"\n %b⚠️ WARNING: ACCESS TO USER NAMESPACES IS RESTRICTED! \033[0m\n\n" "${RED}"
-		echo $" Some apps may not run, you need to enable access to user namespaces, see"
+		echo $" Some apps may not run, you need to enable access to user namespaces, see" | _fit | sed "s/  / /g"
 		printf " %bhttps://github.com/ivan-hc/AM/blob/main/docs/troubleshooting.md#ubuntu-mess\033[0m\n" "${LightBlue}"
 		echo $" to know more."
 		echo ""
@@ -783,7 +823,8 @@ _check_version() {
 	rm -f "$AMCACHEDIR"/version-args
 	_determine_args
 	for arg in $ARGS; do
-		argpath=$(echo "$ARGPATHS" | grep "/$arg$")
+		(
+		argpath=$(echo "$ARGPATHS" | tr ' ' '\n' | grep "^$APPSPATH.*/$arg$")
 		if [ -f "$argpath"/remove ]; then
 			if [ -f "$argpath"/version ]; then
 				_check_version_if_version_file_exists
@@ -801,9 +842,20 @@ _check_version() {
 			if [ -z "$APPVERSION" ]; then
 				[ -f "$argpath"/"$arg" ] && _check_version_if_binary_in_place || APPVERSION="unknown"
 			fi
-			echo " ◆ $arg	|	$APPVERSION" >> "$AMCACHEDIR"/version-args
+			if echo "$archived_apps" | grep -q "^$arg$"; then
+				APPVERSION="$APPVERSION is ARCHIVED"
+			fi
+			if echo "$obsolete_apps" | grep -q "^$arg [0-9]"; then
+				obsolete_last_release=$(echo "$obsolete_apps" | grep "^$arg " | awk '{print $2}')
+				APPVERSION="$APPVERSION, of $obsolete_last_release"
+			fi
+			if ! grep -q " ◆ $arg	|" "$AMCACHEDIR"/version-args 2>/dev/null; then
+				echo " ◆ $arg	|	$APPVERSION" >> "$AMCACHEDIR"/version-args
+			fi
 		fi
+		) &
 	done
+	wait
 }
 
 _check_version_for_auto_updatable_apps() {
@@ -999,7 +1051,7 @@ _clean_all_tmp_directories_from_appspath() {
 }
 
 _clean_launchers() {
-	if [ -d "$DATADIR"/applications/AppImages ]; then
+	if [ -d "$DATADIR"/"$LAUNCHERS_DIR"/AppImages ]; then
 		rm -f "$AMCACHEDIR"/mountpoints
 		for var in "$DATADIR"/applications/AppImages/*.desktop; do
 			# full path to appimage
@@ -1037,7 +1089,7 @@ _clean_launchers() {
 		[ -z "$mountpoint_enabled" ] && [ -n "$BINDIR" ] && cd "$BINDIR" && find . -xtype l -delete
 		rm -f "$AMCACHEDIR"/mountpoints
 		echo $' ✔ Removed orphaned launchers produced with the "--launcher" option'
-		rmdir "$DATADIR"/applications/AppImages
+		rmdir "$DATADIR"/"$LAUNCHERS_DIR"/AppImages
 	else
 		[ -n "$BINDIR" ] && cd "$BINDIR" && find . -xtype l -delete
 	fi
@@ -1322,6 +1374,7 @@ _use_sync() {
 	_sync_databases
 	_sync_locale
 	_sync_installation_scripts
+	_validate_and_download_lists_of_archived_and_obsolete_apps
 	if [ "$CLI_PATH" != "/usr/bin/am" ] && [ "$AMSYNC" != 1 ]; then
 		AMCLI_ONLINE_CONTENT=$(curl -Ls "$AMREPO"/APP-MANAGER)
 		if echo "$AMCLI_ONLINE_CONTENT" | grep -q AMCLI; then
@@ -1393,7 +1446,7 @@ _update_determine_apps_version_changes() {
 	fi
 }
 
-[ -z "$ALT_GH" ] && ALT_GH="api.gh.pkgforge.dev"
+[ -z "$ALT_GH" ] && ALT_GH="https://api.gh.pkgforge.dev"
 
 _update_determine_gh_apps_number() {
 	for arg in $ARGS; do
@@ -1413,7 +1466,7 @@ _update_determine_gh_apps_number() {
 _update_run_updater() {
 	if grep -q "api.github.com" "$argpath"/AM-updater; then
 		if [ "$GH_API_ALLOWED" -le 5 ]; then
-			sed -i "s#api.github.com#$ALT_GH#g" "$argpath"/AM-updater
+			sed -i "s#https://api.github.com#$ALT_GH#g" "$argpath"/AM-updater
 		fi
 	fi
 	if [ -z "$debug_update" ]; then
@@ -1421,7 +1474,7 @@ _update_run_updater() {
 	else
 		"$argpath"/AM-updater
 	fi
-	sed -i "s#$ALT_GH#api.github.com#g" "$argpath"/AM-updater 2>/dev/null
+	sed -i "s#$ALT_GH#https://api.github.com#g" "$argpath"/AM-updater 2>/dev/null
 	end=$(date +%s)
 	timelapsed=$((end - start))
 	[ "$timelapsed" = 1 ] && printf $" %b✔\033[0m $APPNAME is updated, $timelapsed second elapsed! \n" "${Green}" || printf $" %b✔\033[0m $APPNAME is updated, $timelapsed seconds elapsed! \n" "${Green}"
@@ -1461,14 +1514,14 @@ _update_launchers_not_found_msg() {
 _update_launchers() {
 	_clean_launchers 2>/dev/null 1>/dev/null
 	MISSING_LAUNCHERS_MSG="No launcher found, use option \"--launcher\" to create them."
-	[ ! -d "$DATADIR"/applications/AppImages ] && _update_launchers_not_found_msg && exit 0
-	[ -d "$DATADIR"/applications/AppImages ] && [ -z "$( ls -A "$DATADIR"/applications/AppImages )" ] && _update_launchers_not_found_msg && exit 0
+	[ ! -d "$DATADIR"/"$LAUNCHERS_DIR"/AppImages ] && _update_launchers_not_found_msg && exit 0
+	[ -d "$DATADIR"/"$LAUNCHERS_DIR"/AppImages ] && [ -z "$( ls -A "$DATADIR"/"$LAUNCHERS_DIR"/AppImages )" ] && _update_launchers_not_found_msg && exit 0
 	if ! command -v appimageupdatetool 1>/dev/null; then
 		update_launchers_error_message=" 💀 ERROR! Missing command \"${RED}appimageupdatetool\033[0m\", install it and retry!"
 		printf "%b\n%b\n%b\n" "$DIVIDING_LINE" "$update_launchers_error_message" "$DIVIDING_LINE"
 	else
 		echo $" ◆ Update local AppImages integrated manually"
-		for var in "$DATADIR"/applications/AppImages/*.desktop; do
+		for var in "$DATADIR"/"$LAUNCHERS_DIR"/AppImages/*.desktop; do
 			appimage_full_path=$(awk -F'=| ' '/Exec=/{print $2; exit}' "$var" | sed 's/"//g; s/\s.*$//')
 			appimagename=$(basename -- "$appimage_full_path")
 			appimage_path=$(echo "$appimage_full_path" | sed -E 's|/[^/]+$|/|; s/\/*$//g')

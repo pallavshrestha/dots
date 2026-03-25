@@ -1,3 +1,5 @@
+
+*.bak
 .mono/
 EmuDeck/
 GIMP*/
@@ -34,8 +36,10 @@ pavucontrol.ini
 pipewire
 powerline.sh.bak
 pulse
+qt5ct
 qutebrowser/autoconfig.yml
 qutebrowser/bookmarks
+qutebrowser/greasemonkey/disabled
 qutebrowser/qsettings
 qutebrowser/quickmarks
 rclone
@@ -56,4 +60,3 @@ xfce4/
 xfce4/xfconf
 youtube*
 zoom*
-*.bak
