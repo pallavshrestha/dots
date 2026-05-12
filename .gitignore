@@ -1,4 +1,3 @@
-
 *.bak
 .mono/
 EmuDeck/
@@ -13,16 +12,19 @@ Unknown Organization
 WebTorrent
 arch/
 ardour*
+audacity/
 autostart
 blender/
 btop
 cef_user_data
 dconf
 draw.io/
+faugus-launcher/
 font-manager/
 fontconfig/
 glib*
 glow/
+gtk*
 guitarix
 hu.irl.cameractrls/
 ibus/
@@ -32,6 +34,7 @@ libreoffice
 lsp-plugins/
 lutris
 menus
+mimeapps.list
 obs-studio/
 opencode
 pavucontrol.ini
@@ -47,6 +50,7 @@ qutebrowser/quickmarks
 rclone
 rncbc.org
 rpcs3
+scripts/argos*
 startpage
 steam-rom-manager/
 sway/
@@ -62,5 +66,3 @@ xfce4/
 xfce4/xfconf
 youtube*
 zoom*
-mimeapps.list
-gtk*
