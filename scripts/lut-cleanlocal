@@ -1,2 +1,2 @@
 #!/bin/bash
-rclone sync -i --verbose LUT: ~/work
+rclone sync -i -L --verbose LUT: ~/work

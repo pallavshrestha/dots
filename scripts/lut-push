@@ -1,2 +1,2 @@
 #!/bin/bash
-rclone copy -v -i ~/work LUT:
+rclone copy -v -i -L ~/work LUT:
