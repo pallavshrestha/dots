@@ -1,0 +1,15 @@
+/* nord-dark.rasi */
+
+* {
+    bg: #2E344080;
+    bg-alt: #3B425280;
+    bg3: #88C0D0;
+    fg: #81A1C1;
+    fg-alt: #EBCB8B;
+    fg3: #E5E9F0;
+    bord1: #88C0D0;
+    bord2: #8FBCBB;
+    selected: #81A1C1FF;
+    active: #A3BE8CFF;
+    urgent: #BF616AFF;
+}

@@ -1,0 +1,15 @@
+/* nord-light.rasi */
+
+* {
+    bg: #ECEFF480;
+    bg-alt: #E5EEF880;
+    bg3: #8FBCBB;
+    fg: #4C566A;
+    fg-alt: #D08770;
+    fg3: #2E3440FF;
+    bord1: #88C0D0;
+    bord2: #81A1C1FF;
+    selected: #5E81ACFF;
+    active: #A3BE8CFF;
+    urgent: #BF616AFF;
+}

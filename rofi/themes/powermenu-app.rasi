@@ -1,4 +1,6 @@
 /*****----- Configuration -----*****/
+@import "nord-colors.rasi"
+
 configuration {
     show-icons:                 false;
 }
@@ -19,11 +21,11 @@ configuration {
     textbox-font:                "Iosevka Nerd Font 14";
     element-text-font:           "feather 64";
 
-    background-window:           #2e3440F5;
-    background-normal:           #E5E9F005;
-    background-selected:         #E5E9F015;
-    foreground-normal:           #E5E9F0;
-    foreground-selected:         #E5E9F0;
+    background-window:           @bg;
+    background-normal:           @bg;
+    background-selected:         @selected;
+    foreground-normal:           @fg3;
+    foreground-selected:         @fg3;
 }
 
 /*****----- Main Window -----*****/
