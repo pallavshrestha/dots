@@ -1,11 +1,12 @@
 // Global
+@import "nord-colors.rasi"
 * {
     background-color: transparent;
 }
 
 // Window
 window {
-    background-color: #2e3449dd;
+    background-color: @bg;
     fullscreen: true;    
 }
 

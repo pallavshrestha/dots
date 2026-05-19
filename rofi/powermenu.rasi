@@ -1,6 +1,9 @@
 /*******************************************************
 * Copy of Nord modified for powermenu.
  *******************************************************/
+
+@import "themes/nord-colors.rasi"
+
 configuration {
     font:                           "Mononoki Nerd Font Regular 15";
     show-icons:                     false;
@@ -19,13 +22,6 @@ timeout {
   margin: 0;
   padding: 0;
   spacing: 0;
-
-  bg: #2E344090;
-  bg-alt: #3B425295;
-  bord1: #88C0D0;
-  bord2: #8FBCBB;
-  fg: #81A1C1;
-  fg-alt: #EBCB8B;
 
   background-color: @bg;
   text-color: @fg;

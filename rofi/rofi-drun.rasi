@@ -35,5 +35,8 @@ configuration {
 window {
     width:500px;
     location:center;
+    background:transparent;
+    background-color: transparent;
+    tramsparency: "real";
     }
 

@@ -6,12 +6,8 @@ environment{
     QT_QPA_PLATFORMTHEME "qt5ct"
     QT_QPA_PLATFORMTHEME_QT6 "kvantum"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
-    GTK_THEME "nordic-blue"
     GTK_FONT_NAME "Iosevka Nerd Font 12"
-    GTK_ICON_THEME "Qogir-Dark"
-    GTK_CURSOR_THEME "Qogir-Dark"
     GTK_CURSOR_THEME_SIZE "16"
-    GTK_APPLICATION_PREFER_DARK_THEME "1"
 }
 
 cursor {
@@ -128,7 +124,7 @@ spawn-at-startup "dunst"
 // spawn-at-startup "nm-applet"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 // spawn-at-startup "xwayland-satellite"
-spawn-sh-at-startup "~/.config/niri/scripts/refresh.sh"
+spawn-sh-at-startup "~/.config/niri/scripts/start.sh"
 spawn-sh-at-startup "~/.config/scripts/left-screen"
 spawn-sh-at-startup "swayidle -w timeout 300 'swaylock -f -i ~/.config/dogagawa1080.png' timeout 600 'niri msg action power-off-monitors' timeout 900 'systemctl suspend-then-hibernate' before-sleep 'swaylock -f -i ~/.config/dogagawa1080.png'"
 
@@ -223,7 +219,7 @@ layer-rule {
     place-within-backdrop true
 
       opacity 0.9
-    // block-out-from "screen-capture"
+    // block-out-from "screen-capture"Should I keep screenshots and evidence of everything?
 
     shadow {
         off
@@ -255,6 +251,15 @@ window-rule {
         }
     }
 }
+
+layer-rule {
+    match namespace="rofi"
+
+        background-effect{
+            blur true
+            xray false
+        }
+    }
 
 window-rule {
     match is-window-cast-target=true

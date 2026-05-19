@@ -1,12 +1,9 @@
 // Global
+@import "nord-colors.rasi"
+
 * {
-    bg: #2e3440F5;
-    bg-alt: #3b4252F5;
-    bg3: #88c0d0;
-    fg: #81a1c1;
-    
     background-color: @bg;
-    text-color: #81A1C1;
+    text-color: @fg;
     font: "Mononoki Nerd Font 12";
 }
 

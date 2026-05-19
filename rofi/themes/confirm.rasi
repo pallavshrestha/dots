@@ -1,17 +1,10 @@
 /*****----- Configuration -----*****/
+@import "nord-colors.rasi"
+
 configuration {
     show-icons:                 false;
 }
 
-/*****----- Global Properties -----*****/
-* {
-    bg-window:           #2e3440F5;
-    bg-normal:           #E5E9F005;
-    bg-selected:         #E5E9F015;
-    fg:           #E5E9F0;
-    fg:         #E5E9F0;
-
-}
 /*****----- Main Window -----*****/
 window {
     location:                    center;
@@ -20,7 +13,7 @@ window {
     width:                       500px;
     border-radius:               20px;
     cursor:                      "default";
-    background-color:            @bg-window;
+    background-color:            @bg;
     font:                        "Iosevka Nerd Font";
 }
 
@@ -37,15 +30,15 @@ message {
     margin:                      0px;
     padding:                     20px;
     border-radius:               20px;
-    background-color:                    @bg-selected;
-    text-color:                  @fg;
+    background-color:                    @bg;
+    text-color:                  @fg-alt;
 }
 textbox {
     background-color:            inherit;
     text-color:                  inherit;
     vertical-align:              0.5;
     horizontal-align:            0.5;
-    placeholder-color:           @fg;
+    placeholder-color:           @fg-alt;
     blink:                       true;
     markup:                      true;
 }
@@ -64,7 +57,7 @@ listview {
     
     spacing:                     30px;
     background-color:            transparent;
-    text-color:                  @fg;
+    text-color:                  @fg-alt;
     cursor:                      "default";
 }
 
@@ -73,7 +66,7 @@ element {
     padding:                     60px 10px;
     border-radius:               20px;
     background-color:            transparent;
-    text-color:                  @fg;
+    text-color:                  @fg-alt;
     cursor:                      pointer;
 }
 element-text {
@@ -85,6 +78,6 @@ element-text {
     horizontal-align:            0.5;
 }
 element selected.normal {
-    background-color:            @bg-selected;
-    text-color:                  @fg;
+    background-color:            @fg3;
+    text-color:                  @fg-alt;
 }
