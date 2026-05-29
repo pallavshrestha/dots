@@ -1,11 +1,9 @@
 set font			"JetBrains Mono Nerd Font 10"
-set default-fg 			"#eceff4"  # nord6, white-ish
-# set default-bg 			"#3b4252" # nord1
-set default-bg 			"rgba(46,52,64,0.5)"  #2e3440" # nord0, darkest
+set default-fg 			"#2e3440" #eceff4"  # nord6, white-ish
+set default-bg 			"#eceff4" #rgba(46,52,64,0.5) "#2e3440" # nord0, darkest
 
 set guioptions none
 
-# set completion-bg		"#3b4252"
 set completion-bg		"#2e3440"
 set completion-fg		"#eceff4"
 set completion-highlight-bg	"#4c566a"
@@ -39,12 +37,19 @@ map <F1> focus_inputbar ":set recolor-lightcolor rgba(59,66,82,1)" #\#3b4252"
 map <F2> focus_inputbar ":set recolor-darkcolor \#ffffff"
 map ! feedkeys "<F1><Return><F2><Return>"
 
-# solarized light recolor
+# nord polar light recolor
 map <F3> focus_inputbar ":set recolor-lightcolor \#eee8d5"
 map <F4> focus_inputbar ":set recolor-darkcolor \#4e4e4e"
 map @ feedkeys "<F3><Return><F4><Return>"
 set recolor-lightcolor		"#eee8d5"
 set recolor-darkcolor		"#4e4e4e"
+
+# # solarized light recolor
+# map <F3> focus_inputbar ":set recolor-lightcolor \#eee8d5"
+# map <F4> focus_inputbar ":set recolor-darkcolor \#4e4e4e"
+# map @ feedkeys "<F3><Return><F4><Return>"
+# set recolor-lightcolor		"#eee8d5"
+# set recolor-darkcolor		"#4e4e4e"
 
 # gruvbox light recolor
 # map <F3> focus_inputbar ":set recolor-lightcolor \#fbf1c7"
