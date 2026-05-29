@@ -37,6 +37,6 @@ window {
     location:center;
     background:transparent;
     background-color: transparent;
-    tramsparency: "real";
+    transparency: "real";
     }
 

@@ -110,6 +110,7 @@ overview {
     zoom 0.5
     backdrop-color "#4c566a90"
 
+
     workspace-shadow {
         // off
         softness 40
@@ -153,22 +154,18 @@ window-rule {
     match app-id=r#"^org\.pulseaudio\.pavucontrol"#
     match app-id="qutebrowser" title="Whoops!"
     match app-id="zoom" //title="Presenter layout"
-    match app-id="KeePassXC"
-    match title="(?i)reminder"
     match app-id="ibus-ui-emojier"
-    match app-id=r#"(?i)thunderbird"#
-    exclude title=".*Thunderbird"
+    match title="^(?i)about"
+    match title="^(?i)preferences"
+    match title="^(?i)config"
+    match title="(?i)reminder"
     match app-id="unknown" title=""
-    match app-id=r#"librewolf"#
-    exclude title="^.*LibreWolf"
     match app-id=r#"(?i)ardour"#
     exclude title="^.*Ardour"
     match app-id=r#"guitarix"#
     exclude title="^.*gx_head"
     match app-id="nm-connection-editor"
-    match app-id=r#"-config"#
-    match app-id=r#"(?i)thunar"#
-    exclude title=r#"Thunar"#
+
     open-floating true
 }
 
@@ -218,7 +215,7 @@ layer-rule {
     match at-startup=true
     place-within-backdrop true
 
-      opacity 0.9
+      opacity 0.9999
     // block-out-from "screen-capture"Should I keep screenshots and evidence of everything?
 
     shadow {
@@ -341,7 +338,7 @@ binds {
     Mod+Shift+Escape allow-inhibiting=false hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "swaylock -f -i ~/.config/dogagawa1080.png"; }
     Mod+Shift+R hotkey-overlay-title="Refresh" {spawn-sh "~/.config/niri/scripts/refresh.sh";}
     Mod+p hotkey-overlay-title="Switch audio ports" {spawn-sh "~/.config/scripts/switch-audio-port";}
-    CTRL+grave {spawn-sh "rofi -show window -no-fixed-num-lines -theme-str 'window {width:60%;}' -theme ~/.config/rofi/themes/nord.rasi";}
+    CTRL+grave {spawn-sh "rofi -show window -theme-str 'window {width:60%;}' -theme ~/.config/rofi/themes/nord.rasi";}
 
        // Mod+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
     Mod+x hotkey-overlay-title="Restart xwayland-satellite" {spawn-sh "killall xwayland-satellite; xwayland-satellite";}
@@ -486,8 +483,6 @@ binds {
     Mod+Shift+Space { switch-focus-between-floating-and-tiling; }
 
     Mod+W { toggle-column-tabbed-display; }
-    // Mod+Shift+V { spawn-sh "~/.config/scripts/keecli";} //Maintainence mode
-
 
     Mod+V       { switch-layout "next"; }
     // Mod+Shift+V { switch-layout "prev"; }
