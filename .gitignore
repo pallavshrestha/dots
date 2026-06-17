@@ -17,6 +17,7 @@ autostart
 blender/
 btop
 cef_user_data
+chromium
 dconf
 draw.io/
 faugus-launcher/
@@ -51,6 +52,7 @@ rclone
 rncbc.org
 rpcs3
 scripts/argos*
+sillytavern
 startpage
 steam-rom-manager/
 sway/
@@ -61,6 +63,7 @@ torbrowser/
 uad/
 user-dirs.dirs
 user-dirs.locale
+wallpaper/nick-nazzaro*
 xarchiver/
 xfce4/
 xfce4/xfconf
