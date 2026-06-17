@@ -159,9 +159,13 @@ window-rule {
     match title="^(?i)preferences"
     match title="^(?i)config"
     match title="(?i)reminder"
+    match title="(?i)updates"
+    match title="(?i)rename"
     match app-id="unknown" title=""
     match app-id=r#"(?i)ardour"#
     exclude title="^.*Ardour"
+    match app-id=r#"(?i)thunderbird"#
+    exclude title="^.*Thunderbird"
     match app-id=r#"guitarix"#
     exclude title="^.*gx_head"
     match app-id="nm-connection-editor"
@@ -345,6 +349,8 @@ binds {
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
+    Shift+XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01+"; }
+    Shift+XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
@@ -352,6 +358,7 @@ binds {
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "05%-"; }
 
     Mod+Tab repeat=false { toggle-overview; }
+    Alt+CTRL+Tab repeat=false { toggle-overview; }
 
     Mod+Q repeat=false { close-window; }
     Mod+C repeat=false { close-window; }
