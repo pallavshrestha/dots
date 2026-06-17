@@ -1,0 +1,4 @@
+#!/bin/bash
+rclone sync -v ~/work/vaults/ megaJoe:vaults
+rclone sync -v ~/work/vaults/ megaPal:vaults
+
