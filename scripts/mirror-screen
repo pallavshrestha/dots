@@ -1,3 +1,13 @@
 #!/bin/sh
-xrandr --output eDP --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-A-0 --mode 1920x1080 --pos 0x0 --rotate normal
-notify-send "screen mirrored"
+
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    wl-mirror eDP-1
+elif [ "$xdg_session_type" = "x11" ]; then
+    xrandr --output eDP --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-A-0 --mode 1920x1080 --pos 0x0 --rotate normal
+    notify-send "screen mirrored"
+else
+    echo "unknown session type"
+    notify-send "unknown session type"
+    exit 1
+fi
+
