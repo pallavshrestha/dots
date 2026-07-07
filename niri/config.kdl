@@ -207,6 +207,7 @@ window-rule{
     match app-id="foot"
     match app-id="swayimg"
     match app-id="zathura"
+
     // opacity 0.95
 
     background-effect {
