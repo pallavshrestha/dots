@@ -53,14 +53,14 @@ then
     bind -m vi-insert '"\C-z": emacs-editing-mode'
     bind -m emacs-standard '"\C-z": vi-editing-mode'
     
-    # CTRL-T - Paste the selected file path into the command line
+    # ALT-T or esc then t - Paste the selected file path into the command line
     if [[ "${FZF_CTRL_T_COMMAND-x}" != "" ]]; then
-      bind -m emacs-standard -x '"\C-t": fzf-file-widget'
-      bind -m vi-command -x '"\C-t": fzf-file-widget'
-      bind -m vi-insert -x '"\C-t": fzf-file-widget'
+      bind -m emacs-standard -x '"\et": fzf-file-widget'
+      bind -m vi-command -x '"\et": fzf-file-widget'
+      bind -m vi-insert -x '"\et": fzf-file-widget'
     fi
     
-    # ALT-C - cd into the selected directory
+    # ALT-C or esc then c - cd into the selected directory
     if [[ "${FZF_ALT_C_COMMAND-x}" != "" ]]; then
       bind -m emacs-standard '"\ec": " \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
       bind -m vi-command '"\ec": "\C-z\ec\C-z"'
