@@ -79,7 +79,7 @@ source ~/.config/scripts.sh
 #    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 #fi
 
-#_set_liveuser_PS1() {
+# _set_liveuser_PS1() {
 #    PS1='[\u@\h \W]\$ '
 #}
 
@@ -164,4 +164,4 @@ neofetch() {
 # pipx completions
 eval "$(register-python-argcomplete pipx)"
 
- source ~/.config/bash/git-completion.bash
+source ~/.config/bash/git-completion.bash
