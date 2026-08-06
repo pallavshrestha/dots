@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# Copyright 2026 [Pallav Shrestha]
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+
+# doc-stow
+# A script to move pdfs from current directory and move it to a document vault,
+# and created symlink in the current directory. Checks for duplicates in the
+# vault and skips
+
+set -euo pipefail
+
+shopt -s nullglob
+
+for f in *.pdf; do
+        current_file="$f"
+        base_name="$(basename -- "$current_file")"
+        target="$docvault/$base_name"
+
+        echo "Processing $current_file"
+
+        if [[ -e "$target" ]]; then
+            echo "Document already in vault: $base_name"
+            echo "Skipping..."
+            echo
+            continue
+        fi
+        
+        mv -- "$current_file" "$target"
+        echo "Document moved to: $target"
+
+        if [[ -e "$current_file" ]]; then
+            echo "A file or symlink already exists."
+            echo "Skipping ..."
+            echo
+            continue
+        fi
+
+        ln -s -- "$target" "$current_file"
+        echo "Symlink established: $current_file"
+    done
+

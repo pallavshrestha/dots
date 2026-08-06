@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# A script to choose and select wallpaper via rofi
+
 wall_dir="$HOME/.config/wallpaper"
 cache_dir="$HOME/.cache/thumbnails/bgselector"
 
