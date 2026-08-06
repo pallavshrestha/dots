@@ -52,6 +52,7 @@ alias pers='vim $HOME/work/vaults/personal.ldg'
 ## Conda Aliases
 alias maths='conda activate maths'
 alias deconda='conda deactivate'
+alias opennote='conda activate opennote && cd $HOME/applications/opennote'
 
 ## Niri dynamic cast
 alias dyncast-pick='niri msg action set-dynamic-cast-window --id $(niri msg --json pick-window | jq .id)'
