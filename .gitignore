@@ -7,6 +7,7 @@ LanguageTool/
 Microsoft/
 QtProject.conf
 RawTherapee*
+SurrealDB/
 Thunar
 Unknown Organization
 WebTorrent
@@ -36,6 +37,7 @@ lsp-plugins/
 lutris
 menus
 mimeapps.list
+nextjs-nodejs/
 obs-studio/
 opencode
 pavucontrol.ini
