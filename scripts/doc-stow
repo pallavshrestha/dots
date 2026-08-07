@@ -77,7 +77,7 @@ if [[ "$f_flag" -eq 0 ]]; then
   [[ "$ans" == "yes" ]] || exit 0
 fi
 
-docvault="$HOME/work/docVault"
+docvault="$HOME/work/docVault/"
 mkdir -p "$docvault"
 
 # --- Helpers --- # 
