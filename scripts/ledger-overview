@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+location="$HOME/work/vaults/personal.ldg"
+ledg="ledger -f $location"
+
+
+# Optional argument (e.g., "july", "jan", etc.) controls which period to show.
+PERIOD="${1:-}"
+
+press_enter() {
+  read -r -p "Press Enter to continue..."
+  echo
+}
+
+section() {
+  echo
+  echo "============================================================"
+  echo "$1"
+  echo "============================================================"
+}
+
+run_monthly_mode() {
+  local p="$1"
+
+  section "Monthly Ledger Overview for '$p'"
+
+  echo "Overview of expenses"
+  press_enter
+  
+  $ledg bal -p "$p" exp
+  
+  echo "Overview of Expenses against Budget"
+  echo "Note, negative number means underspending"
+  press_enter
+  $ledg budget -p "$p" exp
+
+  echo "Budget balance breakdown"
+  press_enter
+  $ledg -p "$p" --budget reg expenses
+
+  echo "Funds Overview"
+  press_enter
+  $ledg -b jan reg funds
+}
+
+run_year_to_date_mode() {
+  section "Year to date Overview"
+
+  echo "Expense against budget"
+  press_enter
+  $ledg budget -b jan not assets
+
+  echo "Overview of expenses against budget per month"
+  press_enter
+  $ledg -b jan --budget --monthly reg expenses
+
+  echo "Funds Overview"
+  press_enter
+  $ledg -b jan reg funds
+}
+
+main() {
+  if [[ -n "$PERIOD" ]]; then
+    run_monthly_mode "$PERIOD"
+  else
+    run_year_to_date_mode
+  fi
+
+  echo
+  echo "Script complete."
+}
+
+main "$@"
+
