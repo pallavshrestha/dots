@@ -1,0 +1,10 @@
+@theme "themes/nord.rasi"
+
+window {
+    width:500px;
+    location:center;
+    background:transparent;
+    background-color: transparent;
+    transparency: "real";
+    }
+
