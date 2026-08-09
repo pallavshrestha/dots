@@ -23,7 +23,7 @@ transparency: "real";
 border-radius: 18px;
 border-color: @bg3;
 border:1px;
-width:500px;
+// width:500px;
 // fullscreen: true;
 // padding: 35% 30%;
 // location: center;
