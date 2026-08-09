@@ -39,9 +39,7 @@ run_monthly_mode() {
   press_enter
   $ledg -p "$p" --budget reg expenses
 
-  echo "Funds Overview"
-  press_enter
-  $ledg -b jan reg funds
+  funds_overview
 }
 
 run_year_to_date_mode() {
@@ -55,9 +53,19 @@ run_year_to_date_mode() {
   press_enter
   $ledg -b jan --budget --monthly reg expenses
 
+  funds_overview
+
+}
+
+funds_overview() {
   echo "Funds Overview"
+  echo "Positive is better"
   press_enter
-  $ledg -b jan reg funds
+  echo "*Savings*"
+  $ledg -b jan reg funds:savings
+  press_enter
+  echo "*Student Loans*"
+  $ledg -b jan reg funds:student
 }
 
 main() {
