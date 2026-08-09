@@ -17,6 +17,7 @@ audacity/
 autostart
 blender/
 btop
+calibre
 cef_user_data
 chromium
 dconf
@@ -52,6 +53,7 @@ qutebrowser/qsettings
 qutebrowser/quickmarks
 rclone
 rncbc.org
+rofimoji.rc
 rpcs3
 scripts/argos*
 sillytavern
