@@ -45,7 +45,8 @@ pavucontrol.ini
 pipewire
 powerline.sh.bak
 pulse
-qt5ct
+qt5ct/
+qt6ct/
 qutebrowser/autoconfig.yml
 qutebrowser/bookmarks
 qutebrowser/greasemonkey/disabled
