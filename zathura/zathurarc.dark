@@ -35,7 +35,7 @@ set recolor			"true"
 
 
 # amber on dark slate
-map ! feedkeys ":set recolor-lightcolor \#0a0a12<Return>:set recolor-darkcolor \#ff9900<Return>"
+map ! feedkeys ":set recolor-lightcolor \#0a0a12E6<Return>:set recolor-darkcolor \#ff9900<Return>"
 
 map @ feedkeys ":set recolor-lightcolor \#002b36<Return>:set recolor-darkcolor \#839496<Return>"
 
@@ -46,21 +46,23 @@ set recolor-lightcolor		"rgba(59,66,82,0.5)"
 set recolor-darkcolor		"#ffffff"
 
 # Mayberry 
-map \$ feedkeys ":set recolor-lightcolor \#f6f1ea<Return>:set recolor-darkcolor \#8a5a2b<Return>"
+map \$ feedkeys ":set recolor-lightcolor \#f6f1eaE6<Return>:set recolor-darkcolor \#8a5a2b<Return>"
 
 
 # nord polar light recolor
-map \% feedkeys ":set recolor-lightcolor \#eceff4<Return>:set recolor-darkcolor \#4c566a<Return>"
+map \% feedkeys ":set recolor-lightcolor \#eceff4E6<Return>:set recolor-darkcolor \#4c566a<Return>"
 
 # solarized light recolor
-map \^ feedkeys ":set recolor-lightcolor \#eee7d5<Return>:set recolor-darkcolor \#4e4e4e<Return>"
+map \^ feedkeys ":set recolor-lightcolor \#eee7d5E6<Return>:set recolor-darkcolor \#4e4e4e<Return>"
 
 
 #gruvbox light recolor
-map \& feedkeys ":set recolor-lightcolor \#fbf1c7<Return>:set recolor-darkcolor \#3c3836<Return>"
+map \& feedkeys ":set recolor-lightcolor \#fbf1c7e^<Return>:set recolor-darkcolor \#3c3836<Return>"
 # set recolor-lightcolor          "#fbf1c7" # bg
 # set recolor-darkcolor           "#3c3836" # fg
 
+
+map ) feedkeys ":set recolor-lightcolor rgba(59,66,82,0.9)<Return>:set recolor-darkcolor \#ffffff<Return>"
 
 # set index-fg			"#eceff4"
 # set index-bg			"#2e3440"
