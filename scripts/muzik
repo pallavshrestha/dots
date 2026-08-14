@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+
+help() {
+  cat <<'EOF'
+Usage: muzik [argument]
+    options
+    <empty>, jazz, synth, deep-sleep, summer, asian, sleep-relaxing, sleep-ambient, synth-ambient, bossoa, hiphop
+    url
+EOF
+}
+    
+
+arg="${1:-}"
+
+if [[ "${1-}" == "-h" || "${1-}" == "--help" ]]; then
+  help
+  exit 0
+fi
+
+killall -q mpv || true
+
+if [ -z "$arg" ]; then
+  exec mpv --no-video "https://youtu.be/X4VbdwhkE10"
+else
+  if [ "$arg" = "jazz" ]; then
+    exec mpv --no-video "https://youtu.be/E2vONfzoyRI"
+  elif [ "$arg" = "synth" ]; then
+    exec mpv --no-video "https://youtu.be/4xDzrJKXOOY"
+  elif [ "$arg" = "deep-sleep" ]; then
+    exec mpv --no-video "https://youtu.be/LTiqKDrjqr4"
+  elif [ "$arg" = "summer" ]; then
+    exec mpv --no-video "https://youtu.be/0muHFBSiybw"
+  elif [ "$arg" = "asian" ]; then
+    exec mpv --no-video "https://youtu.be/1Tl2FtV06qo"
+  elif [ "$arg" = "sleep" ]; then
+    exec mpv --no-video "https://youtu.be/VAlMDl00mYY"
+  elif [ "$arg" = "sleep-ambient" ]; then
+    exec mpv --no-video "https://youtu.be/xORCbIptqcc"
+  elif [ "$arg" = "synth-ambient" ]; then
+    exec mpv --no-video "https://youtu.be/GSfT7H87zq4"
+  elif [ "$arg" = "sad" ]; then
+    exec mpv --no-video "https://youtu.be/CwPCy1GLS38"
+  elif [ "$arg" = "bossa" ]; then
+    exec mpv --no-video "https://youtu.be/56llPN9tS88"
+  elif [ "$arg" = "hiphop" ]; then
+    exec mpv --no-video "https://youtu.be/JD-kMIpDfnY"
+  else
+    exec mpv --no-video "${arg}"
+  fi
+fi
+
