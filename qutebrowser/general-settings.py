@@ -15,6 +15,8 @@ config.set(
         "duck": "https://duckduckgo.com/?q={}",
         "brave": "https://search.brave.com/search?q={}",
         "wa": "https://wiki.archlinux.org/?search={}",
+        "sx" : "https://opnxng.com/?q={}",
+        "4g" : "https://4get.ca/web?s={}",
     },
 )
 config.set("url.start_pages", "file:///home/pallav/.config/startpage/index.html")
