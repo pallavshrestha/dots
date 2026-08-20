@@ -40,4 +40,4 @@ done
             v=$(echo {q} | tr " " "|");
             echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
             ' \
-            | cut -z -f 1 -d $'\t'| tr -d '\n' |xargs -0 -I {} bash -c "$open \"{}\" &"
+            | cut -z -f 1 -d $'\t'| tr -d '\n' |xargs -0 -I {} bash -c "$open \"{}\" > /dev/null 2>&1 &"
