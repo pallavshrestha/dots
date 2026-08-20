@@ -22,7 +22,7 @@ fi
 killall -q mpv || true
 
 if [ -z "$arg" ]; then
-  exec mpv --no-video "https://youtu.be/X4VbdwhkE10"
+  exec mpv --no-video "https://youtu.be/rFZHOHl-L8A"
 else
   if [ "$arg" = "jazz" ]; then
     exec mpv --no-video "https://youtu.be/E2vONfzoyRI"
@@ -42,7 +42,7 @@ else
     exec mpv --no-video "https://youtu.be/GSfT7H87zq4"
   elif [ "$arg" = "sad" ]; then
     exec mpv --no-video "https://youtu.be/CwPCy1GLS38"
-  elif [ "$arg" = "bossa" ]; then
+  elif [ "$arg" = "bossoa" ]; then
     exec mpv --no-video "https://youtu.be/56llPN9tS88"
   elif [ "$arg" = "hiphop" ]; then
     exec mpv --no-video "https://youtu.be/JD-kMIpDfnY"
