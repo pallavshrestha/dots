@@ -128,7 +128,6 @@ for f in *.pdf; do # don't process symlink
             rm "$current_file"
             ln -s -- "$target" "$current_file"
             echo "Symlink re-established: $current_file"
-            echo
             continue
         fi
     fi
