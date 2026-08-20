@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-if [ "${1:-}" = "jazz" ]; then
-  exec mpv --no-video "https://youtu.be/E2vONfzoyRI"
-else
-  exec mpv --no-video "https://youtu.be/X4VbdwhkE10"
-fi
