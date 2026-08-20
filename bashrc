@@ -44,6 +44,8 @@ alias ff='fastfetch'
 alias fi2en='argos-translate -f fi -t en'
 alias en2fi='argos-translate -f en -t fi'
 
+alias docvault='cd $HOME/work/docVault && pdfzf'
+
 
 ## Ledger Aliases
 alias ledg='ledger -f $HOME/work/vaults/personal.ldg'
