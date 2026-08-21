@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# open='hide xdg-open'   # this will open pdf file withthe default PDF viewer on KDE, xfce, LXDE and perhaps on other desktops. 
-open='xdg-open'
+open='zathura'
 
 function display_help () {
     echo "Usage: $(basename "$0") [OPTIONS]"
@@ -15,7 +14,7 @@ function display_help () {
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
         -d|--devour)
-            open='hide xdg-open'
+            open='hide zathura'
             shift
             ;;
         -h|--help)
@@ -40,4 +39,10 @@ done
             v=$(echo {q} | tr " " "|");
             echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
             ' \
-            | cut -z -f 1 -d $'\t'| tr -d '\n' |xargs -0 -I {} bash -c "$open \"{}\" > /dev/null 2>&1 &"
+            | cut -z -f 1 -d $'\t'| tr -d '\n' |
+            xargs -0 -r -I '{}' bash -c '
+            nohup zathura "$1" >/dev/null 2>&1 </dev/null &
+            pid=$!
+            disown "$pid"
+            ' _ '{}'
+            exit 0
