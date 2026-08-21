@@ -41,7 +41,7 @@ map @ feedkeys ":set recolor-lightcolor \#002b36<Return>:set recolor-darkcolor \
 
 
 # Nord dark recolor
-map \# feedkeys ":set recolor-lightcolor rgba(59,66,82,0.7)<Return>:set recolor-darkcolor \#ffffff<Return>"
+map \# feedkeys ":set recolor-lightcolor rgba(59,66,82,0.5)<Return>:set recolor-darkcolor \#ffffff<Return>"
 set recolor-lightcolor		"rgba(59,66,82,0.5)"
 set recolor-darkcolor		"#ffffff"
 
