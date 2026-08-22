@@ -44,5 +44,5 @@ done
             nohup zathura "$1" >/dev/null 2>&1 </dev/null &
             pid=$!
             disown "$pid"
-            ' _ '{}'
             exit 0
+            ' _ '{}'
