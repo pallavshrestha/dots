@@ -2,7 +2,7 @@
     "spacing": 10,
     "height": 33, //minimum reqyested height
     "margin": "6 4 0 4",
-    "modules-left": ["custom/appdrawer","niri/workspaces","backlight","group/network"],
+    "modules-left": ["custom/appdrawer","niri/workspaces","backlight","network"],
     "modules-center": ["mpris","clock","idle_inhibitor","wlr/taskbar"],
     "modules-right": ["group/hardware","battery","temperature","pulseaudio","tray","custom/powerbutton"],
     "layer": "top",
@@ -16,18 +16,18 @@
         "on-click": "powerapp",
         "tooltip": false
     },
-    "group/network": {
-    	"orientation": "inherit",
-        "drawer": {
-        "transition-duration": 500,
-        "children-class": "",
-        "transition-left-to-right": true
-        },
-    	"modules": [
-            "network",
-            "custom/network"
-    	]
-    },
+//    "group/network": {
+//    	"orientation": "inherit",
+//        "drawer": {
+//        "transition-duration": 500,
+//        "children-class": "",
+//        "transition-left-to-right": true
+//        },
+//    	"modules": [
+//            "network"
+//            //"custom/network"
+//    	]
+//    },
     "group/hardware": {
 		"orientation": "inherit",
         "drawer": {
@@ -100,7 +100,7 @@
         "format": "{icon}",
         "icon-size": 20,
         "icon-theme": "Qogir-Dark",
-        "tooltip-format": "{title} | {app_id}",
+ //       "tooltip-format": "{title} | {app_id}",
         "on-click": "activate",
         "on-click-right": "minimize",
         // "active-first": true, // causes gtk_box_reorder_child: assertion 'old link != Null' failed
@@ -148,13 +148,13 @@
             "unlocked": " "
         }
     },
-        "custom/network": {
-            "exec": "$HOME/.config/waybar/scripts/wifi-status.sh",
-            "interval": 5,
-            "return-type": "json",
-            "format": "{}",
-            "tooltip": true
-        },
+//        "custom/network": {
+//            "exec": "$HOME/.config/waybar/scripts/wifi-status.sh",
+//            "interval": 5,
+//            "return-type": "json",
+//            "format": "{}",
+//            "tooltip": true
+//        },
         "network": {
             "interface": "wlp1s0",
             "format-wifi": "  {signalStrength}%",
