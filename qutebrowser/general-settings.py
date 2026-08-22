@@ -1,5 +1,8 @@
-config.set("fonts.web.family.fixed", "Iosevka Nerd Font")
-config.set("colors.webpage.bg", "#93a1a1")  # 3B4252
+config.set("fonts.web.family.fixed", "IosevkaTerm Nerd Font")
+config.set("fonts.web.family.standard", "Iosevka Nerd Font")
+config.set("fonts.web.family.sans_serif", "Iosevka Nerd Font")
+config.set("fonts.web.family.serif", "IosevkaTermSlab Nerd Font")
+config.set("colors.webpage.bg", "#eceff4")  # #f6f1ea #matberry #93a1a1
 config.set("colors.webpage.preferred_color_scheme", "dark")
 config.set("colors.webpage.darkmode.enabled", False)
 config.set("colors.webpage.darkmode.policy.images", "smart-simple")
