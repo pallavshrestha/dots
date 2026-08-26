@@ -151,6 +151,7 @@ window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     match app-id="Bluetooth-sendo" title="bluetooth-sendto"
     match app-id="matplotlib"
+    match app-id="python3"
     match app-id=r#"^org\.pulseaudio\.pavucontrol"#
     match app-id="qutebrowser" title="Whoops!"
     match app-id="zoom" //title="Presenter layout"
