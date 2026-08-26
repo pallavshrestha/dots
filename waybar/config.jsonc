@@ -1,13 +1,13 @@
 {
     "spacing": 10,
     "height": 33, //minimum reqyested height
-    "margin": "6 4 0 4",
-    "modules-left": ["custom/appdrawer","niri/workspaces","backlight","network"],
-    "modules-center": ["mpris","clock","idle_inhibitor","wlr/taskbar"],
+    "margin": "2 4 0 4",
+    "modules-left": [ "custom/appdrawer","group/left"],
+    "modules-center": ["idle_inhibitor","mpris","clock","group/centre"],
     "modules-right": ["group/hardware","battery","temperature","pulseaudio","tray","custom/powerbutton"],
     "layer": "top",
     "custom/appdrawer": {
-        "format": "  󰀻",
+        "format": "  󰀻 ",
         "on-click": "appdrawer",
         "tooltip": false
     },
@@ -16,18 +16,34 @@
         "on-click": "powerapp",
         "tooltip": false
     },
-//    "group/network": {
-//    	"orientation": "inherit",
-//        "drawer": {
-//        "transition-duration": 500,
-//        "children-class": "",
-//        "transition-left-to-right": true
-//        },
-//    	"modules": [
-//            "network"
-//            //"custom/network"
-//    	]
-//    },
+"custom/button1":{
+        "format": "󰩃 " //󰣇 
+    },
+    "group/centre": {
+        "orientation": "inherit",
+        "drawer": {
+        "transition-duration": 500,
+        "children-class": "",
+        "transition-left-to-right": true
+        },
+    	"modules": [
+            "custom/button1",
+            "wlr/taskbar"
+    	]
+    },
+    "group/left": {
+        "orientation": "inherit",
+        "drawer": {
+        "transition-duration": 500,
+        "children-class": "",
+        "transition-left-to-right": true
+        },
+    	"modules": [
+            "niri/workspaces",
+            "backlight",
+            "network"
+    	]
+    },
     "group/hardware": {
 		"orientation": "inherit",
         "drawer": {
@@ -59,7 +75,7 @@
             }
     },
     "clock": {
-        "format": "   {:%H:%M}",
+        "format": "  {:%H:%M}",
         "format-alt": "   {:%A, %B %d, %Y (%R)}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
@@ -100,7 +116,7 @@
         "format": "{icon}",
         "icon-size": 20,
         "icon-theme": "Qogir-Dark",
- //       "tooltip-format": "{title} | {app_id}",
+        "tooltip-format": "{title} | {app_id}",
         "on-click": "activate",
         "on-click-right": "minimize",
         // "active-first": true, // causes gtk_box_reorder_child: assertion 'old link != Null' failed
@@ -157,12 +173,12 @@
 //        },
         "network": {
             "interface": "wlp1s0",
-            "format-wifi": "  {signalStrength}%",
-            "format-ethernet": "  {ipaddr}/{cidr}",
+            "format-wifi": "   {signalStrength}%",
+            "format-ethernet": "   {ipaddr}/{cidr}",
             "format-disconnected": " 󰖪 Disconnected",
-            "tooltip-format-wifi": "   {essid}",
+            "tooltip-format-wifi": "    {essid}",
             "tooltip-format-ethernet": "   {ifname}",
-            "tooltip-format-disconnected": "No connection",
+            "tooltip-format-disconnected":" No connection",
             "interval": 5
         },
         "pulseaudio": {
@@ -247,4 +263,16 @@
         	},
         	"ignored-players": ["firefox","chromium"]
         }
+//    "group/network": {
+//    	"orientation": "inherit",
+//        "drawer": {
+//        "transition-duration": 500,
+//        "children-class": "",
+//        "transition-left-to-right": true
+//        },
+//    	"modules": [
+//            "network"
+//            //"custom/network"
+//    	]
+//    },
 }
