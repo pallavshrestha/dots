@@ -22,13 +22,13 @@ xkb_symbols "basic" {
 //    key <CAPS>  {[Escape]}; // keycode 66
 //    key <ESC>   {[Caps_Lock]} //keycode 9
 
-    key <AD01>	{[	 q,	 Q		]};
+    key <AD01>	{[	 q,	 Q,     oslash,         Oslash	]};
     key <AD02>	{[	 w,	 W		]};
-    key <AD03>	{[	 e,	 E, EuroSign, cent	]};
+    key <AD03>	{[	 e,	 E,     EuroSign,       cent	]};
     key <AD04>	{[	 r,	 R		]};
     key <AD05>	{[	 t,	 T		]};
     key <AD06>	{[	 y,	 Y		]};
-    key <AD07>	{[	 u,	 U		]};
+    key <AD07>	{[	 u,	 U, 	udiaeresis,     Udiaeresis ]};
     key <AD08>	{[	 i,	 I		]};
     key <AD09>	{[	 o,	 O, odiaeresis, Odiaeresis]};
     key <AD10>	{[	 p,	 P		]};
@@ -87,13 +87,13 @@ xkb_symbols "custom" {
     key <CAPS>  {[Escape]}; // keycode 66
     key <ESC>   {[Caps_Lock]} //keycode 9
 
-    key <AD01>	{[	 q,	 Q		]};
+    key <AD01>	{[	 q,	 Q,     oslash,         Oslash	]};
     key <AD02>	{[	 w,	 W		]};
     key <AD03>	{[	 e,	 E, EuroSign, cent	]};
     key <AD04>	{[	 r,	 R		]};
     key <AD05>	{[	 t,	 T		]};
     key <AD06>	{[	 y,	 Y		]};
-    key <AD07>	{[	 u,	 U		]};
+    key <AD07>	{[	 u,	 U, 	udiaeresis,     Udiaeresis ]};
     key <AD08>	{[	 i,	 I		]};
     key <AD09>	{[	 o,	 O, odiaeresis, Odiaeresis]};
     key <AD10>	{[	 p,	 P		]};
@@ -105,7 +105,7 @@ xkb_symbols "custom" {
     key <AC03>	{[	 d,	 D		]};
     key <AC04>	{[	 f,	 F		]};
     key <AC05>	{[	 g,	 G		]};
-    key <AC06>	{[	 h,	 H,     hyphen          ]};
+    key <AC06>	{[	 h,	 H, hypen		]};
     key <AC07>	{[	 j,	 J		]};
     key <AC08>	{[	 k,	 K		]};
     key <AC09>	{[	 l,	 L		]};
@@ -140,7 +140,7 @@ xkb_symbols "custom" {
 // │ ~ ½ │ !   │ @   │ #   │ $   │ %   │ ^   │ &   │ *   │ (   │ ) · │ _ — │ = ÷ ┃Backspace┃
 // │ ` § │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0 ° │ - – │ + × ┃ ⌫       ┃
 // ┢━━━━━┷━┱───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┺━┯━━━━━━━┫
-// ┃Tab    ┃ Q   │ W   │ E € │ R   │ T   │ Y   │ U   │ I   │ O Ö │ P   │ { Å │ }   │  |    ┃
+// ┃Tab    ┃ Q   │ W   │ E ¢ │ R   │ T   │ Y   │ U   │ I   │ O Ö │ P   │ { Å │ }   │  |    ┃
 // ┃ ↹     ┃ q   │ w   │ e € │ r   │ t   │ y   │ u   │ i   │ o ö │ p   │ [ å │ ]   │  \    ┃
 // ┣━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┲━━━━┷━━━━━━━┫
 // ┃esc     ┃ A Ä │ S   │ D   │ F   │ G   │ H   │ J   │ K   │ L   │ : Ö │ " Ä ┃   ⏎        ┃
