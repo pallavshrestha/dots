@@ -6,6 +6,7 @@ LM*
 LanguageTool/
 Microsoft/
 QtProject.conf
+QtProject/
 RawTherapee*
 SurrealDB/
 Thunar
@@ -42,6 +43,7 @@ nextjs-nodejs/
 obs-studio/
 opencode
 pavucontrol.ini
+pdfcraft/
 pipewire
 powerline.sh.bak
 pulse

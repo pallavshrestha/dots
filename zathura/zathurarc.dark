@@ -35,7 +35,8 @@ set recolor			"true"
 
 
 # amber on dark slate
-map ! feedkeys ":set recolor-lightcolor \#0a0a12E6<Return>:set recolor-darkcolor \#ff9900<Return>"
+# map ! feedkeys ":set recolor-lightcolor \#0a0a12E6<Return>:set recolor-darkcolor \#ff9900<Return>"
+map ! feedkeys ":set recolor-lightcolor \#000000E6<Return>:set recolor-darkcolor \#ff9900<Return>"
 
 map @ feedkeys ":set recolor-lightcolor \#002b36<Return>:set recolor-darkcolor \#839496<Return>"
 

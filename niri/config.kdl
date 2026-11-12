@@ -189,6 +189,7 @@ window-rule {
     match title=r#"login"#
     match title=r#"(?i)telegram"#
     match title=r#"(?i)private"#
+    match title=r#"(?i)secret"#
     match title=r#"(?i)mepco"#
     match title=r#"(?i)mail"#
     match title=r#"(?i)whatsapp"#

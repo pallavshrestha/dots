@@ -79,8 +79,70 @@ if [[ "$f_flag" -eq 0 ]]; then
   [[ "$ans" == "yes" ]] || exit 0
 fi
 
-docvault="$HOME/work/docVault"
-mkdir -p "$docvault"
+default_docvault="$HOME/work/docVault"
+# mkdir -p -- "$default_docvault"
+
+while true; do
+    echo 'Default document vault: docVault' 
+    printf 'Press Enter to use the default vault, or enter an existing sorting directory:\n'
+    printf 'Sorting directory: '
+
+    read -r sorting_dir
+
+    if [[ -z "$sorting_dir" ]]; then
+        docvault="$default_docvault"
+        break
+    fi
+
+    # Only allow relative directories inside the document vault.
+    if [[ "$sorting_dir" == /* ||
+          "$sorting_dir" == "." ||
+          "$sorting_dir" == ".." ||
+          "$sorting_dir" == ../* ||
+          "$sorting_dir" == */../* ||
+          "$sorting_dir" == */.. ]]; then
+        echo "Invalid directory. Please enter a relative directory inside the docVault."
+        continue
+    fi
+
+    requested_docvault="$default_docvault/$sorting_dir"
+
+    if [[ ! -d "$requested_docvault" ]]; then
+        echo
+        echo "Directory does not exist: $sorting_dir"
+        echo "Available directories in docVault"
+
+        # Show directories only, not regular files.
+        found_directory=0
+        while IFS= read -r directory; do
+            printf '  %s\n' "$directory"
+            found_directory=1
+        done < <(
+            find "$default_docvault" \
+                -mindepth 1 \
+                -maxdepth 1 \
+                -type d \
+                -printf '%f\n' \
+                | sort
+        )
+
+        if [[ "$found_directory" -eq 0 ]]; then
+            echo "  No sorting directories found."
+        fi
+
+        echo
+        echo "Please try again."
+        continue
+    fi
+
+    docvault="$requested_docvault"
+    break
+done
+
+echo
+echo "Using document vault: $docvault"
+echo
+
 
 # --- Helpers --- # 
 
