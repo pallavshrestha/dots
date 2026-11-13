@@ -76,7 +76,7 @@ swayimg.text.status_timeout = 3            -- status message hide timeout
 swayimg.viewer.default_scale = "keep"      -- default image scale
 swayimg.viewer.default_position = "center" -- default image position
 swayimg.viewer.drag_button = "MouseLeft"   -- mouse button to drag image
-swayimg.viewer.autocenter = true           -- enable automatic centering
+swayimg.viewer.autopos = "center"            -- enable automatic centering
 swayimg.viewer.loop = true                 -- enable image list loop mode
 swayimg.viewer.focus_radius = 0            -- radius of focused area
 swayimg.viewer.focus_factor = 0.5          -- dimming factor for unfocused area
@@ -86,22 +86,24 @@ swayimg.viewer.mark_color = 0xff808080     -- mark icon color
 swayimg.viewer.pinch_factor = 1.0          -- pinch gesture factor
 swayimg.viewer.set_window_background(0x0D000000) -- window background color
 swayimg.viewer.set_image_chessboard(20, 0xff333333, 0xff4c4c4c) -- chessboard
-swayimg.viewer.set_text("topleft", {       -- top left text block scheme
-  "File:\t{name}",
-  "Format:\t{format}",
-  "File size:\t{sizehr}",
-  "File time:\t{time}",
-  "EXIF date:\t{meta.Exif.Photo.DateTimeOriginal}",
-  "EXIF camera:\t{meta.Exif.Image.Model}"
-})
-swayimg.viewer.set_text("topright", {      -- top right text block scheme
-  "Image:\t{list.index} of {list.total}",
-  "Frame:\t{frame.index} of {frame.total}",
-  "Size:\t{frame.width}x{frame.height}"
-})
-swayimg.viewer.set_text("bottomleft", {    -- bottom left text block scheme
-  "Scale:\t{scale}"
-})
+swayimg.viewer.text = {
+    topleft = {       -- top left text block scheme
+        "File:\t{name}",
+        "Format:\t{format}",
+        "File size:\t{sizehr}",
+        "File time:\t{time}",
+        "EXIF date:\t{meta.Exif.Photo.DateTimeOriginal}",
+        "EXIF camera:\t{meta.Exif.Image.Model}"
+    },
+    topright = {      -- top right text block scheme
+        "Image:\t{list.index} of {list.total}",
+        "Frame:\t{frame.index} of {frame.total}",
+        "Size:\t{frame.width}x{frame.height}"
+    },
+    bottomleft = {    -- bottom left text block scheme
+        "Scale:\t{scale}"
+    }
+}
 
 -- exit from application
 swayimg.viewer.on_key("Escape", function()
@@ -246,8 +248,7 @@ end)
 swayimg.slideshow.timeout = 5                       -- timeout to switch image
 swayimg.slideshow.default_scale = "fit"             -- default image scale
 swayimg.slideshow.history = 0                       -- number of the history cache
-swayimg.slideshow.set_window_background(0x0D000000)     -- window background mode
-swayimg.slideshow.set_text("topleft", { "{name}" }) -- top left text block scheme
+swayimg.slideshow.set_window_background(0x0D000000) -- window background mode
 
 -- switch to viewer mode
 swayimg.slideshow.on_key("s", function()
@@ -255,9 +256,14 @@ swayimg.slideshow.on_key("s", function()
     swayimg.text.status = "Slideshow exited"
 end)
 
-swayimg.slideshow.set_text("bottomright", {
-    "{dir}"
-})
+swayimg.slideshow.text = {
+    topleft = {
+        "{name}"
+    },
+    bottomright = {
+        "{dir}"
+    }
+}
 --------------------------------------------------------------------------------
 -- Gallery mode
 --------------------------------------------------------------------------------
@@ -276,12 +282,14 @@ swayimg.gallery.cache = 100                   -- number of thumbnails stored in 
 swayimg.gallery.preload = false               -- preloading invisible thumbnails
 swayimg.gallery.embedded_thumb = true         -- use embedded thumbnails
 swayimg.gallery.pstore = false                -- enable persistent storage for thumbnails
-swayimg.gallery.set_text("bottomright", {     -- bottom left text block scheme
-  "{name}"
-})
-swayimg.gallery.set_text("topright", {        -- top right text block scheme
-  "{list.index} of {list.total}"
-})
+swayimg.gallery.text= { 
+    bottomright = {
+        "{name}"
+    },
+    topright = {                              -- top right text block scheme
+        "{list.index} of {list.total}"
+    }
+}
 
 -- exit from application
 swayimg.gallery.on_key("Escape", function()
