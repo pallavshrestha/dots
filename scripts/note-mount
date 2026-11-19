@@ -1,0 +1,1 @@
+rclone mount opennote:notes-md ~/work/notes/droid
