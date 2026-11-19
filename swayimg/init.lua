@@ -73,7 +73,7 @@ swayimg.text.status_timeout = 3            -- status message hide timeout
 --------------------------------------------------------------------------------
 -- Image viewer mode
 --------------------------------------------------------------------------------
-swayimg.viewer.default_scale = "keep"      -- default image scale
+swayimg.viewer.default_scale = "optimal"      -- default image scale
 swayimg.viewer.default_position = "center" -- default image position
 swayimg.viewer.drag_button = "MouseLeft"   -- mouse button to drag image
 swayimg.viewer.autopos = "center"            -- enable automatic centering
@@ -487,6 +487,17 @@ swayimg.viewer.on_key("q", swayimg.exit )
 swayimg.slideshow.on_key("q", swayimg.exit )
 swayimg.gallery.on_key("q", swayimg.exit )
 
-swayimg.viewer.on_key("1", function() swayimg.viewer.set_fix_scale("optimal") end)
+-- swayimg.viewer.on_key("1", function() swayimg.viewer.set_fix_scale("keep") end)
 swayimg.viewer.on_key("2", function() swayimg.viewer.set_fix_scale("fit") end)
 swayimg.viewer.on_key("3", function() swayimg.viewer.set_fix_scale("fill") end)
+
+local keep_scale = false
+
+swayimg.viewer.on_key("1", function()
+  keep_scale = not keep_scale
+  local scale = keep_scale and "keep" or "optimal"
+
+  swayimg.viewer.default_scale = scale
+  swayimg.viewer.set_fix_scale(scale)  
+  swayimg.text.status = scale
+end)
