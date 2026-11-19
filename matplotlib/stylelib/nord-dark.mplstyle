@@ -6,7 +6,7 @@
 #
 #
 # Edited by: Pallav Shrestha
-# shrstha.pallav@gmail.com
+# pallav.shrestha@ik.me
 #----------------------------------------------------------
 
 # Figure-wide
@@ -18,7 +18,8 @@ patch.linewidth: 1
 patch.edgecolor: 434c5e
 
 # Colors
-axes.prop_cycle: cycler('color', ['5e81ac', '88c0d0', 'd08770', 'bf616a', 'b48ead', 'a3be8c', 'ebcb8b', 'b7bfcc'])
+axes.prop_cycle: cycler('color', ['5e81ac', 'd08770', 'a3be8c', 'bf616a', 'b48ead',  'ebcb8b',  '8fbcbb', 'b7bfcc', '88c0d0',])
+# axes.prop_cycle: cycler('color', ['5e81ac', '88c0d0', 'd08770', 'bf616a', 'b48ead', 'a3be8c', 'ebcb8b', 'b7bfcc'])
 image.cmap: magma
 
 # Axes
